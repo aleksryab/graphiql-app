@@ -1,0 +1,34 @@
+.header {
+  background-color: $dark-bg-color;
+  color: rgba($color: $light-text-color, $alpha: 0.87);
+
+  &__container {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  &__link {
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: $primary-color;
+    }
+
+    &.active {
+      color: $primary-color;
+      cursor: default;
+    }
+  }
+}
