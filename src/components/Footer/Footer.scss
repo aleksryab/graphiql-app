@@ -1,0 +1,45 @@
+.footer {
+  padding: 10px 0;
+  background-color: $dark-bg-color;
+  color: rgba($color: $light-text-color, $alpha: 0.87);
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.author-link {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  transition: all 0.15 ease-in-out;
+
+  &:hover {
+    color: $primary-color;
+  }
+
+  &__icon {
+    display: flex;
+    margin-right: 0.5rem;
+  }
+}
+
+.school-link {
+  display: block;
+  width: 80px;
+  height: 40px;
+  background: url(../../assets/rsschool-logo.svg) center/contain no-repeat;
+
+  &__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    clip: rect(0 0 0 0);
+  }
+}
