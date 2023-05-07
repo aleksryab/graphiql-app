@@ -12,6 +12,9 @@ function Header() {
           <NavLink to="/welcome" className="header__link">
             Welcome
           </NavLink>
+          <NavLink to="/editor" className="header__link">
+            Editor
+          </NavLink>
           <NavLink to="/login" className="header__link">
             Login
           </NavLink>
