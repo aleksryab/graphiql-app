@@ -2,19 +2,49 @@ import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import MainPage from './pages/MainPage';
 import WelcomePage from './pages/WelcomePage';
-import LoginPage from './pages/LoginPage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
 import NotFoundPage from './pages/NotFoundPage';
+import AuthProvider from './context/AuthProvider';
+import AuthRedirectRoute from './hoc/AuthRedirectRoute';
+import PrivateRoute from './hoc/PrivateRoute';
+
+import ROUTES from './constants/routes';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<MainPage />} />
-        <Route path="/welcome" element={<WelcomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path={ROUTES.main} element={<Layout />}>
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <MainPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path={ROUTES.welcome} element={<WelcomePage />} />
+          <Route
+            path={ROUTES.signIn}
+            element={
+              <AuthRedirectRoute>
+                <SignInPage />
+              </AuthRedirectRoute>
+            }
+          />
+          <Route
+            path={ROUTES.signUp}
+            element={
+              <AuthRedirectRoute>
+                <SignUpPage />
+              </AuthRedirectRoute>
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </AuthProvider>
   );
 }
 
