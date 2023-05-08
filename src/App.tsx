@@ -8,6 +8,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import AuthProvider from './context/AuthProvider';
 import AuthRedirectRoute from './hoc/AuthRedirectRoute';
 import PrivateRoute from './hoc/PrivateRoute';
+import EditorPage from './pages/EditorPage';
 
 import ROUTES from './constants/routes';
 
@@ -42,6 +43,7 @@ function App() {
             }
           />
           <Route path="*" element={<NotFoundPage />} />
+          <Route path={ROUTES.editor} element={<EditorPage />} />
         </Route>
       </Routes>
     </AuthProvider>

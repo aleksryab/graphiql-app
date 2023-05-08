@@ -14,6 +14,9 @@ function Header() {
           <NavLink to={ROUTES.welcome} className="header__link">
             Welcome
           </NavLink>
+          <NavLink to={ROUTES.editor} className="header__link">
+            Editor
+          </NavLink>
         </nav>
         <UserBar />
       </div>
