@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
+import ROUTES from '../../constants/routes';
 
 function WelcomePage() {
   const { user } = useAuthContext();
@@ -10,10 +11,10 @@ function WelcomePage() {
         <p>Hello {user.email}</p>
       ) : (
         <>
-          {' '}
-          <p>Hello unknown user.</p>{' '}
+          <p>Hello unknown user.</p>
           <p>
-            <Link to="/signin">Sign in</Link> please
+            <Link to={ROUTES.signIn}>Sign in</Link> or <Link to={ROUTES.signUp}>Sign up</Link>{' '}
+            please
           </p>
         </>
       )}

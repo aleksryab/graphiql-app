@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import { FirebaseError } from 'firebase/app';
+import ROUTES from '../../constants/routes';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ function SignUpForm() {
 
     try {
       await signUp(email, password);
-      navigate('/');
+      navigate(ROUTES.main);
     } catch (err) {
       if (err instanceof FirebaseError) {
         setError(err.message);
@@ -63,7 +64,7 @@ function SignUpForm() {
       {error && <p>{error}</p>}
       <p>
         Already have an account?
-        <Link to="/signin" className="header__link">
+        <Link to={ROUTES.signIn} className="header__link">
           Login
         </Link>
       </p>
