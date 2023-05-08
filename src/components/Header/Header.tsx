@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import './Header.scss';
+import UserBar from './UserBar';
 
 function Header() {
   return (
@@ -12,10 +13,8 @@ function Header() {
           <NavLink to="/welcome" className="header__link">
             Welcome
           </NavLink>
-          <NavLink to="/login" className="header__link">
-            Login
-          </NavLink>
         </nav>
+        <UserBar />
       </div>
     </header>
   );
