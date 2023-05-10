@@ -2,11 +2,18 @@ import { NavLink } from 'react-router-dom';
 import ROUTES from '../../constants/routes';
 import './Header.scss';
 import UserBar from './UserBar';
+import logo from '../../assets/logo.svg';
+import Toggle from '../Toggle/Toggle';
 
 function Header() {
   return (
     <header className="header">
       <div className="container header__container">
+        <div className="header__logo">
+          <NavLink to={ROUTES.welcome}>
+            <img className="header__logo_img" src={logo} alt="project logo" />
+          </NavLink>
+        </div>
         <nav className="header__nav">
           <NavLink to={ROUTES.main} className="header__link">
             Main
@@ -18,6 +25,7 @@ function Header() {
             Editor
           </NavLink>
         </nav>
+        <Toggle />
         <UserBar />
       </div>
     </header>

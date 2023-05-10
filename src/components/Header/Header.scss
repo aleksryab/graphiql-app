@@ -1,5 +1,5 @@
 .header {
-  background-color: $dark-bg-color;
+  //background-color: $dark-bg-color;
   color: rgba($color: $light-text-color, $alpha: 0.87);
 
   &__container {
@@ -29,6 +29,13 @@
     &.active {
       color: $primary-color;
       cursor: default;
+    }
+  }
+
+  &__logo {
+    padding: 15px;
+    &_img{
+      height: 50px;
     }
   }
 }
