@@ -2,6 +2,7 @@ import './EditorPage.scss';
 import { useState } from 'react';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
+import { apiRequest } from '../../helpers/API';
 
 const EditorPage = () => {
   const [request, setRequest] = useState('');
@@ -10,15 +11,9 @@ const EditorPage = () => {
   const [schema, setSchema] = useState('');
 
   const handleRequest = () => {
-    fetch('https://rickandmortyapi.com/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query: request, variables: {} }),
-    })
-      .then((response) => response.json())
-      .then((data) => setResponse(JSON.stringify(data, null, 2)));
+    apiRequest(JSON.stringify({ query: request, variables: {} })).then((data) =>
+      setResponse(JSON.stringify(data, null, 2))
+    );
   };
 
   return (

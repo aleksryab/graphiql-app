@@ -5,6 +5,7 @@ import { json } from '@codemirror/lang-json';
 import { LanguageSupport } from '@codemirror/language';
 import { Extension } from '@codemirror/state';
 import { graphql } from 'cm6-graphql';
+import { apiRequest } from '../../helpers/API';
 
 interface EditorsProps {
   isReadOnly: boolean;
@@ -49,20 +50,12 @@ function Editors({ isReadOnly, language, value, setData, setSchema }: EditorsPro
   // Get Schema
   useEffect(() => {
     if (language === EditorLanguage.GRAPH_QL) {
-      fetch('https://rickandmortyapi.com/graphql', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query: getIntrospectionQuery() }),
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          if (setSchema) {
-            setSchema(json.data);
-          }
-          renderEditor(graphql(buildClientSchema(json.data)), defaultQuery);
-        });
+      apiRequest(JSON.stringify({ query: getIntrospectionQuery() })).then((json) => {
+        if (setSchema) {
+          setSchema(json.data);
+        }
+        renderEditor(graphql(buildClientSchema(json.data)), defaultQuery);
+      });
     } else if (language === EditorLanguage.JSON) {
       renderEditor(json(), value);
     }
