@@ -5,7 +5,7 @@ import UserBar from './UserBar';
 import logo from '../../assets/logo.svg';
 import Toggle from '../Toggle/Toggle';
 
-function Header() {
+function Header(): JSX.Element {
   return (
     <header className="header">
       <div className="container header__container">
