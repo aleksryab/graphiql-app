@@ -1,11 +1,17 @@
-import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
-import MonacoEditor, { useMonaco } from '@monaco-editor/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { basicSetup, EditorView } from 'codemirror';
+import { buildClientSchema, getIntrospectionQuery } from 'graphql';
+import { json } from '@codemirror/lang-json';
+import { LanguageSupport } from '@codemirror/language';
+import { Extension } from '@codemirror/state';
+import { graphql } from 'cm6-graphql';
 
 interface EditorsProps {
   isReadOnly: boolean;
   language: EditorLanguage;
   value?: string;
+  setData?: (data) => void;
+  setSchema?: (data) => void;
 }
 
 export enum EditorLanguage {
@@ -13,9 +19,34 @@ export enum EditorLanguage {
   JSON = 'json',
 }
 
-function Editors({ isReadOnly, language, value }: EditorsProps) {
-  const [schema, setSchema] = useState<GraphQLSchema>();
+const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
 
+function Editors({ isReadOnly, language, value, setData, setSchema }: EditorsProps) {
+  const editorRef = useRef<HTMLDivElement | null>(null);
+  const [editor, setEditor] = useState<EditorView | null>(null);
+
+  const renderEditor = (langType: LanguageSupport | Extension, data?: string) => {
+    if (editor) {
+      editor.destroy();
+    }
+    const view = new EditorView({
+      doc: data,
+      extensions: [
+        basicSetup,
+        langType,
+        EditorView.editable.of(!isReadOnly),
+        EditorView.updateListener.of((e) => {
+          if (setData) {
+            setData(e.state.doc.toString());
+          }
+        }),
+      ],
+      parent: editorRef.current as Element,
+    });
+    setEditor(view);
+  };
+
+  // Get Schema
   useEffect(() => {
     if (language === EditorLanguage.GRAPH_QL) {
       fetch('https://rickandmortyapi.com/graphql', {
@@ -26,35 +57,18 @@ function Editors({ isReadOnly, language, value }: EditorsProps) {
         body: JSON.stringify({ query: getIntrospectionQuery() }),
       })
         .then((response) => response.json())
-        .then((json) => setSchema(buildClientSchema(json.data)));
+        .then((json) => {
+          if (setSchema) {
+            setSchema(json.data);
+          }
+          renderEditor(graphql(buildClientSchema(json.data)), defaultQuery);
+        });
+    } else if (language === EditorLanguage.JSON) {
+      renderEditor(json(), value);
     }
-  }, []);
+  }, [value]);
 
-  const monaco = useMonaco();
-
-  useEffect(() => {
-    if (schema && monaco) {
-      monaco.languages.register({ id: 'graphql' });
-      monaco.languages.typescript.javascriptDefaults.addExtraLib(
-        JSON.stringify(schema),
-        'graphql-schema.json'
-      );
-    }
-  }, [schema, monaco]);
-
-  return (
-    <MonacoEditor
-      language={language}
-      value={value}
-      theme="vs-dark"
-      options={{
-        readOnly: isReadOnly,
-        minimap: { enabled: false },
-        suggestOnTriggerCharacters: true,
-        wordBasedSuggestions: false,
-      }}
-    />
-  );
+  return <div ref={editorRef} />;
 }
 
 export default Editors;

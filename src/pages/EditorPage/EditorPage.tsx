@@ -1,63 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
-import { basicSetup, EditorView } from 'codemirror';
-import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
-import { json } from '@codemirror/lang-json';
-import { graphql } from 'cm6-graphql';
 import './EditorPage.scss';
-
-const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
+import { useState } from 'react';
+import Editors from '../../components/Editors';
+import { EditorLanguage } from '../../components/Editors/Editors';
 
 const EditorPage = () => {
-  const queryEditorRef = useRef<HTMLDivElement>(null);
-  const responseEditorRef = useRef<HTMLDivElement>(null);
-  const [schema, setSchema] = useState<GraphQLSchema>();
   const [request, setRequest] = useState('');
   const [response, setResponse] = useState('');
+  const [variable, setVariable] = useState('');
+  const [schema, setSchema] = useState('');
 
-  // Query Editor
-  useEffect(() => {
-    const view = new EditorView({
-      doc: defaultQuery,
-      extensions: [
-        basicSetup,
-        graphql(schema),
-        EditorView.updateListener.of((e) => {
-          setRequest(e.state.doc.toString());
-        }),
-      ],
-      parent: queryEditorRef.current as Element,
-    });
-
-    return () => view.destroy();
-  }, [schema]);
-
-  // Response Editor
-  useEffect(() => {
-    const view = new EditorView({
-      doc: response,
-      extensions: [basicSetup, json(), EditorView.editable.of(false)],
-      parent: responseEditorRef.current as Element,
-    });
-
-    return () => view.destroy();
-  }, [response]);
-
-  // Get Schema
-  useEffect(() => {
-    fetch('https://rickandmortyapi.com/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query: getIntrospectionQuery() }),
-    })
-      .then((response) => response.json())
-      .then((json) => setSchema(buildClientSchema(json.data)));
-  }, []);
-
-  // Request
   const handleRequest = () => {
-    console.log(request);
     fetch('https://rickandmortyapi.com/graphql', {
       method: 'POST',
       headers: {
@@ -73,13 +25,21 @@ const EditorPage = () => {
     <div className="containerEditor">
       <div className="inputEditor">
         <p>Editor</p>
-        <div ref={queryEditorRef} />
+        <Editors
+          isReadOnly={false}
+          language={EditorLanguage.GRAPH_QL}
+          setData={setRequest}
+          setSchema={setSchema}
+        />
       </div>
       <div className="outputEditor">
         <p>Response</p>
-        <div ref={responseEditorRef} />
+        <Editors isReadOnly={true} language={EditorLanguage.JSON} value={response} />
       </div>
-
+      <div className="input">
+        <p>Variable</p>
+        <Editors isReadOnly={false} language={EditorLanguage.JSON} setData={setVariable} />
+      </div>
       <div>
         <button onClick={handleRequest}>Make Request</button>
       </div>
