@@ -1,0 +1,15 @@
+.languages_button {
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 8px 16px;
+}
+
+.languages_button.active {
+  text-decoration: underline;
+  color: #D4319E;
+}

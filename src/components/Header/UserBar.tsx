@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
+import Button from '../Buttons/Button';
 
 function UserBar() {
   const { user, logout } = useAuthContext();
@@ -22,10 +23,14 @@ function UserBar() {
       ) : (
         <>
           <Link to={ROUTES.signIn} className="header__link">
-            Login
+            <Button buttonType="outline" size="medium">
+              Login
+            </Button>
           </Link>
           <Link to={ROUTES.signUp} className="header__link">
-            Sign Up
+            <Button buttonType="solid" size="medium">
+              Sign Up
+            </Button>
           </Link>
         </>
       )}
