@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@codemirror/lang-json": "^6.0.1",
     "@monaco-editor/react": "^4.5.1",
+    "cm6-graphql": "^0.0.6",
+    "codemirror": "^6.0.1",
     "firebase": "^9.21.0",
     "graphql": "^16.6.0",
     "react": "^18.2.0",
