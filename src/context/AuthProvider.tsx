@@ -10,6 +10,7 @@ import {
 import { auth } from '../config/firebase';
 
 interface AuthContextModel {
+  isLoading: boolean;
   user: User | null;
   signIn: (email: string, password: string) => Promise<UserCredential>;
   signUp: (email: string, password: string) => Promise<UserCredential>;
@@ -20,6 +21,7 @@ const AuthContext = createContext<AuthContextModel>({} as AuthContextModel);
 
 function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const signUp = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -35,15 +37,18 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
+      setIsLoading(true);
       setUser(currentUser);
+      setIsLoading(false);
     });
 
     return unsubscribe;
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, signUp, signIn, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isLoading, user, signUp, signIn, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 
