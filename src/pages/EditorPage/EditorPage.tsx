@@ -3,13 +3,15 @@ import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
 import { apiRequest } from '../../helpers/API';
+import Loading from '../../components/Loading';
 import './EditorPage.scss';
 
 const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
 
 const EditorPage = () => {
   const [query, setRequest] = useState('');
-  const [response, setResponse] = useState('');
+  const [response, setResponse] = useState<string | null>(null);
+  const [isFetching, setIsFetching] = useState(false);
   const [variable, setVariable] = useState('{}');
   const [schema, setSchema] = useState<GraphQLSchema>();
 
@@ -20,9 +22,13 @@ const EditorPage = () => {
   }, []);
 
   const handleRequest = () => {
+    setIsFetching(true);
+    setResponse(null);
+
     apiRequest(JSON.stringify({ query, variables: JSON.parse(variable || '{}') }))
       .then((data) => setResponse(JSON.stringify(data, null, 2)))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setIsFetching(false));
   };
 
   return (
@@ -39,7 +45,8 @@ const EditorPage = () => {
       </div>
       <div className="outputEditor">
         <p>Response</p>
-        <Editors isReadOnly={true} language={EditorLanguage.JSON} value={response} />
+        {isFetching && <Loading />}
+        {response && <Editors isReadOnly={true} language={EditorLanguage.JSON} value={response} />}
       </div>
       <div className="input">
         <p>Variable</p>
