@@ -1,0 +1,22 @@
+.documentation {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.documentationInfo{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+
+  & ul {
+    border: 1px solid black;
+    width: 48%;
+  }
+
+  .typeDescription {
+    width: 48%;
+  }
+}

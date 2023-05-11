@@ -61,9 +61,9 @@ const EditorPage = () => {
           language={EditorLanguage.JSON}
           onChange={setVariable}
         />
-      </div>
-      <div>
-        <button onClick={handleRequest}>Make Request</button>
+        <div>
+          <button onClick={handleRequest}>Make Request</button>
+        </div>
       </div>
       {schema && <Documentation schema={schemaT} />}
     </div>

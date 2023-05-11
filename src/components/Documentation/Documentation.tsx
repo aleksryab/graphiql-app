@@ -1,34 +1,19 @@
 import { useEffect, useState } from 'react';
+import {
+  ParsedSchemaInterface,
+  SchemaInterface,
+  SchemaTypeInterface,
+} from './DocumentationInterfaces';
+import TypeInfo from './TypeInfo';
+import './Documentation.scss';
 
-interface DocumentationProps {
+export interface DocumentationProps {
   schema: SchemaInterface;
-}
-
-interface TypeFieldInterface {
-  deprecationReason?: string;
-  description: string;
-  isDeprecated: boolean;
-  name: string;
-}
-interface SchemaTypeInterface {
-  description: string;
-  enumValues: null;
-  fields: TypeFieldInterface[];
-  kind: 'OBJECT';
-  name: 'Query';
-}
-
-interface SchemaInterface {
-  __schema: ParsedSchemaInterface;
-}
-
-interface ParsedSchemaInterface {
-  types: SchemaTypeInterface[];
-  directives: [];
 }
 
 function Documentation({ schema }: DocumentationProps) {
   const [parsedSchema, setParsedSchema] = useState<ParsedSchemaInterface>();
+  const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
 
   useEffect(() => {
     if (schema && schema.__schema) {
@@ -42,14 +27,37 @@ function Documentation({ schema }: DocumentationProps) {
     }
   }, [schema]);
 
+  const shouldSkipDirective = (name: string) => {
+    return !name.startsWith('__');
+  };
+
   return (
-    <div>
+    <div className="documentation">
       <h2>Types:</h2>
-      <ul>
-        {!parsedSchema ||
-          (parsedSchema.types &&
-            parsedSchema.types.map((type) => <li key={type.name}>{type.name}</li>))}
-      </ul>
+      <div className="documentationInfo">
+        <ul>
+          {!parsedSchema ||
+            (parsedSchema.types &&
+              parsedSchema.types.map((type) => (
+                <>
+                  {shouldSkipDirective(type.name) && (
+                    <li key={type.name} onClick={() => setTypeInfo(type)}>
+                      <p>
+                        Name: <b>{type.name}</b>
+                      </p>
+                      <p>
+                        Kind: <b>{type.kind}</b>
+                      </p>
+                      <p>
+                        Description: <b>{type.description}</b>
+                      </p>
+                    </li>
+                  )}
+                </>
+              )))}
+        </ul>
+        {typeInfo && <TypeInfo type={typeInfo} closeTypeInfo={setTypeInfo} />}
+      </div>
     </div>
   );
 }
