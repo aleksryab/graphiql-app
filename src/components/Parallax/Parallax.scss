@@ -1,5 +1,9 @@
 .parallax {
     overflow: hidden;
+
+    .parallax-dark{
+      background: rgba(10, 13, 63, 0.4);
+    }
   
     .layer {
       position: absolute;
@@ -16,21 +20,25 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -3;
+      z-index: -4;
     }
   
     .base {
-      z-index: -2;
+      z-index: -3;
       position: absolute;
       top: -10%;
       left: -10%;
     }
 
     .logotypes {
-      z-index: -1;
+      z-index: -2;
       position: absolute;
       top: -2%;
       left: -2%;
+    }
+
+    .parallax__light, .parallax__dark{
+      z-index: -1;
     }
   
     .content {

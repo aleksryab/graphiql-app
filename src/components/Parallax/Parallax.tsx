@@ -10,10 +10,13 @@ type MousePosition = {
 };
 
 type ParallaxProps = {
+  color: ParallaxColor;
   children: ReactNode;
 };
 
-export default function Parallax({ children }: ParallaxProps) {
+type ParallaxColor = 'light' | 'dark';
+
+export default function Parallax({ color = 'light', children }: ParallaxProps) {
   const [mousePosition, setMousePosition] = useState<MousePosition>({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -30,6 +33,15 @@ export default function Parallax({ children }: ParallaxProps) {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
+  const parallaxClassName = `layer parallax__${color}`;
+
+  const layerTopStyle =
+    color === 'dark'
+      ? {
+          backgroundColor: 'rgba(10, 13, 63, 0.7)',
+        }
+      : {};
 
   return (
     <div className="parallax">
@@ -53,6 +65,7 @@ export default function Parallax({ children }: ParallaxProps) {
           transform: `translate(${mousePosition.x / 50}px, ${mousePosition.y / 50}px)`,
         }}
       ></div>
+      <div className={parallaxClassName} style={layerTopStyle}></div>
       {children}
     </div>
   );
