@@ -1,65 +1,55 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { basicSetup, EditorView } from 'codemirror';
-import { buildClientSchema, getIntrospectionQuery } from 'graphql';
-import { json } from '@codemirror/lang-json';
-import { LanguageSupport } from '@codemirror/language';
+import { GraphQLSchema } from 'graphql';
+import { json, jsonParseLinter } from '@codemirror/lang-json';
+import { linter } from '@codemirror/lint';
 import { Extension } from '@codemirror/state';
 import { graphql } from 'cm6-graphql';
-import { apiRequest } from '../../helpers/API';
-
-interface EditorsProps {
-  isReadOnly: boolean;
-  language: EditorLanguage;
-  value?: string;
-  setData?: (data) => void;
-  setSchema?: (data) => void;
-}
 
 export enum EditorLanguage {
   GRAPH_QL = 'graphql',
   JSON = 'json',
 }
 
-const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
+interface EditorsProps {
+  isReadOnly: boolean;
+  language: EditorLanguage;
+  value?: string;
+  schema?: GraphQLSchema;
+  onChange?: (value: string) => void;
+}
 
-function Editors({ isReadOnly, language, value, setData, setSchema }: EditorsProps) {
+function Editors({ language, value = '', isReadOnly, onChange, schema }: EditorsProps) {
   const editorRef = useRef<HTMLDivElement | null>(null);
-  const [editor, setEditor] = useState<EditorView | null>(null);
 
-  const renderEditor = (langType: LanguageSupport | Extension, data?: string) => {
-    if (editor) {
-      editor.destroy();
-    }
-    const view = new EditorView({
-      doc: data,
+  const renderEditor = (extraExtensions: Extension[]) => {
+    return new EditorView({
+      doc: value,
       extensions: [
         basicSetup,
-        langType,
         EditorView.editable.of(!isReadOnly),
         EditorView.updateListener.of((e) => {
-          if (setData) {
-            setData(e.state.doc.toString());
+          if (onChange) {
+            onChange(e.state.doc.toString().trim());
           }
         }),
+        ...extraExtensions,
       ],
       parent: editorRef.current as Element,
     });
-    setEditor(view);
   };
 
-  // Get Schema
   useEffect(() => {
+    let editor: EditorView;
+
     if (language === EditorLanguage.GRAPH_QL) {
-      apiRequest(JSON.stringify({ query: getIntrospectionQuery() })).then((json) => {
-        if (setSchema) {
-          setSchema(json.data);
-        }
-        renderEditor(graphql(buildClientSchema(json.data)), defaultQuery);
-      });
+      editor = renderEditor([graphql(schema)]);
     } else if (language === EditorLanguage.JSON) {
-      renderEditor(json(), value);
+      editor = renderEditor([json(), linter(jsonParseLinter())]);
     }
-  }, [value]);
+
+    return () => editor?.destroy();
+  }, [value, schema, language]);
 
   return <div ref={editorRef} />;
 }
