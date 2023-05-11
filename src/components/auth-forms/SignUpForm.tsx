@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import { FirebaseError } from 'firebase/app';
 import ROUTES from '../../constants/routes';
+import './SignIn.scss';
+import Parallax from '../../components/Parallax/Parallax';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
@@ -31,44 +33,54 @@ function SignUpForm() {
   };
 
   return (
-    <div>
-      <h3>Create an account</h3>
+    <Parallax color="dark">
+      <div className="sign_in">
+        <h3 className="sign_in__title">Create an account</h3>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Email
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Enter Your Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Enter Your Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-        </div>
-        {isSubmitting ? <p>Signing up...</p> : <button type="submit">Sign Up</button>}
-      </form>
-      {error && <p>{error}</p>}
-      <p>
-        Already have an account?
-        <Link to={ROUTES.signIn} className="header__link">
-          Login
-        </Link>
-      </p>
-    </div>
+        <form onSubmit={handleSubmit} className="sign_in__form">
+          <div>
+            <label className="sign_in__form_label">
+              Email
+              <input
+                className="sign_in__form_input"
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter Your Email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+          </div>
+          <div>
+            <label className="sign_in__form_label">
+              Password
+              <input
+                className="sign_in__form_input"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter Your Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </label>
+          </div>
+          {isSubmitting ? (
+            <p>Signing up...</p>
+          ) : (
+            <button type="submit" className="sign_in__form_button">
+              Sign Up
+            </button>
+          )}
+        </form>
+        {error && <p>{error}</p>}
+        <p className="sign_in__text">
+          Already have an account?
+          <Link to={ROUTES.signIn} className="sign_in__text_link">
+            Login
+          </Link>
+        </p>
+      </div>
+    </Parallax>
   );
 }
 
