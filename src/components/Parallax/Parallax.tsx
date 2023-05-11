@@ -55,7 +55,7 @@ export default function Parallax({ color = 'light', children }: ParallaxProps) {
         className="layer base"
         style={{
           backgroundImage: `url(${imageTwo})`,
-          transform: `translate(-${mousePosition.x / 70}px, -${mousePosition.y / 70}px)`,
+          transform: `translate(-${mousePosition.x / 200}px, -${mousePosition.y / 200}px)`,
         }}
       ></div>
       <div
