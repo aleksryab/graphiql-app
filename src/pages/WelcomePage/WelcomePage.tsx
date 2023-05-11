@@ -9,7 +9,7 @@ function WelcomePage() {
   const { user } = useAuthContext();
 
   return (
-    <Parallax>
+    <Parallax color={'light'}>
       <div className="welcome_content container">
         {user ? (
           <p className="welcome_content__greeting">Welcome {user.email}!</p>
