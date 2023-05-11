@@ -1,6 +1,6 @@
 import imageOne from '../../assets/bg_1.jpg';
 import imageTwo from '../../assets/bg_2.png';
-import imageThree from '../../assets/bg_3.png';
+import imageThree from '../../assets/bg_3_1.png';
 import { useState, useEffect, ReactNode } from 'react';
 import './Parallax.scss';
 
@@ -41,7 +41,10 @@ export default function Parallax({ color = 'light', children }: ParallaxProps) {
       ? {
           backgroundColor: 'rgba(10, 13, 63, 0.7)',
         }
-      : {};
+      : {
+          background:
+            'linear-gradient(180deg, rgba(10, 13, 63, 0.55) 4.84%, rgba(27, 29, 75, 0.19) 20%, rgba(27, 29, 75, 0) 30%, rgba(217, 217, 217, 0) 100%)',
+        };
 
   return (
     <div className="parallax">

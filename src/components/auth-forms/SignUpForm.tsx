@@ -21,7 +21,7 @@ function SignUpForm() {
 
     try {
       await signUp(email, password);
-      navigate(ROUTES.main);
+      navigate(ROUTES.editor);
     } catch (err) {
       if (err instanceof FirebaseError) {
         setError(err.message);

@@ -21,7 +21,7 @@ function SignInForm() {
 
     try {
       await signIn(email, password);
-      navigate(ROUTES.main);
+      navigate(ROUTES.editor);
     } catch (err) {
       if (err instanceof FirebaseError) {
         setError(err.message);
