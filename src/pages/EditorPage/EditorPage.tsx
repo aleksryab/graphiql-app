@@ -5,6 +5,7 @@ import { EditorLanguage } from '../../components/Editors/Editors';
 import { apiRequest } from '../../helpers/API';
 import Loading from '../../components/Loading';
 import './EditorPage.scss';
+import Documentation from '../../components/Documentation';
 
 const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
 
@@ -14,10 +15,14 @@ const EditorPage = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [variable, setVariable] = useState('{}');
   const [schema, setSchema] = useState<GraphQLSchema>();
+  const [schemaT, setSchemaT] = useState();
 
   useEffect(() => {
     apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
-      .then((json) => setSchema(buildClientSchema(json.data)))
+      .then((json) => {
+        setSchemaT(json.data);
+        setSchema(buildClientSchema(json.data));
+      })
       .catch((err) => console.error(err));
   }, []);
 
@@ -60,6 +65,7 @@ const EditorPage = () => {
       <div>
         <button onClick={handleRequest}>Make Request</button>
       </div>
+      {schema && <Documentation schema={schemaT} />}
     </div>
   );
 };
