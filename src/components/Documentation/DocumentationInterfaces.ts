@@ -3,13 +3,28 @@ export interface TypeFieldInterface {
   description: string;
   isDeprecated: boolean;
   name: string;
+  args: TypeArgumentInterface[];
+  type: TypeDescriptionInterface;
 }
+
+export interface TypeArgumentInterface {
+  defaultValue: string;
+  description: string;
+  name: string;
+  type: TypeDescriptionInterface;
+}
+
+interface TypeDescriptionInterface {
+  kind: string;
+  name: string;
+}
+
 export interface SchemaTypeInterface {
   description: string;
   enumValues: null;
   fields: TypeFieldInterface[];
-  kind: 'OBJECT';
-  name: 'Query';
+  kind: string;
+  name: string;
 }
 
 export interface SchemaInterface {

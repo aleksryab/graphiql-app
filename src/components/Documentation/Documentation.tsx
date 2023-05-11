@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  ParsedSchemaInterface,
-  SchemaInterface,
-  SchemaTypeInterface,
-} from './DocumentationInterfaces';
+import { SchemaInterface, SchemaTypeInterface } from './DocumentationInterfaces';
 import TypeInfo from './TypeInfo';
 import './Documentation.scss';
 
@@ -12,49 +8,38 @@ export interface DocumentationProps {
 }
 
 function Documentation({ schema }: DocumentationProps) {
-  const [parsedSchema, setParsedSchema] = useState<ParsedSchemaInterface>();
   const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
+  const [queryType, setQueryType] = useState<SchemaTypeInterface>();
 
   useEffect(() => {
     if (schema && schema.__schema) {
-      const types = schema.__schema.types;
-      const directives = schema.__schema.directives;
-
-      setParsedSchema({
-        types,
-        directives,
-      });
+      setQueryType(schema.__schema.types.find((type) => type.name === 'Query'));
     }
   }, [schema]);
 
-  const shouldSkipDirective = (name: string) => {
-    return !name.startsWith('__');
+  const findType = (name: string) => {
+    const capitalize = name.charAt(0).toUpperCase() + name.slice(1);
+    setTypeInfo(schema.__schema.types.find((type) => type.name === capitalize) ?? null);
   };
 
   return (
     <div className="documentation">
-      <h2>Types:</h2>
+      <h2>Query:</h2>
       <div className="documentationInfo">
         <ul>
-          {!parsedSchema ||
-            (parsedSchema.types &&
-              parsedSchema.types.map((type) => (
-                <>
-                  {shouldSkipDirective(type.name) && (
-                    <li key={type.name} onClick={() => setTypeInfo(type)}>
-                      <p>
-                        Name: <b>{type.name}</b>
-                      </p>
-                      <p>
-                        Kind: <b>{type.kind}</b>
-                      </p>
-                      <p>
-                        Description: <b>{type.description}</b>
-                      </p>
-                    </li>
-                  )}
-                </>
-              )))}
+          {queryType?.fields.map((type) => (
+            <div key={type.name} onClick={() => findType(type.name)}>
+              <div key={type.name}>
+                <p>
+                  Field name: <b>{type.name}</b>
+                </p>
+                <p>
+                  Description: <b>{type.description}</b>
+                </p>
+                <hr />
+              </div>
+            </div>
+          ))}
         </ul>
         {typeInfo && <TypeInfo type={typeInfo} closeTypeInfo={setTypeInfo} />}
       </div>
