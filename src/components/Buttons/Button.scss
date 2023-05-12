@@ -27,7 +27,7 @@
 
 .outline{
     background: rgba(217, 217, 217, 0.1);
-    border: 2px solid #D4319E;
+    border: 2px solid $primary-color;
     backdrop-filter: blur(5px);
     color: white;
     transition: all .5s ease;
@@ -41,7 +41,7 @@
 }
 
 .solid{
-    background: #D4319E;
+    background: $primary-color;
     color: white;
     border: none;
     transition: all .5s ease;
