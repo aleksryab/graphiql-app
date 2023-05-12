@@ -6,10 +6,18 @@
   color: white;
   font-weight: bold;
   font-size: 16px;
-  padding: 8px 16px;
+  transition: all .5s ease;
+}
+
+.languages_button:hover {
+  color: $primary-color;
+}
+
+.languages_button:last-child {
+  margin-right: 30px;
 }
 
 .languages_button.active {
   text-decoration: underline;
-  color: #D4319E;
+  color: $primary-color;
 }

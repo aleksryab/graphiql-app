@@ -1,7 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
-import Button from '../Buttons/Button';
+import LinkButton from '../../components/Buttons/LinkButton';
 
 function UserBar() {
   const { user, logout } = useAuthContext();
@@ -19,19 +19,22 @@ function UserBar() {
   return (
     <div className="user-bar">
       {user ? (
-        <button onClick={handleLogout}>Sign Out</button>
+        <button onClick={handleLogout} className="header__sign_out">
+          Sign Out
+        </button>
       ) : (
         <>
-          <Link to={ROUTES.signIn} className="header__link">
-            <Button buttonType="outline" size="medium">
-              Login
-            </Button>
-          </Link>
-          <Link to={ROUTES.signUp} className="header__link">
-            <Button buttonType="solid" size="medium">
-              Sign Up
-            </Button>
-          </Link>
+          <LinkButton
+            to={ROUTES.signIn}
+            className="header__link"
+            buttonType="outline"
+            size="medium"
+          >
+            Login
+          </LinkButton>
+          <LinkButton to={ROUTES.signUp} className="header__link" buttonType="solid" size="medium">
+            Sign Up
+          </LinkButton>
         </>
       )}
     </div>

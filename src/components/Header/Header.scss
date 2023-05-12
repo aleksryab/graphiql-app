@@ -18,9 +18,12 @@
   &__link {
     margin: 0 1rem;
     font-size: 1.2rem;
-    font-weight: 500;
+    font-weight: 600;
     color: inherit;
     text-decoration: none;
+    font-size: 16px;
+    line-height: 26px;
+    transition: all .5s ease;
 
     &:hover {
       color: $primary-color;
@@ -32,10 +35,50 @@
     }
   }
 
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+
   &__logo {
     padding: 15px;
     &_img{
       height: 50px;
     }
   }
+
+  &__sign_out {
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 26px;
+    transition: all .5s ease;
+  }
+  &__sign_out:hover {
+    color: $primary-color;
+  }
+}
+
+.sticky-header {
+  position: relative;
+  z-index: 1;
+  transition: background-color 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+.sticky-header.is-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(10, 13, 63);
+  height: 60px;
+}
+
+.sticky-header.is-colored {
+  background-color: #f2f2f2;
 }
