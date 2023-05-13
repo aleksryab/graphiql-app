@@ -65,14 +65,14 @@ function SignUpForm() {
             </label>
           </div>
           {isSubmitting ? (
-            <p>Signing up...</p>
+            <p className="sign_in_message">Signing up...</p>
           ) : (
             <button type="submit" className="sign_in__form_button">
               Sign Up
             </button>
           )}
         </form>
-        {error && <p>{error}</p>}
+        {error && <p className="sign_in_error">{error}</p>}
         <p className="sign_in__text">
           Already have an account?
           <Link to={ROUTES.signIn} className="sign_in__text_link">

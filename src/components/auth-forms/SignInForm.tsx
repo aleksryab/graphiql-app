@@ -65,7 +65,7 @@ function SignInForm() {
             </label>
           </div>
           {isSubmitting ? (
-            <p>Signing in...</p>
+            <p className="sign_in_message">Signing in...</p>
           ) : (
             <button type="submit" className="sign_in__form_button">
               Login
@@ -73,7 +73,7 @@ function SignInForm() {
           )}
         </form>
 
-        {error && <p>{error}</p>}
+        {error && <p className="sign_in_error">{error}</p>}
 
         <p className="sign_in__text">
           Don’t have an account?

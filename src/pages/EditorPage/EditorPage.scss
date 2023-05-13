@@ -35,7 +35,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 26px;
-  color: #FFFFFF;
+  color: $light-text-color;
   padding: 10px;
 }
 
@@ -57,14 +57,20 @@
 
   &_icon {
     margin: auto;
+    transition: all .5s ease;
   }
+
 }
 
 .round-button:hover {
-  background-color: #ffffff;
-  cursor: pointer;
+  background-color: $light-text-color;
 }
 
-.fa {
-  margin: auto;
+.round-button:hover::before {
+  content: "";
+  background-color: $light-text-color;
+}
+
+.round-button:hover svg path {
+  fill: $primary-color;
 }
