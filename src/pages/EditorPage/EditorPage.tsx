@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
-import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
+import {
+  buildClientSchema,
+  getIntrospectionQuery,
+  GraphQLSchema,
+  printSchema,
+  typeFromAST,
+} from 'graphql';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
 import { apiRequest } from '../../helpers/API';
 import Loading from '../../components/Loading';
-import './EditorPage.scss';
 import Documentation from '../../components/Documentation';
+import './EditorPage.scss';
 
 const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
 
@@ -20,6 +26,12 @@ const EditorPage = () => {
   useEffect(() => {
     apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
       .then((json) => {
+        // console.log(json.data);
+        // console.log(buildClientSchema(json.data));
+        // const sch = buildClientSchema(json.data);
+        // console.log(sch.getQueryType()?.getFields());
+        // console.log(sch.getType('Character'));
+        // console.log(printSchema(buildClientSchema(json.data)));
         setSchemaT(json.data);
         setSchema(buildClientSchema(json.data));
       })
@@ -65,7 +77,7 @@ const EditorPage = () => {
           <button onClick={handleRequest}>Make Request</button>
         </div>
       </div>
-      {schema && <Documentation schema={schemaT} />}
+      {schemaT && <Documentation schema={schemaT} />}
     </div>
   );
 };

@@ -5,11 +5,10 @@
   flex-wrap: wrap;
 }
 
-.documentationInfo{
+.documentationInfo {
   width: 100%;
   display: flex;
   justify-content: space-between;
-
 
   & ul {
     border: 1px solid black;
@@ -18,5 +17,34 @@
 
   .typeDescription {
     width: 48%;
+  }
+}
+
+.doc-field {
+  &__name {
+    font-weight: bold;
+    color: palevioletred;
+  }
+
+  &__type {
+    color: orange;
+  }
+}
+
+.doc-queries {
+  &__item {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #cceeff44;
+    }
+  }
+}
+
+.type-info__item {
+  cursor: pointer;
+
+  &:hover {
+    background-color: #cceeff44;
   }
 }

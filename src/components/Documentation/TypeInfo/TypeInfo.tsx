@@ -1,31 +1,32 @@
+import DocField from '../DocField';
 import { SchemaTypeInterface } from '../DocumentationInterfaces';
+import getTypeName from '../helpers/getTypeName';
 
 export interface TypeInfoProps {
   type: SchemaTypeInterface;
-  closeTypeInfo: (close) => void;
+  closeTypeInfo: () => void;
+  findType: (name: string | null) => void;
 }
 
-function TypeInfo({ type, closeTypeInfo }: TypeInfoProps) {
+function TypeInfo({ type, closeTypeInfo, findType }: TypeInfoProps) {
   return (
     <div className="typeDescription">
-      <button onClick={() => closeTypeInfo(null)}>Close</button>
-      <h2>{type.name}</h2>
+      <button onClick={closeTypeInfo}>Close</button>
       <div>
-        {type.fields.map((data) => (
-          <div key={data.name}>
-            <p>
-              Field name:{' '}
-              <b>
-                {data.name} : {data.type.name}
-              </b>
-            </p>
-            <p>
-              Description:
-              <b>{data.description}</b>
-            </p>
+        <h3>TYPE DETAILS</h3>
+        <b>{type.name}</b>
+        {type.fields?.map((field) => (
+          <div
+            className="type-info__item"
+            key={field.name}
+            onClick={() => findType(getTypeName(field.type))}
+          >
+            <DocField field={field} />
             <hr />
           </div>
         ))}
+
+        {type.description && <p>{type.description}</p>}
       </div>
     </div>
   );

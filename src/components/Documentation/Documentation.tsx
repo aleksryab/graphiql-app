@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { SchemaInterface, SchemaTypeInterface } from './DocumentationInterfaces';
 import TypeInfo from './TypeInfo';
 import './Documentation.scss';
+import getTypeName from './helpers/getTypeName';
+import DocField from './DocField';
 
 export interface DocumentationProps {
   schema: SchemaInterface;
@@ -17,31 +19,34 @@ function Documentation({ schema }: DocumentationProps) {
     }
   }, [schema]);
 
-  const findType = (name: string) => {
-    const capitalize = name.charAt(0).toUpperCase() + name.slice(1);
-    setTypeInfo(schema.__schema.types.find((type) => type.name === capitalize) ?? null);
+  const findType = (name: string | null) => {
+    if (name) {
+      setTypeInfo(schema.__schema.types.find((type) => type.name === name) ?? null);
+    } else {
+      setTypeInfo(null);
+    }
   };
 
   return (
     <div className="documentation">
       <h2>Query:</h2>
       <div className="documentationInfo">
-        <ul>
-          {queryType?.fields.map((type) => (
-            <div key={type.name} onClick={() => findType(type.name)}>
-              <div key={type.name}>
-                <p>
-                  Field name: <b>{type.name}</b>
-                </p>
-                <p>
-                  Description: <b>{type.description}</b>
-                </p>
-                <hr />
-              </div>
-            </div>
+        <ul className="doc-queries">
+          {queryType?.fields.map((field) => (
+            <li
+              className="doc-queries__item"
+              key={field.name}
+              onClick={() => findType(getTypeName(field.type))}
+            >
+              <DocField field={field} />
+              <i>{field.description}</i>
+              <hr />
+            </li>
           ))}
         </ul>
-        {typeInfo && <TypeInfo type={typeInfo} closeTypeInfo={setTypeInfo} />}
+        {typeInfo && (
+          <TypeInfo type={typeInfo} findType={findType} closeTypeInfo={() => setTypeInfo(null)} />
+        )}
       </div>
     </div>
   );

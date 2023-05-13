@@ -14,16 +14,17 @@ export interface TypeArgumentInterface {
   type: TypeDescriptionInterface;
 }
 
-interface TypeDescriptionInterface {
-  kind: string;
-  name: string;
+export interface TypeDescriptionInterface {
+  kind: KindTypes;
+  name: string | null;
+  ofType: TypeDescriptionInterface | null;
 }
 
 export interface SchemaTypeInterface {
   description: string;
   enumValues: null;
   fields: TypeFieldInterface[];
-  kind: string;
+  kind: KindTypes;
   name: string;
 }
 
@@ -35,3 +36,13 @@ export interface ParsedSchemaInterface {
   types: SchemaTypeInterface[];
   directives: [];
 }
+
+export type KindTypes =
+  | 'SCALAR'
+  | 'OBJECT'
+  | 'INTERFACE'
+  | 'UNION'
+  | 'ENUM'
+  | 'INPUT_OBJECT'
+  | 'LIST'
+  | 'NON_NULL';
