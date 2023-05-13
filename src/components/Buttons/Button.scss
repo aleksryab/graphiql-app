@@ -1,4 +1,15 @@
-.medium{
+.small {
+    padding: 8px 35px;
+    border-radius: 5px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.medium {
     padding: 10px 45px;
     border-radius: 5px;
 
@@ -9,7 +20,7 @@
     line-height: 26px;
 }
 
-.large{
+.large {
     padding: 15px 45px;
     gap: 10px;
     
@@ -21,11 +32,11 @@
     line-height: 29px;
 }
 
-.medium, .large{
+.medium, .large, .small {
     cursor: pointer;
 }
 
-.outline{
+.outline {
     background: rgba(217, 217, 217, 0.1);
     border: 2px solid $primary-color;
     backdrop-filter: blur(5px);
@@ -33,20 +44,20 @@
     transition: all .5s ease;
 }
 
-.outline:hover{
+.outline:hover {
     background: rgba(217, 217, 217, 0.5);
     border: 2px solid #241467;
     backdrop-filter: blur(5px);
     color: #241467;
 }
 
-.solid{
+.solid {
     background: $primary-color;
     color: white;
     border: none;
     transition: all .5s ease;
 }
 
-.solid:hover{
+.solid:hover {
     background: #241467;
 }

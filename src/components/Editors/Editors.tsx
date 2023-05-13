@@ -5,6 +5,7 @@ import { json, jsonParseLinter } from '@codemirror/lang-json';
 import { linter } from '@codemirror/lint';
 import { Extension } from '@codemirror/state';
 import { graphql } from 'cm6-graphql';
+import './Editors.scss';
 
 export enum EditorLanguage {
   GRAPH_QL = 'graphql',

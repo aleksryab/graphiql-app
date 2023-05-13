@@ -5,6 +5,10 @@
   grid-gap: 10px 15px;
   text-align-last: left;
 
+  background: #272B6A;
+  border-radius: 8px;
+  padding: 10px;
+
   & section {
     display: block !important;
     height: 100%;
@@ -17,7 +21,50 @@
   }
 }
 
+.inputEditor, .outputEditor, .variableEditor {
+  background: #0B0E40;
+  border-radius: 6px;
+}
+
 .variableEditor {
   grid-column-start: 1;
   grid-column-end: 3;
+}
+
+.editors_title {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  color: #FFFFFF;
+  padding: 10px;
+}
+
+.play-button {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.round-button {
+  margin-top: 40px;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  background-color: $primary-color;
+  border: 7px solid #272B6A;
+  transition: all .5s ease;
+
+  &_icon {
+    margin: auto;
+  }
+}
+
+.round-button:hover {
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.fa {
+  margin: auto;
 }
