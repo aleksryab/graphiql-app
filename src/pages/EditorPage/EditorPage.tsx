@@ -16,6 +16,7 @@ const EditorPage = () => {
   const [variable, setVariable] = useState('{}');
   const [schema, setSchema] = useState<GraphQLSchema>();
   const [documentation, setDocumentation] = useState();
+  const [isDocumentation, setIsDocumentation] = useState(false);
 
   useEffect(() => {
     apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
@@ -65,7 +66,14 @@ const EditorPage = () => {
           <button onClick={handleRequest}>Make Request</button>
         </div>
       </div>
-      {documentation && <Documentation schema={documentation} />}
+      <div className="documentationBlock">
+        {documentation && (
+          <button className="docVertical" onClick={() => setIsDocumentation(!isDocumentation)}>
+            Documentation
+          </button>
+        )}
+        {isDocumentation && <Documentation schema={documentation} />}
+      </div>
     </div>
   );
 };
