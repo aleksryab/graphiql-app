@@ -69,7 +69,7 @@ const EditorPage = () => {
           Documentation
         </button>
         {isDocumentation && (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
             <Documentation />
           </Suspense>
         )}
