@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  buildClientSchema,
-  getIntrospectionQuery,
-  GraphQLSchema,
-  printSchema,
-  typeFromAST,
-} from 'graphql';
+import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
 import { apiRequest } from '../../helpers/API';
@@ -21,18 +15,12 @@ const EditorPage = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [variable, setVariable] = useState('{}');
   const [schema, setSchema] = useState<GraphQLSchema>();
-  const [schemaT, setSchemaT] = useState();
+  const [documentation, setDocumentation] = useState();
 
   useEffect(() => {
     apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
       .then((json) => {
-        // console.log(json.data);
-        // console.log(buildClientSchema(json.data));
-        // const sch = buildClientSchema(json.data);
-        // console.log(sch.getQueryType()?.getFields());
-        // console.log(sch.getType('Character'));
-        // console.log(printSchema(buildClientSchema(json.data)));
-        setSchemaT(json.data);
+        setDocumentation(json.data);
         setSchema(buildClientSchema(json.data));
       })
       .catch((err) => console.error(err));
@@ -77,7 +65,7 @@ const EditorPage = () => {
           <button onClick={handleRequest}>Make Request</button>
         </div>
       </div>
-      {schemaT && <Documentation schema={schemaT} />}
+      {documentation && <Documentation schema={documentation} />}
     </div>
   );
 };

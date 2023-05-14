@@ -12,6 +12,7 @@ export interface DocumentationProps {
 function Documentation({ schema }: DocumentationProps) {
   const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
   const [queryType, setQueryType] = useState<SchemaTypeInterface>();
+  const [previousTypeInfo, setPreviousTypeInfo] = useState<SchemaTypeInterface | null>(null);
 
   useEffect(() => {
     if (schema && schema.__schema) {
@@ -25,6 +26,7 @@ function Documentation({ schema }: DocumentationProps) {
     } else {
       setTypeInfo(null);
     }
+    setPreviousTypeInfo(typeInfo);
   };
 
   return (
@@ -45,7 +47,12 @@ function Documentation({ schema }: DocumentationProps) {
           ))}
         </ul>
         {typeInfo && (
-          <TypeInfo type={typeInfo} findType={findType} closeTypeInfo={() => setTypeInfo(null)} />
+          <TypeInfo
+            type={typeInfo}
+            findType={findType}
+            closeTypeInfo={setTypeInfo}
+            previousType={previousTypeInfo}
+          />
         )}
       </div>
     </div>
