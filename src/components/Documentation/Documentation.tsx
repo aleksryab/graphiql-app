@@ -18,7 +18,9 @@ function Documentation() {
       .then((json) => {
         setDocumentation(json.data);
         if (json.data.__schema) {
-          setQueryType(json.data.__schema.types.find((type) => type.name === 'Query'));
+          setQueryType(
+            json.data.__schema.types.find((type: SchemaTypeInterface) => type.name === 'Query')
+          );
         }
       })
       .catch((err) => console.error(err));

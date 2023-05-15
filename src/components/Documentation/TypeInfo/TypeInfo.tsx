@@ -5,7 +5,7 @@ import getTypeName from '../helpers/getTypeName';
 export interface TypeInfoProps {
   type: SchemaTypeInterface;
   previousType: SchemaTypeInterface | null;
-  closeTypeInfo: (typeInfo) => void;
+  closeTypeInfo: (typeInfo: SchemaTypeInterface | null) => void;
   findType: (name: string | null) => void;
 }
 
