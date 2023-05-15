@@ -1,24 +1,55 @@
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
-import './Header.scss';
 import UserBar from './UserBar';
+import Toggle from '../Toggle/Toggle';
+import logo from '../../assets/logo.svg';
+import './Header.scss';
 
-function Header() {
+function Header(): JSX.Element {
+  const { user } = useAuthContext();
+
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset;
+      setIsSticky(scrollTop > 0);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="header">
+    <header className={`header sticky-header ${isSticky ? 'is-sticky' : ''}`}>
       <div className="container header__container">
-        <nav className="header__nav">
-          <NavLink to={ROUTES.main} className="header__link">
-            Main
+        <div className="header__logo">
+          <NavLink to={ROUTES.welcome}>
+            <img className="header__logo_img" src={logo} alt="project logo" />
           </NavLink>
-          <NavLink to={ROUTES.welcome} className="header__link">
-            Welcome
-          </NavLink>
-          <NavLink to={ROUTES.editor} className="header__link">
-            Editor
-          </NavLink>
-        </nav>
-        <UserBar />
+        </div>
+        {user ? (
+          <>
+            <nav className="header__nav">
+              <NavLink to={ROUTES.welcome} className="header__link">
+                Welcome
+              </NavLink>
+              <NavLink to={ROUTES.editor} className="header__link">
+                Editor
+              </NavLink>
+            </nav>
+            <div className="header__right">
+              <Toggle />
+              <UserBar />
+            </div>
+          </>
+        ) : (
+          <div className="header__right">
+            <Toggle />
+            <UserBar />
+          </div>
+        )}
       </div>
     </header>
   );

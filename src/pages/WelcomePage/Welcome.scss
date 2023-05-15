@@ -1,0 +1,35 @@
+.welcome_content {
+  margin-top: 150px;
+
+  &_message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 450px;
+
+    text-align: start;
+  }
+
+  &__greeting {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 64px;
+    color: $light-text-color;
+    margin-bottom: 15px;
+  }
+
+  &__text {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 38px;
+    color: $light-text-color;
+    margin-bottom: 15px;
+  }
+
+  &__button {
+    margin-top: 60px;
+  }
+}
