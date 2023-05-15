@@ -1,11 +1,11 @@
-import { NavLink } from 'react-router-dom';
-import ROUTES from '../../constants/routes';
-import './Header.scss';
-import UserBar from './UserBar';
-import logo from '../../assets/logo.svg';
-import Toggle from '../Toggle/Toggle';
-import { useAuthContext } from '../../context/AuthProvider';
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useAuthContext } from '../../context/AuthProvider';
+import ROUTES from '../../constants/routes';
+import UserBar from './UserBar';
+import Toggle from '../Toggle/Toggle';
+import logo from '../../assets/logo.svg';
+import './Header.scss';
 
 function Header(): JSX.Element {
   const { user } = useAuthContext();

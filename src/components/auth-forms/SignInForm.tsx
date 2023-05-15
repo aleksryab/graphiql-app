@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import { FirebaseError } from 'firebase/app';
 import ROUTES from '../../constants/routes';
-import Parallax from '../../components/Parallax/Parallax';
 import './SignIn.scss';
 
 function SignInForm() {
@@ -33,56 +32,54 @@ function SignInForm() {
   };
 
   return (
-    <Parallax color="dark">
-      <div className="sign_in">
-        <h3 className="sign_in__title">Hi, Welcome Back! 👋</h3>
+    <div className="sign_in">
+      <h3 className="sign_in__title">Hi, Welcome Back! 👋</h3>
 
-        <form onSubmit={handleSubmit} className="sign_in__form">
-          <div>
-            <label className="sign_in__form_label">
-              Email
-              <input
-                className="sign_in__form_input"
-                type="email"
-                name="email"
-                id="email"
-                placeholder="example@gmail.com"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-          </div>
-          <div>
-            <label className="sign_in__form_label">
-              Password
-              <input
-                className="sign_in__form_input"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Enter Your Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
-          </div>
-          {isSubmitting ? (
-            <p className="sign_in_message">Signing in...</p>
-          ) : (
-            <button type="submit" className="sign_in__form_button">
-              Login
-            </button>
-          )}
-        </form>
+      <form onSubmit={handleSubmit} className="sign_in__form">
+        <div>
+          <label className="sign_in__form_label">
+            Email
+            <input
+              className="sign_in__form_input"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="example@gmail.com"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label className="sign_in__form_label">
+            Password
+            <input
+              className="sign_in__form_input"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter Your Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+        </div>
+        {isSubmitting ? (
+          <p className="sign_in_message">Signing in...</p>
+        ) : (
+          <button type="submit" className="sign_in__form_button">
+            Login
+          </button>
+        )}
+      </form>
 
-        {error && <p className="sign_in_error">{error}</p>}
+      {error && <p className="sign_in_error">{error}</p>}
 
-        <p className="sign_in__text">
-          Don’t have an account?
-          <Link to={ROUTES.signUp} className="sign_in__text_link">
-            Sign Up
-          </Link>
-        </p>
-      </div>
-    </Parallax>
+      <p className="sign_in__text">
+        Don’t have an account?
+        <Link to={ROUTES.signUp} className="sign_in__text_link">
+          Sign Up
+        </Link>
+      </p>
+    </div>
   );
 }
 
