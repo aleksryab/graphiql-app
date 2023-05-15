@@ -1,10 +1,13 @@
+import Parallax from '../../components/Parallax/Parallax';
 import SignInForm from '../../components/auth-forms/SignInForm';
 
 function SignInPage() {
   return (
-    <section>
-      <SignInForm />
-    </section>
+    <Parallax color="dark">
+      <section>
+        <SignInForm />
+      </section>
+    </Parallax>
   );
 }
 
