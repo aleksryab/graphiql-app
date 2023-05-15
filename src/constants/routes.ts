@@ -3,7 +3,7 @@ const ROUTES = {
   welcome: '/welcome',
   signIn: '/signin',
   signUp: '/signup',
-  editor: '/editor'
+  editor: '/editor',
 };
 
 export default ROUTES;

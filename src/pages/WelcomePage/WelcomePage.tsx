@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
-import './Welcome.scss';
 import Parallax from '../../components/Parallax/Parallax';
-import Button from '../../components/Buttons/Button';
+import LinkButton from '../../components/Buttons/LinkButton';
+import './Welcome.scss';
 
 function WelcomePage() {
   const { user } = useAuthContext();
@@ -16,22 +15,28 @@ function WelcomePage() {
             <>
               <p className="welcome_content__greeting">Welcome {user.email}!</p>
               <p className="welcome_content__text">Playground for graphiQL requests ready to use</p>
-              <Link to={ROUTES.editor}>
-                <Button buttonType="solid" size="large" className="welcome_content__button">
-                  Go to editor{' '}
-                </Button>
-              </Link>
+              <LinkButton
+                to={ROUTES.editor}
+                buttonType="solid"
+                size="large"
+                className="welcome_content__button"
+              >
+                Go to editor
+              </LinkButton>
             </>
           ) : (
             <>
               <p className="welcome_content__greeting">Welcome!</p>
               <p className="welcome_content__text">This is a playground for graphiQL requests.</p>
               <p className="welcome_content__text">Please login or register to continue.</p>
-              <Link to={ROUTES.signIn}>
-                <Button buttonType="solid" size="large" className="welcome_content__button">
-                  Get started{' '}
-                </Button>
-              </Link>
+              <LinkButton
+                to={ROUTES.signIn}
+                buttonType="solid"
+                size="large"
+                className="welcome_content__button"
+              >
+                Get started
+              </LinkButton>
             </>
           )}
         </div>
