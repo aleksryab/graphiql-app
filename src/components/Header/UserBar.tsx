@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
-import ROUTES from '../../constants/routes';
 import LinkButton from '../../components/Buttons/LinkButton';
+import ROUTES from '../../constants/routes';
+import './UserBar.scss';
 
 function UserBar() {
   const { user, logout } = useAuthContext();
@@ -19,12 +20,10 @@ function UserBar() {
   return (
     <div className="user-bar">
       {user ? (
-        <div className="container_sign-out">
-          <span className="text" onClick={handleLogout}>
-            Sign Out
-          </span>
+        <button className="sign-out-btn" onClick={handleLogout}>
+          <span className="sign-out-btn__text">Sign Out</span>
           <svg
-            className="icon"
+            className="sign-out-btn__icon"
             width="16"
             height="16"
             viewBox="0 0 16 16"
@@ -36,18 +35,23 @@ function UserBar() {
               fill="white"
             />
           </svg>
-        </div>
+        </button>
       ) : (
         <>
           <LinkButton
             to={ROUTES.signIn}
-            className="header__link"
+            className="user-bar__button"
             buttonType="outline"
             size="medium"
           >
             Login
           </LinkButton>
-          <LinkButton to={ROUTES.signUp} className="header__link" buttonType="solid" size="medium">
+          <LinkButton
+            to={ROUTES.signUp}
+            className="user-bar__button"
+            buttonType="solid"
+            size="medium"
+          >
             Sign Up
           </LinkButton>
         </>
