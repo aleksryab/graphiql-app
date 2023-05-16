@@ -1,0 +1,49 @@
+.cm-gql-field {
+  color: #19d9f7;
+}
+
+.cm-gql-argument {
+  color: #f10ef1;
+}
+
+.cm-string {
+  color: blue;
+}
+
+.cm-line {
+  color: rgb(241, 241, 255);
+}
+
+.cm-lineNumbers, 
+.cm-foldGutter {
+  background: #0B0E40;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.ͼb {
+  color: $primary-color;
+}
+
+.ͼe {
+  color: #bd43ff;
+}
+
+.cm-activeLine {
+  background-color: #aeb6ff44;
+}
+
+.cm-activeLineGutter {
+  background-color: #d7cf293e;
+}
+
+.ͼ2 .cm-gutters {
+  border-right: 1px solid #272B6A;
+}
+
+.ͼ2 .cm-activeLineGutter {
+  background-color: #e2f2ff44;
+}
+
+.cm-editor {
+  font-size: 16px;
+}

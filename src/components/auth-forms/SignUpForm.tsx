@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import { FirebaseError } from 'firebase/app';
 import ROUTES from '../../constants/routes';
+import './SignIn.scss';
 
 function SignUpForm() {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ function SignUpForm() {
 
     try {
       await signUp(email, password);
-      navigate(ROUTES.main);
+      navigate(ROUTES.editor);
     } catch (err) {
       if (err instanceof FirebaseError) {
         setError(err.message);
@@ -31,14 +32,15 @@ function SignUpForm() {
   };
 
   return (
-    <div>
-      <h3>Create an account</h3>
+    <div className="sign_in">
+      <h3 className="sign_in__title">Create an account</h3>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="sign_in__form">
         <div>
-          <label>
+          <label className="sign_in__form_label">
             Email
             <input
+              className="sign_in__form_input"
               type="email"
               name="email"
               id="email"
@@ -48,9 +50,10 @@ function SignUpForm() {
           </label>
         </div>
         <div>
-          <label>
+          <label className="sign_in__form_label">
             Password
             <input
+              className="sign_in__form_input"
               type="password"
               name="password"
               id="password"
@@ -59,12 +62,18 @@ function SignUpForm() {
             />
           </label>
         </div>
-        {isSubmitting ? <p>Signing up...</p> : <button type="submit">Sign Up</button>}
+        {isSubmitting ? (
+          <p className="sign_in_message">Signing up...</p>
+        ) : (
+          <button type="submit" className="sign_in__form_button">
+            Sign Up
+          </button>
+        )}
       </form>
-      {error && <p>{error}</p>}
-      <p>
+      {error && <p className="sign_in_error">{error}</p>}
+      <p className="sign_in__text">
         Already have an account?
-        <Link to={ROUTES.signIn} className="header__link">
+        <Link to={ROUTES.signIn} className="sign_in__text_link">
           Login
         </Link>
       </p>
