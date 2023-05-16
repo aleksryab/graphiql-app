@@ -4,6 +4,7 @@
   grid-auto-rows: minmax(300px, auto);
   grid-gap: 10px 15px;
   text-align-last: left;
+  position: relative;
 
   background: #272b6a;
   border-radius: 8px;
@@ -87,5 +88,6 @@
 .documentationBlock {
   position: absolute;
   width: 100%;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 5;
 }

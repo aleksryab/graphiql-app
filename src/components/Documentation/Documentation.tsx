@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { SchemaInterface, SchemaTypeInterface } from './DocumentationInterfaces';
+import {
+  SchemaInterface,
+  SchemaTypeInterface,
+  TypeArgumentInterface,
+} from './DocumentationInterfaces';
 import TypeInfo from './TypeInfo';
 import './Documentation.scss';
 import getTypeName from './helpers/getTypeName';
@@ -9,6 +13,7 @@ import { getIntrospectionQuery } from 'graphql/index';
 
 function Documentation() {
   const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
+  const [args, setArgs] = useState<TypeArgumentInterface[] | null>(null);
   const [queryType, setQueryType] = useState<SchemaTypeInterface>();
   const [previousTypeInfo, setPreviousTypeInfo] = useState<SchemaTypeInterface | null>(null);
   const [documentation, setDocumentation] = useState<SchemaInterface>();
@@ -33,9 +38,22 @@ function Documentation() {
       );
     } else {
       setTypeInfo(null);
+      setArgs(null);
     }
     setPreviousTypeInfo(typeInfo);
   };
+
+  useEffect(() => {
+    if (typeInfo) {
+      const tmpArgs =
+        queryType &&
+        queryType.fields &&
+        queryType.fields.find((type) => type.name === typeInfo.name.toLowerCase());
+      setArgs(tmpArgs ? tmpArgs.args : null);
+    } else {
+      setArgs(null);
+    }
+  }, [queryType, typeInfo]);
 
   return (
     <div className="documentation">
@@ -50,7 +68,6 @@ function Documentation() {
             >
               <DocField field={field} />
               <i>{field.description}</i>
-              <hr />
             </li>
           ))}
         </ul>
@@ -60,6 +77,7 @@ function Documentation() {
             findType={findType}
             closeTypeInfo={setTypeInfo}
             previousType={previousTypeInfo}
+            args={args}
           />
         )}
       </div>

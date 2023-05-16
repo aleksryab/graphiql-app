@@ -3,20 +3,30 @@
   grid-column-end: 3;
   display: flex;
   flex-wrap: wrap;
+  padding: 25px;
 }
 
 .documentationInfo {
   width: 100%;
   display: flex;
-  justify-content: space-between;
 
   & ul {
-    border: 1px solid black;
-    width: 48%;
+    border: 1px solid #6c6c6c94;
+    width: 100%;
+    list-style-type: none;
+    max-width: 320px;
+    border-radius: 25px;
+    padding: 15px;
+    margin-right: 10px;
   }
 
   .typeDescription {
-    width: 48%;
+    border-radius: 25px;
+    padding: 15px;
+    border: 1px solid #6c6c6c94;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 25px;
   }
 }
 
@@ -34,6 +44,7 @@
 .doc-queries {
   &__item {
     cursor: pointer;
+    margin-bottom: 10px;
 
     &:hover {
       background-color: #cceeff44;
@@ -43,6 +54,7 @@
 
 .type-info__item {
   cursor: pointer;
+  margin-bottom: 10px;
 
   &:hover {
     background-color: #cceeff44;

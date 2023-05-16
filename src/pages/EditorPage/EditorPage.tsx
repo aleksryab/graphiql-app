@@ -78,9 +78,6 @@ const EditorPage = () => {
           language={EditorLanguage.JSON}
           onChange={setVariable}
         />
-        <div>
-          <button onClick={handleRequest}>Make Request</button>
-        </div>
       </div>
       <div className="documentationBlock">
         <button className="docVertical" onClick={() => setIsDocumentation(!isDocumentation)}>

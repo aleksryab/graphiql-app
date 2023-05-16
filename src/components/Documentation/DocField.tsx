@@ -1,7 +1,11 @@
-import { TypeDescriptionInterface, TypeFieldInterface } from './DocumentationInterfaces';
+import {
+  TypeArgumentInterface,
+  TypeDescriptionInterface,
+  TypeFieldInterface,
+} from './DocumentationInterfaces';
 
 interface DocFieldProps {
-  field: TypeFieldInterface;
+  field: TypeFieldInterface | TypeArgumentInterface;
 }
 
 function renderType(type: TypeDescriptionInterface) {
@@ -28,8 +32,8 @@ function renderType(type: TypeDescriptionInterface) {
 }
 
 function DocField({ field }: DocFieldProps) {
-  const { name, args, type } = field;
-  const isArgs = !!args.length;
+  const { name, type } = field;
+  const isArgs = !!('args' in field && field.args && field.args.length);
 
   return (
     <div className="doc-field">
