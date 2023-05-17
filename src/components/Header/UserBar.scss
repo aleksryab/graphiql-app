@@ -1,6 +1,8 @@
 .user-bar {
   display: inline-flex;
-
+  @include media-tablet-660 {
+    display: none;
+  }
   &__button {
     margin-left: 1rem;
   }

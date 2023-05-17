@@ -15,7 +15,7 @@ function Footer() {
         </div>
         <div className="footer__middle">
           <div className="footer__links">
-            Students:
+            <span className="footer__links_students">Students:</span>
             <AuthorLink name="aleksryab" link="https://github.com/aleksryab" />
             <AuthorLink name="anastasiasyt" link="https://github.com/anastasiasyt" />
             <AuthorLink name="hkudria" link="https://github.com/hkudria" />
@@ -27,6 +27,7 @@ function Footer() {
             <span className="school-link__text">Rolling Scopes School</span>
           </a>
         </div>
+        <div className="footer__desk_year">© all rights reserved, 2023.</div>
       </div>
     </footer>
   );

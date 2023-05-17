@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
 import UserBar from './UserBar';
-import Toggle from '../Toggle/Toggle';
 import logo from '../../assets/logo.svg';
 import './Header.scss';
+import BurgerMenu from '../Burger/BurgerMenu';
 
 function Header(): JSX.Element {
   const { user } = useAuthContext();
@@ -40,14 +40,14 @@ function Header(): JSX.Element {
               </NavLink>
             </nav>
             <div className="header__right">
-              <Toggle />
               <UserBar />
+              <BurgerMenu />
             </div>
           </>
         ) : (
           <div className="header__right">
-            <Toggle />
             <UserBar />
+            <BurgerMenu />
           </div>
         )}
       </div>
