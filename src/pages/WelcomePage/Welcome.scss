@@ -1,14 +1,22 @@
 .welcome_content {
-  margin-top: 150px;
 
   &_message {
+    margin-top: 150px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     flex-wrap: wrap;
     max-width: 450px;
-
     text-align: start;
+    @include media-tablet-730 {
+      margin-top: 100px;
+    }
+    @include media-tablet-660 {
+      margin-top: 80px;
+    }
+    @include media-mobile-450 {
+      margin-top: 50px;
+    }
   }
 
   &__greeting {
@@ -18,6 +26,19 @@
     line-height: 64px;
     color: $light-text-color;
     margin-bottom: 15px;
+    transition: all 0.5s ease;
+    @include media-desktop {
+      font-size: 48px;
+      line-height: 58px;
+    }
+    @include media-tablet-660 {
+      font-size: 42px;
+      line-height: 52px;
+    }
+    @include media-mobile-450 {
+      font-size: 36px;
+      line-height: 42px;
+    }
   }
 
   &__text {
@@ -27,9 +48,28 @@
     line-height: 38px;
     color: $light-text-color;
     margin-bottom: 15px;
+    transition: all 0.5s ease;
+    @include media-desktop {
+      font-size: 24px;
+      line-height: 32px;
+    }
+    @include media-tablet-660 {
+      font-size: 20px;
+      line-height: 28px;
+    }
+    @include media-mobile-450 {
+      font-size: 18px;
+      line-height: 24px;
+    }
   }
 
   &__button {
     margin-top: 60px;
+    @include media-tablet-660 {
+      margin-top: 40px;
+    }
+    @include media-mobile-450 {
+      margin-top: 30px;
+    }
   }
 }

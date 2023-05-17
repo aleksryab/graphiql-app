@@ -6,6 +6,7 @@ import UserBar from './UserBar';
 import ToggleLang from '../ToggleLang';
 import logo from '../../assets/logo.svg';
 import './Header.scss';
+import BurgerMenu from '../Burger/BurgerMenu';
 
 function Header(): JSX.Element {
   const { user } = useAuthContext();
@@ -42,12 +43,14 @@ function Header(): JSX.Element {
             <div className="header__right">
               <ToggleLang />
               <UserBar />
+              <BurgerMenu />
             </div>
           </>
         ) : (
           <div className="header__right">
             <ToggleLang />
             <UserBar />
+            <BurgerMenu />
           </div>
         )}
       </div>

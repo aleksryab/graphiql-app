@@ -40,6 +40,7 @@ function UserBar() {
         </button>
       ) : (
         <>
+          <Toggle />
           <LinkButton
             to={ROUTES.signIn}
             className="user-bar__button"

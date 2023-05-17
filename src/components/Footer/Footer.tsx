@@ -30,6 +30,7 @@ function Footer() {
             <span className="school-link__text">Rolling Scopes School</span>
           </a>
         </div>
+        <div className="footer__desk_year">© all rights reserved, 2023.</div>
       </div>
     </footer>
   );

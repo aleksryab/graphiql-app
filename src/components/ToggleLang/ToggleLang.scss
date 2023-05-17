@@ -15,6 +15,9 @@
 
 .languages_button:last-child {
   margin-right: 30px;
+  @include media-tablet-660 {
+    margin-right: 0;
+  }
 }
 
 .languages_button.active {
