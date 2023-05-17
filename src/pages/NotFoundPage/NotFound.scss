@@ -5,7 +5,6 @@
         font-size: 24px;
         line-height: 29px;
         color: $light-text-color;
-
         margin-top: 50px;
     }
 
@@ -14,6 +13,18 @@
         font-size: 250px;
         line-height: 303px;
         color: $light-text-color;
+        @include media-tablet-730 {
+            font-size: 200px;
+            line-height: 250px;
+        }
+        @include media-tablet-660 {
+            font-size: 150px;
+            line-height: 200px;
+        }
+        @include media-mobile-450 {
+            font-size: 100px;
+            line-height: 150px;
+        }
     }
 
 }
