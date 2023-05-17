@@ -1,4 +1,5 @@
 .button {
+  display: inline-flex;
   text-decoration: none;
   cursor: pointer;
 
@@ -50,7 +51,7 @@
   &.solid {
     background: $primary-color;
     color: $light-text-color;
-    border: none;
+    border: 2px solid transparent;
     transition: all 0.5s ease;
   }
 
