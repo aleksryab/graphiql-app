@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
 import { apiRequest } from '../../helpers/API';
 import Loading from '../../components/Loading';
+const Documentation = lazy(() => import('../../components/Documentation'));
 import './EditorPage.scss';
 
 const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
@@ -14,10 +15,13 @@ const EditorPage = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [variable, setVariable] = useState('{}');
   const [schema, setSchema] = useState<GraphQLSchema>();
+  const [isDocumentation, setIsDocumentation] = useState(false);
 
   useEffect(() => {
     apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
-      .then((json) => setSchema(buildClientSchema(json.data)))
+      .then((json) => {
+        setSchema(buildClientSchema(json.data));
+      })
       .catch((err) => console.error(err));
   }, []);
 
@@ -74,6 +78,16 @@ const EditorPage = () => {
           language={EditorLanguage.JSON}
           onChange={setVariable}
         />
+      </div>
+      <div className="documentationBlock">
+        <button className="docVertical" onClick={() => setIsDocumentation(!isDocumentation)}>
+          Documentation
+        </button>
+        {isDocumentation && (
+          <Suspense fallback={<Loading />}>
+            <Documentation />
+          </Suspense>
+        )}
       </div>
     </div>
   );
