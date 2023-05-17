@@ -36,7 +36,7 @@ function SignInForm() {
       <h3 className="sign_in__title">Hi, Welcome Back! 👋</h3>
 
       <form onSubmit={handleSubmit} className="sign_in__form">
-        <div>
+        <div className="sign_in__form_content">
           <label className="sign_in__form_label">
             Email
             <input
@@ -49,7 +49,7 @@ function SignInForm() {
             />
           </label>
         </div>
-        <div>
+        <div className="sign_in__form_content">
           <label className="sign_in__form_label">
             Password
             <input
