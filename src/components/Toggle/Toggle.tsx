@@ -1,28 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Toggle.scss';
-
-type Language = 'en' | 'ru';
+import { LanguageEnums } from '../../translation/languages';
+import { useTranslation } from 'react-i18next';
 
 export default function Toggle() {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState(LanguageEnums.EN);
+  const { t, i18n } = useTranslation('common');
 
-  const handleLanguageChange = (newLanguage: Language) => {
+  useEffect(() => {
+    const language =
+      localStorage.getItem('language') === LanguageEnums.EN ? LanguageEnums.EN : LanguageEnums.RU;
+    setLanguage(language);
+    i18n.changeLanguage(language);
+  }, []);
+
+  const handleLanguageChange = (newLanguage: LanguageEnums) => {
+    i18n.changeLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage);
     setLanguage(newLanguage);
   };
 
   return (
     <div className="languages">
       <button
-        onClick={() => handleLanguageChange('en')}
-        className={language === 'en' ? 'languages_button active' : 'languages_button'}
+        onClick={() => handleLanguageChange(LanguageEnums.EN)}
+        className={language === LanguageEnums.EN ? 'languages_button active' : 'languages_button'}
       >
-        En
+        {t('languages.en')}
       </button>
       <button
-        onClick={() => handleLanguageChange('ru')}
-        className={language === 'ru' ? 'languages_button active' : 'languages_button'}
+        onClick={() => handleLanguageChange(LanguageEnums.RU)}
+        className={language === LanguageEnums.RU ? 'languages_button active' : 'languages_button'}
       >
-        Ru
+        {t('languages.ru')}
       </button>
     </div>
   );

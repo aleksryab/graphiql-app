@@ -6,31 +6,17 @@ function isObjKey<T extends object>(key: PropertyKey, obj: T): key is keyof T {
 
 function getFirebaseErrorMessage(errorCode: string): string | null {
   const messages = {
-    [AuthErrorCodes.EMAIL_EXISTS]: {
-      en: 'The provided email is already in use by an existing user, please provide another email.',
-    },
-    [AuthErrorCodes.TOKEN_EXPIRED]: {
-      en: 'Your ID token has expired, please try to log in again.',
-    },
-    [AuthErrorCodes.INTERNAL_ERROR]: {
-      en: 'The Authentication server encountered an unexpected error while trying to process the request.',
-    },
-    [AuthErrorCodes.INVALID_EMAIL]: {
-      en: 'The provided value for your email is invalid, please write a valid email address.',
-    },
-    [AuthErrorCodes.INVALID_PASSWORD]: {
-      en: "The email and password you entered don't match",
-    },
-    [AuthErrorCodes.OPERATION_NOT_ALLOWED]: {
-      en: 'This sign-in method is not available currently.',
-    },
-    [AuthErrorCodes.USER_DELETED]: {
-      en: 'User not found, please check your information.',
-    },
+    [AuthErrorCodes.EMAIL_EXISTS]: 'error.fire_base.email_exist',
+    [AuthErrorCodes.TOKEN_EXPIRED]: 'error.fire_base.token_expired',
+    [AuthErrorCodes.INTERNAL_ERROR]: 'error.fire_base.internal_error',
+    [AuthErrorCodes.INVALID_EMAIL]: 'error.fire_base.invalid_email',
+    [AuthErrorCodes.INVALID_PASSWORD]: 'error.fire_base.invalid_password',
+    [AuthErrorCodes.OPERATION_NOT_ALLOWED]: 'error.fire_base.operation_not_allowed',
+    [AuthErrorCodes.USER_DELETED]: 'error.fire_base.user_deleted',
   };
 
   if (isObjKey(errorCode, messages)) {
-    return messages[errorCode].en;
+    return messages[errorCode];
   }
 
   return null;

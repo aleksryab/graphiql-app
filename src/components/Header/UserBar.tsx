@@ -3,10 +3,12 @@ import { useAuthContext } from '../../context/AuthProvider';
 import LinkButton from '../../components/Buttons/LinkButton';
 import ROUTES from '../../constants/routes';
 import './UserBar.scss';
+import { useTranslation } from 'react-i18next';
 
 function UserBar() {
   const { user, logout } = useAuthContext();
   const navigate = useNavigate();
+  const { t } = useTranslation('common');
 
   const handleLogout = async () => {
     try {
@@ -21,7 +23,7 @@ function UserBar() {
     <div className="user-bar">
       {user ? (
         <button className="sign-out-btn" onClick={handleLogout}>
-          <span className="sign-out-btn__text">Sign Out</span>
+          <span className="sign-out-btn__text">{t('button.sing_out')}</span>
           <svg
             className="sign-out-btn__icon"
             width="16"
@@ -44,7 +46,7 @@ function UserBar() {
             buttonType="outline"
             size="medium"
           >
-            Login
+            {t('button.sing_in')}
           </LinkButton>
           <LinkButton
             to={ROUTES.signUp}
@@ -52,7 +54,7 @@ function UserBar() {
             buttonType="solid"
             size="medium"
           >
-            Sign Up
+            {t('button.sing_up')}
           </LinkButton>
         </>
       )}
