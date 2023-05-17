@@ -20,7 +20,16 @@
   }
 
   &_error {
-    color: $error-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 48px;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: $light-text-color;
+    background: $error-color;
+    text-align: center;
+    border-radius: 10px;
   }
 
   &__title {
@@ -94,6 +103,10 @@
     &_button:hover {
       color: $primary-color;
       background: $light-text-color;
+    }
+
+    &_error {
+      color: $error-color;
     }
   }
 

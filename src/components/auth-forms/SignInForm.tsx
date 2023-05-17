@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import { FirebaseError } from 'firebase/app';
 import ROUTES from '../../constants/routes';
+import getFirebaseErrorMessage from './helpers/getFirebaseErrorMessage';
 import { emailRegEx } from './utils';
 import './SignIn.scss';
 
@@ -33,7 +34,7 @@ function SignInForm() {
       navigate(ROUTES.editor);
     } catch (err) {
       if (err instanceof FirebaseError) {
-        setServerError(err.message);
+        setServerError(getFirebaseErrorMessage(err.code) ?? err.message);
       } else {
         console.error(err);
       }
@@ -45,6 +46,8 @@ function SignInForm() {
   return (
     <div className="sign_in">
       <h3 className="sign_in__title">Hi, Welcome Back! 👋</h3>
+
+      {serverError && <p className="sign_in_error">{serverError}</p>}
 
       <form onSubmit={handleSubmit(onSubmit)} className="sign_in__form">
         <div className="sign_in__form_field">
@@ -61,7 +64,7 @@ function SignInForm() {
               })}
             />
           </label>
-          {errors.email && <span className="sign_in_error">{errors.email.message}</span>}
+          {errors.email && <span className="sign_in__form_error">{errors.email.message}</span>}
         </div>
         <div className="sign_in__form_field">
           <label className="sign_in__form_label">
@@ -76,7 +79,9 @@ function SignInForm() {
               })}
             />
           </label>
-          {errors.password && <span className="sign_in_error">{errors.password.message}</span>}
+          {errors.password && (
+            <span className="sign_in__form_error">{errors.password.message}</span>
+          )}
         </div>
         <div className="sign_in__form_submit">
           {isSubmitting ? (
@@ -88,8 +93,6 @@ function SignInForm() {
           )}
         </div>
       </form>
-
-      {serverError && <p className="sign_in_error">{serverError}</p>}
 
       <p className="sign_in__text">
         Don’t have an account?
