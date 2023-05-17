@@ -38,6 +38,10 @@
         color: $light-text-color;
 
         margin-bottom: 30px;
+        @include media-mobile-450 {
+            font-size: 20px;
+            line-height: 26px;
+        }
     }
 
     &__form {

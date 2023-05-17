@@ -23,10 +23,10 @@ function UserBar() {
       {user ? (
         <>
           <Toggle />
-          <button className="sign-out-btn" onClick={handleLogout}>
-            <span className="sign-out-btn__text">Sign Out</span>
+          <button className="sign-out-button" onClick={handleLogout}>
+            <span className="sign-out-button__text">Sign Out</span>
             <svg
-              className="sign-out-btn__icon"
+              className="sign-out-button__icon"
               width="16"
               height="16"
               viewBox="0 0 16 16"

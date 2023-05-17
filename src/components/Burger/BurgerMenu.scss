@@ -78,6 +78,24 @@
         margin-right: 0;
         margin: 0 auto;
       }
+
+      &_exit {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        margin: 0 auto;
+      }
+
+      &_icon {
+        display: flex;
+        width: 16px;
+        height: 16px;
+        margin-left: 5px;
+        transition: transform 0.2s;
+      }
+
     }
 
     &_item:last-child {
