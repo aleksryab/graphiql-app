@@ -76,10 +76,14 @@ function SignUpForm() {
               placeholder="Enter Your Password"
               {...register('password', {
                 required: `Can't be blank`,
+                minLength: {
+                  value: 8,
+                  message: 'Password must be at least 8 characters long',
+                },
                 pattern: {
                   value: passwordRegEx,
                   message:
-                    'Password must contain at least 8 characters, at least one letter, one number, one special character',
+                    'Password must contain at least one letter, one number, one special character',
                 },
               })}
             />
