@@ -11,7 +11,10 @@
   "button" : {
     "sing_up" : "Sing Up",
     "sing_in" : "Login",
-    "sing_out" : "Sign Out"
+    "sing_out" : "Sign Out",
+    "back" : "Back",
+    "close" : "Close",
+    "doc" : "Documentation"
   },
   "login" : {
     "email" : "Email",
@@ -43,5 +46,14 @@
   "languages" : {
     "en" : "En",
     "ru" : "Ru"
+  },
+  "documentation" : {
+    "arguments" : "Arguments",
+    "type_detail" : "TYPE DETAILS"
+  },
+  "editor" : {
+    "editor" : "Editor",
+    "response" : "Response",
+    "variable" : "Variable"
   }
 }

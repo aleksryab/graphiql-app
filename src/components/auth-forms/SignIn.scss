@@ -69,6 +69,7 @@
       padding: 10px;
       margin: 5px 0;
       outline-color: $primary-color;
+      color: $text-color;
 
       &.error {
         outline-color: $error-color;

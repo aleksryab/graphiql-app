@@ -6,6 +6,7 @@ import { apiRequest } from '../../helpers/API';
 import Loading from '../../components/Loading';
 const Documentation = lazy(() => import('../../components/Documentation'));
 import './EditorPage.scss';
+import { useTranslation } from 'react-i18next';
 
 const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
 
@@ -16,6 +17,7 @@ const EditorPage = () => {
   const [variable, setVariable] = useState('{}');
   const [schema, setSchema] = useState<GraphQLSchema>();
   const [isDocumentation, setIsDocumentation] = useState(false);
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
@@ -56,7 +58,7 @@ const EditorPage = () => {
         </button>
       </div>
       <div className="inputEditor">
-        <p className="editors_title">Editor</p>
+        <p className="editors_title">{t('editor.editor')}</p>
         <Editors
           value={defaultQuery}
           isReadOnly={false}
@@ -66,12 +68,12 @@ const EditorPage = () => {
         />
       </div>
       <div className="outputEditor">
-        <p className="editors_title">Response</p>
+        <p className="editors_title">{t('editor.response')}</p>
         {isFetching && <Loading />}
         {response && <Editors isReadOnly={true} language={EditorLanguage.JSON} value={response} />}
       </div>
       <div className="variableEditor">
-        <p className="editors_title">Variable</p>
+        <p className="editors_title">{t('editor.variable')}</p>
         <Editors
           value={variable}
           isReadOnly={false}
@@ -81,7 +83,7 @@ const EditorPage = () => {
       </div>
       <div className="documentationBlock">
         <button className="docVertical" onClick={() => setIsDocumentation(!isDocumentation)}>
-          Documentation
+          {t('button.doc')}
         </button>
         {isDocumentation && (
           <Suspense fallback={<Loading />}>
