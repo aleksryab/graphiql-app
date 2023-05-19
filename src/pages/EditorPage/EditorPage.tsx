@@ -1,20 +1,22 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
+import { useTranslation } from 'react-i18next';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
 import { apiRequest } from '../../helpers/API';
 import Loading from '../../components/Loading';
 const Documentation = lazy(() => import('../../components/Documentation'));
 import './EditorPage.scss';
-import { useTranslation } from 'react-i18next';
 
-const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
+const defaultQuery =
+  'query getCharacterById($id: ID!) {\n  character(id: $id) {\n    name\n    episode {\n      id\n      name\n    }\n  }\n}';
+const defaultVariables = JSON.stringify({ id: 2 }, null, 2);
 
 const EditorPage = () => {
-  const [query, setRequest] = useState('');
+  const [query, setRequest] = useState(defaultQuery);
+  const [variable, setVariable] = useState(defaultVariables);
   const [response, setResponse] = useState<string | null>(null);
   const [isFetching, setIsFetching] = useState(false);
-  const [variable, setVariable] = useState('{}');
   const [schema, setSchema] = useState<GraphQLSchema>();
   const [isDocumentation, setIsDocumentation] = useState(false);
   const { t } = useTranslation('common');
@@ -75,7 +77,7 @@ const EditorPage = () => {
       <div className="variableEditor">
         <p className="editors_title">{t('editor.variable')}</p>
         <Editors
-          value={variable}
+          value={defaultVariables}
           isReadOnly={false}
           language={EditorLanguage.JSON}
           onChange={setVariable}

@@ -11,12 +11,12 @@
 }
 
 .cm-line {
-  color: rgb(241, 241, 255);
+  color: #f1f1ff;
 }
 
-.cm-lineNumbers, 
+.cm-lineNumbers,
 .cm-foldGutter {
-  background: #0B0E40;
+  background: #0b0e40;
   color: rgba(255, 255, 255, 0.4);
 }
 
@@ -24,7 +24,8 @@
   color: $primary-color;
 }
 
-.ͼe {
+.ͼe,
+.ͼc {
   color: #bd43ff;
 }
 
@@ -37,7 +38,7 @@
 }
 
 .ͼ2 .cm-gutters {
-  border-right: 1px solid #272B6A;
+  border-right: 1px solid #272b6a;
 }
 
 .ͼ2 .cm-activeLineGutter {
@@ -46,4 +47,12 @@
 
 .cm-editor {
   font-size: 16px;
+}
+
+.cm-cursor {
+  border-left-color: #f1f1ff !important;
+}
+
+.ͼ2 .cm-selectionBackground {
+  background: #d7cf293e !important;
 }
