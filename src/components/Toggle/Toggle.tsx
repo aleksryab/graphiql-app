@@ -9,7 +9,7 @@ export default function Toggle() {
 
   useEffect(() => {
     const language =
-      localStorage.getItem('i18nextLng') === LanguageEnums.EN ? LanguageEnums.EN : LanguageEnums.RU;
+      localStorage.getItem('i18nextLng') === LanguageEnums.RU ? LanguageEnums.RU : LanguageEnums.EN;
     setLanguage(language);
     i18n.changeLanguage(language);
   }, []);
