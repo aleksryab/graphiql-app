@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../../context/AuthProvider';
 import { FirebaseError } from 'firebase/app';
+import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
 import getFirebaseErrorMessage from './helpers/getFirebaseErrorMessage';
 import { emailRegEx } from './utils';
 import './SignIn.scss';
-import { useTranslation } from 'react-i18next';
 
 interface FormInput {
   email: string;
@@ -36,7 +36,9 @@ function SignInForm() {
       navigate(ROUTES.editor);
     } catch (err) {
       if (err instanceof FirebaseError) {
-        setServerError(t(getFirebaseErrorMessage(err.code) ?? err.message) ?? '');
+        const messageId = getFirebaseErrorMessage(err.code);
+        const message = messageId ? t(messageId) : err.message;
+        setServerError(message);
       } else {
         console.error(err);
       }
