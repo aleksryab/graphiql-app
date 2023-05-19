@@ -1,66 +1,67 @@
 {
-  "validation" : {
-    "email" : "Enter valid email: yours@example.com",
-    "blank" : "Can't be blank",
-    "password_length" : "Password must be at least 8 characters long",
-    "password_char" : "Password must contain at least one letter, one number, one special character"
+  "validation": {
+    "email": "Enter valid email: yours@example.com",
+    "blank": "Can't be blank",
+    "password_length": "Password must be at least 8 characters long",
+    "password_char": "Password must contain at least one letter, one number, one special character"
   },
-  "placeholder" : {
-    "password" : "Enter Your Password"
+  "placeholder": {
+    "password": "Enter Your Password"
   },
-  "button" : {
-    "sing_up" : "Sing Up",
-    "sing_in" : "Login",
-    "sing_out" : "Sign Out",
-    "back" : "Back",
-    "close" : "Close",
-    "doc" : "Documentation",
-    "start" : "Get started"
+  "button": {
+    "sing_up": "Sing Up",
+    "sing_in": "Login",
+    "sing_out": "Sign Out",
+    "back": "Back",
+    "close": "Close",
+    "doc": "Documentation",
+    "start": "Get started"
   },
-  "login" : {
-    "email" : "Email",
-    "password" : "Password",
-    "is_account" : "Already have an account?",
-    "no_account" : "Don’t have an account?",
-    "create_account" : "Create an account",
-    "welcome" : "Hi, Welcome Back!",
-    "status" : {
-      "load_sing_in" : "Signing Up...",
-      "login" : "Login..."
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "is_account": "Already have an account?",
+    "no_account": "Don’t have an account?",
+    "create_account": "Create an account",
+    "welcome": "Hi, Welcome Back!",
+    "status": {
+      "load_sing_in": "Signing Up...",
+      "login": "Login..."
     }
   },
   "error": {
-    "fire_base" : {
-      "email_exist" : "The provided email is already in use by an existing user, please provide another email.",
-      "token_expired" : "Your ID token has expired, please try to log in again.",
-      "internal_error" : "The Authentication server encountered an unexpected error while trying to process the request.",
-      "invalid_email" : "The provided value for your email is invalid, please write a valid email address.",
-      "invalid_password" : "The email and password you entered don't match",
-      "operation_not_allowed" : "This sign-in method is not available currently.",
-      "user_deleted" : "User not found, please check your information."
-    }
+    "fire_base": {
+      "email_exist": "The provided email is already in use by an existing user, please provide another email.",
+      "token_expired": "Your ID token has expired, please try to log in again.",
+      "internal_error": "The Authentication server encountered an unexpected error while trying to process the request.",
+      "invalid_email": "The provided value for your email is invalid, please write a valid email address.",
+      "invalid_password": "The email and password you entered don't match",
+      "operation_not_allowed": "This sign-in method is not available currently.",
+      "user_deleted": "User not found, please check your information."
+    },
+    "fallback_message": "Oops! Something went wrong!"
   },
-  "general" : {
-    "students" : "Students:",
-    "rights" : "© all rights reserved, 2023."
+  "general": {
+    "students": "Students:",
+    "rights": "© all rights reserved, 2023."
   },
-  "languages" : {
-    "en" : "En",
-    "ru" : "Рус"
+  "languages": {
+    "en": "En",
+    "ru": "Рус"
   },
-  "documentation" : {
-    "arguments" : "Arguments",
-    "type_detail" : "TYPE DETAILS"
+  "documentation": {
+    "arguments": "Arguments",
+    "type_detail": "TYPE DETAILS"
   },
-  "editor" : {
-    "editor" : "Editor",
-    "response" : "Response",
-    "variable" : "Variable"
+  "editor": {
+    "editor": "Editor",
+    "response": "Response",
+    "variable": "Variable"
   },
-  "welcome" : {
-    "welcome" : "Welcome",
-    "content" : "This is a playground for graphiQL requests.",
-    "login" : "Please login or register to continue.",
-    "ready" : "Playground for graphiQL requests ready to use."
+  "welcome": {
+    "welcome": "Welcome",
+    "content": "This is a playground for graphiQL requests.",
+    "login": "Please login or register to continue.",
+    "ready": "Playground for graphiQL requests ready to use."
   }
 }
