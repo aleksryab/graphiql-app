@@ -9,14 +9,13 @@ export default function Toggle() {
 
   useEffect(() => {
     const language =
-      localStorage.getItem('language') === LanguageEnums.EN ? LanguageEnums.EN : LanguageEnums.RU;
+      localStorage.getItem('i18nextLng') === LanguageEnums.EN ? LanguageEnums.EN : LanguageEnums.RU;
     setLanguage(language);
     i18n.changeLanguage(language);
   }, []);
 
   const handleLanguageChange = (newLanguage: LanguageEnums) => {
     i18n.changeLanguage(newLanguage);
-    localStorage.setItem('language', newLanguage);
     setLanguage(newLanguage);
   };
 

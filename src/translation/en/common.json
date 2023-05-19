@@ -14,7 +14,8 @@
     "sing_out" : "Sign Out",
     "back" : "Back",
     "close" : "Close",
-    "doc" : "Documentation"
+    "doc" : "Documentation",
+    "start" : "Get started"
   },
   "login" : {
     "email" : "Email",
@@ -55,5 +56,11 @@
     "editor" : "Editor",
     "response" : "Response",
     "variable" : "Variable"
+  },
+  "welcome" : {
+    "welcome" : "Welcome",
+    "content" : "This is a playground for graphiQL requests.",
+    "login" : "Please login or register to continue.",
+    "ready" : "Playground for graphiQL requests ready to use."
   }
 }
