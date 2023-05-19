@@ -36,7 +36,7 @@ function SignUpForm() {
       navigate(ROUTES.editor);
     } catch (err) {
       if (err instanceof FirebaseError) {
-        setServerError(t(getFirebaseErrorMessage(err.code) ?? err.message));
+        setServerError(t(getFirebaseErrorMessage(err.code) ?? err.message) ?? '');
       } else {
         console.error(err);
       }
@@ -61,8 +61,8 @@ function SignUpForm() {
               id="email"
               placeholder="yours@example.com"
               {...register('email', {
-                required: t('validation.blank'),
-                pattern: { value: emailRegEx, message: t('validation.email') },
+                required: t('validation.blank') ?? '',
+                pattern: { value: emailRegEx, message: t('validation.email') ?? '' },
               })}
             />
           </label>
@@ -77,14 +77,14 @@ function SignUpForm() {
               id="password"
               placeholder={t('placeholder.password') ?? ''}
               {...register('password', {
-                required: t('validation.blank'),
+                required: t('validation.blank') ?? '',
                 minLength: {
                   value: 8,
-                  message: t('validation.password_length'),
+                  message: t('validation.password_length') ?? '',
                 },
                 pattern: {
                   value: passwordRegEx,
-                  message: t('validation.password_char'),
+                  message: t('validation.password_char') ?? '',
                 },
               })}
             />
