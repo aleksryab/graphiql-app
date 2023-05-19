@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
 import UserBar from './UserBar';
-import Toggle from '../Toggle/Toggle';
+import ToggleLang from '../ToggleLang';
 import logo from '../../assets/logo.svg';
 import './Header.scss';
 
@@ -40,13 +40,13 @@ function Header(): JSX.Element {
               </NavLink>
             </nav>
             <div className="header__right">
-              <Toggle />
+              <ToggleLang />
               <UserBar />
             </div>
           </>
         ) : (
           <div className="header__right">
-            <Toggle />
+            <ToggleLang />
             <UserBar />
           </div>
         )}

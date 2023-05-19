@@ -1,22 +1,13 @@
-import { useEffect, useState } from 'react';
-import './Toggle.scss';
-import { LanguageEnums } from '../../translation/languages';
 import { useTranslation } from 'react-i18next';
+import { LanguageEnums } from '../../translation/languages';
+import './ToggleLang.scss';
 
 export default function Toggle() {
-  const [language, setLanguage] = useState(LanguageEnums.EN);
   const { t, i18n } = useTranslation('common');
-
-  useEffect(() => {
-    const language =
-      localStorage.getItem('i18nextLng') === LanguageEnums.RU ? LanguageEnums.RU : LanguageEnums.EN;
-    setLanguage(language);
-    i18n.changeLanguage(language);
-  }, []);
+  const language = i18n.language;
 
   const handleLanguageChange = (newLanguage: LanguageEnums) => {
     i18n.changeLanguage(newLanguage);
-    setLanguage(newLanguage);
   };
 
   return (
