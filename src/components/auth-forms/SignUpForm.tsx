@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../../context/AuthProvider';
 import { FirebaseError } from 'firebase/app';
+import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
 import getFirebaseErrorMessage from './helpers/getFirebaseErrorMessage';
 import { emailRegEx, passwordRegEx } from './utils';
@@ -24,6 +25,7 @@ function SignUpForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { signUp } = useAuthContext();
   const navigate = useNavigate();
+  const { t } = useTranslation('common');
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     setIsSubmitting(true);
@@ -34,7 +36,9 @@ function SignUpForm() {
       navigate(ROUTES.editor);
     } catch (err) {
       if (err instanceof FirebaseError) {
-        setServerError(getFirebaseErrorMessage(err.code) ?? err.message);
+        const messageId = getFirebaseErrorMessage(err.code);
+        const message = messageId ? t(messageId) : err.message;
+        setServerError(message);
       } else {
         console.error(err);
       }
@@ -45,22 +49,22 @@ function SignUpForm() {
 
   return (
     <div className="sign_in">
-      <h3 className="sign_in__title">Create an account</h3>
+      <h3 className="sign_in__title">{t('login.create_account')}</h3>
 
       {serverError && <p className="sign_in_error">{serverError}</p>}
 
       <form onSubmit={handleSubmit(onSubmit)} className="sign_in__form">
         <div className="sign_in__form_field">
           <label className="sign_in__form_label">
-            Email
+            {t('login.email')}
             <input
               className={`sign_in__form_input${errors.email ? ' error' : ''}`}
               type="email"
               id="email"
               placeholder="yours@example.com"
               {...register('email', {
-                required: `Can't be blank`,
-                pattern: { value: emailRegEx, message: 'Enter valid email: yours@example.com' },
+                required: t('validation.blank') ?? '',
+                pattern: { value: emailRegEx, message: t('validation.email') ?? '' },
               })}
             />
           </label>
@@ -68,22 +72,21 @@ function SignUpForm() {
         </div>
         <div className="sign_in__form_field">
           <label className="sign_in__form_label">
-            Password
+            {t('login.password')}
             <input
               className={`sign_in__form_input${errors.password ? ' error' : ''}`}
               type="password"
               id="password"
-              placeholder="Enter Your Password"
+              placeholder={t('placeholder.password') ?? ''}
               {...register('password', {
-                required: `Can't be blank`,
+                required: t('validation.blank') ?? '',
                 minLength: {
                   value: 8,
-                  message: 'Password must be at least 8 characters long',
+                  message: t('validation.password_length') ?? '',
                 },
                 pattern: {
                   value: passwordRegEx,
-                  message:
-                    'Password must contain at least one letter, one number, one special character',
+                  message: t('validation.password_char') ?? '',
                 },
               })}
             />
@@ -94,18 +97,18 @@ function SignUpForm() {
         </div>
         <div className="sign_in__form_submit">
           {isSubmitting ? (
-            <p className="sign_in_message">Signing Up...</p>
+            <p className="sign_in_message">{t('login.status.load_sing_in')}</p>
           ) : (
             <button type="submit" className="sign_in__form_button">
-              Sign Up
+              {t('button.sing_up')}
             </button>
           )}
         </div>
       </form>
       <p className="sign_in__text">
-        Already have an account?
+        {t('login.is_account')}
         <Link to={ROUTES.signIn} className="sign_in__text_link">
-          Login
+          {t('button.sing_in')}
         </Link>
       </p>
     </div>

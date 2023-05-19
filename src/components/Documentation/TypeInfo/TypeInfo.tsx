@@ -2,6 +2,7 @@ import DocField from '../DocField';
 import { SchemaTypeInterface, TypeArgumentInterface } from '../DocumentationInterfaces';
 import getTypeName from '../helpers/getTypeName';
 import Arguments from '../Arguments';
+import { useTranslation } from 'react-i18next';
 
 export interface TypeInfoProps {
   type: SchemaTypeInterface;
@@ -12,14 +13,15 @@ export interface TypeInfoProps {
 }
 
 function TypeInfo({ type, previousType, closeTypeInfo, findType, args }: TypeInfoProps) {
+  const { t } = useTranslation('common');
   return (
     <div className="typeDescription">
-      <button onClick={() => closeTypeInfo(null)}>Close</button>
+      <button onClick={() => closeTypeInfo(null)}>{t('button.close')}</button>
       {previousType && previousType.name !== type.name && (
-        <button onClick={() => closeTypeInfo(previousType)}>Back</button>
+        <button onClick={() => closeTypeInfo(previousType)}>{t('button.back')}</button>
       )}
       <div>
-        <h3>TYPE DETAILS</h3>
+        <h3>{t('documentation.type_detail')}</h3>
         <b>{type.name}</b>
         {type.fields?.map((field) => (
           <div

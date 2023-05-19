@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../../context/AuthProvider';
 import { FirebaseError } from 'firebase/app';
+import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
 import getFirebaseErrorMessage from './helpers/getFirebaseErrorMessage';
 import { emailRegEx } from './utils';
@@ -24,6 +25,7 @@ function SignInForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { signIn } = useAuthContext();
   const navigate = useNavigate();
+  const { t } = useTranslation('common');
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     setIsSubmitting(true);
@@ -34,7 +36,9 @@ function SignInForm() {
       navigate(ROUTES.editor);
     } catch (err) {
       if (err instanceof FirebaseError) {
-        setServerError(getFirebaseErrorMessage(err.code) ?? err.message);
+        const messageId = getFirebaseErrorMessage(err.code);
+        const message = messageId ? t(messageId) : err.message;
+        setServerError(message);
       } else {
         console.error(err);
       }
@@ -45,22 +49,22 @@ function SignInForm() {
 
   return (
     <div className="sign_in">
-      <h3 className="sign_in__title">Hi, Welcome Back! 👋</h3>
+      <h3 className="sign_in__title">{t('login.welcome')} 👋</h3>
 
       {serverError && <p className="sign_in_error">{serverError}</p>}
 
       <form onSubmit={handleSubmit(onSubmit)} className="sign_in__form">
         <div className="sign_in__form_field">
           <label className="sign_in__form_label">
-            Email
+            {t('login.email')}
             <input
               className={`sign_in__form_input${errors.email ? ' error' : ''}`}
               type="email"
               id="email"
               placeholder="yours@example.com"
               {...register('email', {
-                required: `Can't be blank`,
-                pattern: { value: emailRegEx, message: 'Enter valid email: yours@example.com' },
+                required: t('validation.blank') ?? '',
+                pattern: { value: emailRegEx, message: t('validation.email') ?? '' },
               })}
             />
           </label>
@@ -68,14 +72,14 @@ function SignInForm() {
         </div>
         <div className="sign_in__form_field">
           <label className="sign_in__form_label">
-            Password
+            {t('login.password')}
             <input
               className={`sign_in__form_input${errors.password ? ' error' : ''}`}
               type="password"
               id="password"
               placeholder="Enter Your Password"
               {...register('password', {
-                required: `Can't be blank`,
+                required: t('validation.blank') ?? '',
               })}
             />
           </label>
@@ -85,19 +89,19 @@ function SignInForm() {
         </div>
         <div className="sign_in__form_submit">
           {isSubmitting ? (
-            <p className="sign_in_message">Login...</p>
+            <p className="sign_in_message">{t('login.status.login')}</p>
           ) : (
             <button type="submit" className="sign_in__form_button">
-              Login
+              {t('button.sing_in')}
             </button>
           )}
         </div>
       </form>
 
       <p className="sign_in__text">
-        Don’t have an account?
+        {t('login.no_account')}
         <Link to={ROUTES.signUp} className="sign_in__text_link">
-          Sign Up
+          {t('button.sing_up')}
         </Link>
       </p>
     </div>

@@ -1,14 +1,16 @@
 import DocField from '../DocField';
 import { TypeArgumentInterface } from '../DocumentationInterfaces';
+import { useTranslation } from 'react-i18next';
 
 export interface TypeInfoProps {
   args: TypeArgumentInterface[];
 }
 
 function Arguments({ args }: TypeInfoProps) {
+  const { t } = useTranslation('common');
   return (
     <div>
-      <h3>Arguments</h3>
+      <h3>{t('documentation.arguments')}</h3>
       {args.map((arg) => (
         <div className="type-info__item" key={arg.name}>
           <DocField field={arg} />
