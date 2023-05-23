@@ -11,7 +11,11 @@ import DocField from './DocField';
 import { apiRequest } from '../../helpers/API';
 import { getIntrospectionQuery } from 'graphql/index';
 
-function Documentation() {
+interface DocumentationProps {
+  setError: (error: string | null) => void;
+}
+
+const Documentation = ({ setError }: DocumentationProps) => {
   const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
   const [args, setArgs] = useState<TypeArgumentInterface[] | null>(null);
   const [queryType, setQueryType] = useState<SchemaTypeInterface>();
@@ -28,7 +32,7 @@ function Documentation() {
           );
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => setError(err));
   }, []);
 
   const findType = (name: string | null) => {
@@ -83,6 +87,6 @@ function Documentation() {
       </div>
     </div>
   );
-}
+};
 
 export default Documentation;
