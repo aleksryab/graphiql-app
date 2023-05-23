@@ -16,9 +16,13 @@ function TypeInfo({ type, previousType, closeTypeInfo, findType, args }: TypeInf
   const { t } = useTranslation('common');
   return (
     <div className="typeDescription">
-      <button onClick={() => closeTypeInfo(null)}>{t('button.close')}</button>
+      <button className="close_button" onClick={() => closeTypeInfo(null)}>
+        {t('button.close')}
+      </button>
       {previousType && previousType.name !== type.name && (
-        <button onClick={() => closeTypeInfo(previousType)}>{t('button.back')}</button>
+        <button className="back_button" onClick={() => closeTypeInfo(previousType)}>
+          {t('button.back')}
+        </button>
       )}
       <div>
         <h3>{t('documentation.type_detail')}</h3>
