@@ -53,9 +53,6 @@
   transition: all 0.5s ease;
   @include media-desktop {
     top: -100px;
-    left: 30px;
-  }
-  @include media-tablet-730 {
     left: 250px;
   }
 }
@@ -117,11 +114,15 @@
   border-radius: 5px;
 
   transition: all 0.5s ease;
-  @include media-tablet-730  {
+  @include media-desktop  {
     transform: rotate(0deg);
+    top: -55px;
+    left: 0px;
+    padding: 6px 40px;
+  }
+  @include media-tablet-660 {
     top: -63px;
     left: -10px;
-    padding: 6px 40px;
   }
 }
 
@@ -134,5 +135,6 @@
   position: absolute;
   width: 100%;
   background: rgba(255, 255, 255, 0.85);
+  // background-image: linear-gradient(to left top, #d4319e, #a12d93, #702882, #41206b, #121651);
   z-index: 5;
 }
