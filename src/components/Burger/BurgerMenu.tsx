@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './BurgerMenu.scss';
 import { NavLink } from 'react-router-dom';
 import ROUTES from '../../constants/routes';
-import Toggle from '../Toggle/Toggle';
+import Togglelang from '../ToggleLang/ToggleLang';
 import { useAuthContext } from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
@@ -52,7 +52,7 @@ const BurgerMenu: React.FC = () => {
                 Editor
               </NavLink>
               <div className="menu_item">
-                Language: <Toggle />
+                Language: <Togglelang />
               </div>
               <button className="menu_item_exit menu_item" onClick={handleLogout}>
                 <span className="menu_item_text">Sign Out</span>
@@ -82,7 +82,7 @@ const BurgerMenu: React.FC = () => {
                 Sign Up
               </NavLink>
               <div className="menu_item">
-                Language: <Toggle />
+                Language: <Togglelang />
               </div>
             </div>
           </div>

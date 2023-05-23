@@ -51,7 +51,7 @@ function SignInForm() {
     <div className="sign_in">
       <h3 className="sign_in__title">{t('login.welcome')} 👋</h3>
 
-      {serverError && <p className="sign_in_error">{serverError}</p>}
+      {serverError && <p className="sign_in__error">{serverError}</p>}
 
       <form onSubmit={handleSubmit(onSubmit)} className="sign_in__form">
         <div className="sign_in__form_field">
@@ -89,7 +89,7 @@ function SignInForm() {
         </div>
         <div className="sign_in__form_submit">
           {isSubmitting ? (
-            <p className="sign_in_message">{t('login.status.login')}</p>
+            <p className="sign_in__message">{t('login.status.login')}</p>
           ) : (
             <button type="submit" className="sign_in__form_button">
               {t('button.sing_in')}

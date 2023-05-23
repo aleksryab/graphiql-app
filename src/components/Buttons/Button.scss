@@ -42,8 +42,10 @@
       line-height: 26px;
     }
     @include media-mobile-450 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
-      text-align: center;
     }
   }
 

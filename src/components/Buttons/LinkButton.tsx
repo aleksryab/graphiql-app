@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ButtonSize, ButtonType } from './Button';
+import './Button.scss';
 
 interface LinkButtonProps {
   to: string;

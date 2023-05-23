@@ -4,6 +4,7 @@ import LinkButton from '../../components/Buttons/LinkButton';
 import ROUTES from '../../constants/routes';
 import './UserBar.scss';
 import { useTranslation } from 'react-i18next';
+import Togglelang from '../ToggleLang/ToggleLang';
 
 function UserBar() {
   const { user, logout } = useAuthContext();
@@ -22,10 +23,10 @@ function UserBar() {
   return (
     <div className="user-bar">
       {user ? (
-        <button className="sign-out-btn" onClick={handleLogout}>
-          <span className="sign-out-btn__text">{t('button.sing_out')}</span>
+        <button className="sign-out-button" onClick={handleLogout}>
+          <span className="sign-out-button__text">{t('button.sing_out')}</span>
           <svg
-            className="sign-out-btn__icon"
+            className="sign-out-button__icon"
             width="16"
             height="16"
             viewBox="0 0 16 16"
@@ -40,7 +41,7 @@ function UserBar() {
         </button>
       ) : (
         <>
-          <Toggle />
+          <Togglelang />
           <LinkButton
             to={ROUTES.signIn}
             className="user-bar__button"
