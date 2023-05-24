@@ -1,13 +1,13 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
+import { useTranslation } from 'react-i18next';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
 import { apiRequest } from '../../helpers/API';
 import Loading from '../../components/Loading';
-const Documentation = lazy(() => import('../../components/Documentation'));
+import Error from '../../components/Error';
 import './EditorPage.scss';
-import { useTranslation } from 'react-i18next';
-import Error from '../../components/Error/Error';
+const Documentation = lazy(() => import('../../components/Documentation'));
 
 const defaultQuery = 'query {\n characters{\n results{\n name \n} \n}\n}';
 
@@ -18,15 +18,15 @@ const EditorPage = () => {
   const [variable, setVariable] = useState('{}');
   const [schema, setSchema] = useState<GraphQLSchema>();
   const [isDocumentation, setIsDocumentation] = useState(false);
-  const { t } = useTranslation('common');
   const [connectionError, setConnectionError] = useState<string | null>('test');
+  const { t } = useTranslation('common');
 
   useEffect(() => {
     apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
       .then((json) => {
         setSchema(buildClientSchema(json.data));
       })
-      .catch((err) => setConnectionError(err));
+      .catch(() => setConnectionError(`Something went wrong. Can't get a schema.`));
   }, []);
 
   const handleRequest = () => {
@@ -35,13 +35,15 @@ const EditorPage = () => {
 
     apiRequest(JSON.stringify({ query, variables: JSON.parse(variable || '{}') }))
       .then((data) => setResponse(JSON.stringify(data, null, 2)))
-      .catch((err) => setConnectionError(err))
+      .catch(() => setConnectionError('Something went wrong. Server not respond.'))
       .finally(() => setIsFetching(false));
   };
 
   return (
     <>
-      {connectionError && <Error text={connectionError} cleanError={setConnectionError} />}{' '}
+      {connectionError && (
+        <Error text={connectionError} cleanError={() => setConnectionError(null)} />
+      )}
       <div className="containerEditor">
         <div className="play-button">
           <button className="round-button" onClick={handleRequest}>

@@ -5,10 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
+import Error from '../Error';
 import getFirebaseErrorMessage from './helpers/getFirebaseErrorMessage';
 import { emailRegEx, passwordRegEx } from './utils';
 import './SignIn.scss';
-import Error from '../Error/Error';
 
 interface FormInput {
   email: string;
@@ -51,7 +51,9 @@ function SignUpForm() {
 
   return (
     <>
-      {connectionError && <Error text={connectionError} cleanError={setConnectionError} />}
+      {connectionError && (
+        <Error text={connectionError} cleanError={() => setConnectionError(null)} />
+      )}
       <div className="sign_in">
         <h3 className="sign_in__title">{t('login.create_account')}</h3>
 

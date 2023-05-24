@@ -3,22 +3,19 @@ import './Error.scss';
 
 interface ErrorProps {
   text: string;
-  cleanError: (clean: null) => void;
+  cleanError: () => void;
 }
 
 const CLOSE_INTERVAL = 10000;
 
 const Error = ({ text, cleanError }: ErrorProps) => {
   useEffect(() => {
-    setTimeout(clean, CLOSE_INTERVAL);
-  }, []);
-
-  const clean = () => {
-    cleanError(null);
-  };
+    const timeout = setTimeout(cleanError, CLOSE_INTERVAL);
+    return () => clearTimeout(timeout);
+  }, [cleanError]);
 
   return (
-    <div className="error_container" onClick={clean}>
+    <div className="error_container" onClick={cleanError}>
       <button className="_button">X</button>
       <p className="_notification">{text}</p>
     </div>

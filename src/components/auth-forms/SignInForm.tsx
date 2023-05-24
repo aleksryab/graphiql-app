@@ -5,10 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
+import Error from '../Error';
 import getFirebaseErrorMessage from './helpers/getFirebaseErrorMessage';
 import { emailRegEx } from './utils';
 import './SignIn.scss';
-import Error from '../Error/Error';
 
 interface FormInput {
   email: string;
@@ -24,10 +24,10 @@ function SignInForm() {
 
   const [serverError, setServerError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [connectionError, setConnectionError] = useState<string | null>();
   const { signIn } = useAuthContext();
   const navigate = useNavigate();
   const { t } = useTranslation('common');
-  const [connectionError, setConnectionError] = useState<string | null>();
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     setIsSubmitting(true);
@@ -51,7 +51,9 @@ function SignInForm() {
 
   return (
     <>
-      {connectionError && <Error text={connectionError} cleanError={setConnectionError} />}
+      {connectionError && (
+        <Error text={connectionError} cleanError={() => setConnectionError(null)} />
+      )}
       <div className="sign_in">
         <h3 className="sign_in__title">{t('login.welcome')} 👋</h3>
 

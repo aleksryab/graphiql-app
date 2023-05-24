@@ -24,7 +24,9 @@ function UserBar() {
 
   return (
     <>
-      {connectionError && <Error text={connectionError} cleanError={setConnectionError} />}{' '}
+      {connectionError && (
+        <Error text={connectionError} cleanError={() => setConnectionError(null)} />
+      )}
       <div className="user-bar">
         {user ? (
           <button className="sign-out-btn" onClick={handleLogout}>
