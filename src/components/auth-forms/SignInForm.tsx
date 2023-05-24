@@ -42,7 +42,7 @@ function SignInForm() {
         const message = messageId ? t(messageId) : err.message;
         setServerError(message);
       } else {
-        setConnectionError(err as string);
+        setConnectionError(t('error.general.firebase'));
       }
     } finally {
       setIsSubmitting(false);

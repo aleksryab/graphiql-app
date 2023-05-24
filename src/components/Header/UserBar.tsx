@@ -18,7 +18,7 @@ function UserBar() {
       await logout();
       navigate('/');
     } catch (err) {
-      setConnectionError(err as string);
+      setConnectionError(t('error.general.logout'));
     }
   };
 

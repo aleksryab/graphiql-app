@@ -38,6 +38,12 @@
       "invalid_password" : "The email and password you entered don't match",
       "operation_not_allowed" : "This sign-in method is not available currently.",
       "user_deleted" : "User not found, please check your information."
+    },
+    "general" : {
+      "logout" : "We are sorry, but something went wrong with logout.",
+      "firebase" : "Unknown error while login in",
+      "schema" : "Something went wrong. Can't get a schema.",
+      "response" :  "Something went wrong. Server not respond."
     }
   },
   "general" : {

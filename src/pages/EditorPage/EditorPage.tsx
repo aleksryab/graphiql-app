@@ -26,7 +26,7 @@ const EditorPage = () => {
       .then((json) => {
         setSchema(buildClientSchema(json.data));
       })
-      .catch(() => setConnectionError(`Something went wrong. Can't get a schema.`));
+      .catch(() => setConnectionError(t('error.general.schema')));
   }, []);
 
   const handleRequest = () => {
@@ -35,7 +35,7 @@ const EditorPage = () => {
 
     apiRequest(JSON.stringify({ query, variables: JSON.parse(variable || '{}') }))
       .then((data) => setResponse(JSON.stringify(data, null, 2)))
-      .catch(() => setConnectionError('Something went wrong. Server not respond.'))
+      .catch(() => setConnectionError(t('error.general.response')))
       .finally(() => setIsFetching(false));
   };
 
