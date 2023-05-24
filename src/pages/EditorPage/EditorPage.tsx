@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
 import { useTranslation } from 'react-i18next';
+import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
 import { apiRequest } from '../../helpers/API';
@@ -14,10 +15,12 @@ const defaultVariables = JSON.stringify({ id: 2 }, null, 2);
 
 const EditorPage = () => {
   const [query, setRequest] = useState(defaultQuery);
-  const [variable, setVariable] = useState(defaultVariables);
+  const [variables, setVariables] = useState(defaultVariables);
   const [response, setResponse] = useState<string | null>(null);
-  const [isFetching, setIsFetching] = useState(false);
+  const [parseError, setParseError] = useState<string | null>(null);
   const [schema, setSchema] = useState<GraphQLSchema>();
+  const [isFetching, setIsFetching] = useState(false);
+  const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [isDocumentation, setIsDocumentation] = useState(false);
   const { t } = useTranslation('common');
 
@@ -32,11 +35,21 @@ const EditorPage = () => {
   const handleRequest = () => {
     setIsFetching(true);
     setResponse(null);
+    setParseError(null);
 
-    apiRequest(JSON.stringify({ query, variables: JSON.parse(variable || '{}') }))
-      .then((data) => setResponse(JSON.stringify(data, null, 2)))
-      .catch((err) => console.error(err))
-      .finally(() => setIsFetching(false));
+    try {
+      let parsedVars = '{}';
+      parsedVars = JSON.parse(variables);
+      apiRequest(JSON.stringify({ query, variables: parsedVars }))
+        .then((data) => setResponse(JSON.stringify(data, null, 2)))
+        .catch((err) => console.error(err))
+        .finally(() => setIsFetching(false));
+    } catch (err) {
+      setIsFetching(false);
+      let errorMessage = 'Unknown Error';
+      if (err instanceof Error) errorMessage = err.message;
+      setParseError(`${t('error.variables_parse')}: ${errorMessage}`);
+    }
   };
 
   return (
@@ -72,16 +85,26 @@ const EditorPage = () => {
       <div className="outputEditor">
         <p className="editors_title">{t('editor.response')}</p>
         {isFetching && <Loading />}
+        {parseError && <p className="parse-error">{parseError}</p>}
         {response && <Editors isReadOnly={true} language={EditorLanguage.JSON} value={response} />}
       </div>
-      <div className="variableEditor">
-        <p className="editors_title">{t('editor.variable')}</p>
-        <Editors
-          value={defaultVariables}
-          isReadOnly={false}
-          language={EditorLanguage.JSON}
-          onChange={setVariable}
-        />
+      <div className="toolsEditor">
+        <div className="toolsEditor__controls">
+          <button className="toolsEditor__button" onClick={() => setIsToolsOpen(true)}>
+            {t('editor.variables')}
+          </button>
+          <button className="toolsEditor__button" onClick={() => setIsToolsOpen(!isToolsOpen)}>
+            {isToolsOpen ? <AiOutlineDown /> : <AiOutlineUp />}
+          </button>
+        </div>
+        {isToolsOpen && (
+          <Editors
+            value={variables}
+            isReadOnly={false}
+            language={EditorLanguage.JSON}
+            onChange={setVariables}
+          />
+        )}
       </div>
       <div className="documentationBlock">
         <button className="docVertical" onClick={() => setIsDocumentation(!isDocumentation)}>

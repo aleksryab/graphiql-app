@@ -50,7 +50,7 @@ function Editors({ language, value = '', isReadOnly, onChange, schema }: Editors
     }
 
     return () => editor?.destroy();
-  }, [value, schema, language]);
+  }, [schema, language]);
 
   return <div ref={editorRef} />;
 }

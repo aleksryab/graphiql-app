@@ -15,7 +15,9 @@
     "back": "Back",
     "close": "Close",
     "doc": "Documentation",
-    "start": "Get started"
+    "start": "Get started",
+    "show_tools": "Show Editor Tools",
+    "hide_tools": "Hide Editor Tools"
   },
   "login": {
     "email": "Email",
@@ -39,6 +41,7 @@
       "operation_not_allowed": "This sign-in method is not available currently.",
       "user_deleted": "User not found, please check your information."
     },
+    "variables_parse": "Variables are invalid JSON",
     "fallback_message": "Oops! Something went wrong!"
   },
   "general": {
@@ -56,7 +59,7 @@
   "editor": {
     "editor": "Editor",
     "response": "Response",
-    "variable": "Variable"
+    "variables": "Variables"
   },
   "welcome": {
     "welcome": "Welcome",
