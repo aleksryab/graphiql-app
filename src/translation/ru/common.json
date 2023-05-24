@@ -42,6 +42,7 @@
       "user_deleted": "Пользователь не найден, пожалуйста, проверьте введенную информацию."
     },
     "variables_parse": "Невалидный JSON переменных",
+    "headers_parse": "Невалидный JSON заголовков",
     "fallback_message": "Ой! Что-то пошло не так!"
   },
   "general": {
@@ -59,7 +60,8 @@
   "editor": {
     "editor": "Редактор",
     "response": "Ответ",
-    "variables": "Переменные"
+    "variables": "Переменные",
+    "headers": "Заголовки"
   },
   "welcome": {
     "welcome": "Добро пожаловать",

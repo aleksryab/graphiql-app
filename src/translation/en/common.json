@@ -42,6 +42,7 @@
       "user_deleted": "User not found, please check your information."
     },
     "variables_parse": "Variables are invalid JSON",
+    "headers_parse": "Headers are invalid JSON",
     "fallback_message": "Oops! Something went wrong!"
   },
   "general": {
@@ -59,7 +60,8 @@
   "editor": {
     "editor": "Editor",
     "response": "Response",
-    "variables": "Variables"
+    "variables": "Variables",
+    "headers": "Headers"
   },
   "welcome": {
     "welcome": "Welcome",

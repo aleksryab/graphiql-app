@@ -35,23 +35,34 @@
 .toolsEditor {
   &__controls {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     padding: 5px;
   }
 
   &__button {
+    margin-left: 10px;
     display: flex;
     border: none;
     background: none;
     padding: 5px;
-    color: $light-text-color;
+    color: gray;
     line-height: 1;
     border-radius: 6px;
     cursor: pointer;
 
     &:hover {
       background: $primary-color;
+      color: $light-text-color;
     }
+
+    &.active {
+      color: $light-text-color;
+    }
+  }
+
+  &__toggle {
+    margin-left: auto;
+    color: $light-text-color;
   }
 }
 

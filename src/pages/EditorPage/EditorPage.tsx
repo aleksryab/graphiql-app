@@ -12,15 +12,23 @@ import './EditorPage.scss';
 const defaultQuery =
   'query getCharacterById($id: ID!) {\n  character(id: $id) {\n    name\n    episode {\n      id\n      name\n    }\n  }\n}';
 const defaultVariables = JSON.stringify({ id: 2 }, null, 2);
+const defaultHeaders = '{}';
+
+enum EditorTools {
+  vars = 'vars',
+  headers = 'headers',
+}
 
 const EditorPage = () => {
   const [query, setRequest] = useState(defaultQuery);
   const [variables, setVariables] = useState(defaultVariables);
+  const [headers, setHeaders] = useState(defaultHeaders);
   const [response, setResponse] = useState<string | null>(null);
   const [parseError, setParseError] = useState<string | null>(null);
   const [schema, setSchema] = useState<GraphQLSchema>();
   const [isFetching, setIsFetching] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const [activeTool, setActiveTool] = useState<EditorTools>(EditorTools.vars);
   const [isDocumentation, setIsDocumentation] = useState(false);
   const { t } = useTranslation('common');
 
@@ -32,24 +40,52 @@ const EditorPage = () => {
       .catch((err) => console.error(err));
   }, []);
 
+  const parseJSON = (value: string, errorTitle: string) => {
+    try {
+      return JSON.parse(value);
+    } catch (err) {
+      setIsFetching(false);
+      let errorMessage = 'Unknown Error';
+      if (err instanceof Error) errorMessage = err.message;
+      setParseError(`${errorTitle}: ${errorMessage}`);
+      return null;
+    }
+  };
+
   const handleRequest = () => {
     setIsFetching(true);
     setResponse(null);
     setParseError(null);
 
-    try {
-      let parsedVars = '{}';
-      parsedVars = JSON.parse(variables);
-      apiRequest(JSON.stringify({ query, variables: parsedVars }))
+    const parsedVars = parseJSON(variables, t('error.variables_parse'));
+    const parsedHeaders = parseJSON(headers, t('error.headers_parse'));
+
+    if (parsedVars && parsedHeaders) {
+      apiRequest(JSON.stringify({ query, variables: parsedVars }), parsedHeaders)
         .then((data) => setResponse(JSON.stringify(data, null, 2)))
         .catch((err) => console.error(err))
         .finally(() => setIsFetching(false));
-    } catch (err) {
-      setIsFetching(false);
-      let errorMessage = 'Unknown Error';
-      if (err instanceof Error) errorMessage = err.message;
-      setParseError(`${t('error.variables_parse')}: ${errorMessage}`);
     }
+
+    // try {
+    //   let parsedVars = '{}';
+    //   parsedVars = JSON.parse(variables);
+
+    //   apiRequest(JSON.stringify({ query, variables: parsedVars }), JSON.parse(headers))
+    //     .then((data) => setResponse(JSON.stringify(data, null, 2)))
+    //     .catch((err) => console.error(err))
+    //     .finally(() => setIsFetching(false));
+    // } catch (err) {
+    //   setIsFetching(false);
+    //   let errorMessage = 'Unknown Error';
+    //   if (err instanceof Error) errorMessage = err.message;
+    //   setParseError(`${t('error.variables_parse')}: ${errorMessage}`);
+    // }
+  };
+
+  const switchTool = (tool: EditorTools) => {
+    setIsToolsOpen(true);
+    setActiveTool(tool);
   };
 
   return (
@@ -90,19 +126,40 @@ const EditorPage = () => {
       </div>
       <div className="toolsEditor">
         <div className="toolsEditor__controls">
-          <button className="toolsEditor__button" onClick={() => setIsToolsOpen(true)}>
+          <button
+            className={`toolsEditor__button${activeTool == EditorTools.vars ? ' active' : ''}`}
+            onClick={() => switchTool(EditorTools.vars)}
+          >
             {t('editor.variables')}
           </button>
-          <button className="toolsEditor__button" onClick={() => setIsToolsOpen(!isToolsOpen)}>
+          <button
+            className={`toolsEditor__button${activeTool == EditorTools.headers ? ' active' : ''}`}
+            onClick={() => switchTool(EditorTools.headers)}
+          >
+            {t('editor.headers')}
+          </button>
+          <button
+            className="toolsEditor__button toolsEditor__toggle"
+            onClick={() => setIsToolsOpen(!isToolsOpen)}
+            title={(isToolsOpen ? t('button.hide_tools') : t('button.show_tools')) ?? ''}
+          >
             {isToolsOpen ? <AiOutlineDown /> : <AiOutlineUp />}
           </button>
         </div>
-        {isToolsOpen && (
+        {isToolsOpen && activeTool === EditorTools.vars && (
           <Editors
             value={variables}
             isReadOnly={false}
             language={EditorLanguage.JSON}
             onChange={setVariables}
+          />
+        )}
+        {isToolsOpen && activeTool === EditorTools.headers && (
+          <Editors
+            value={headers}
+            isReadOnly={false}
+            language={EditorLanguage.JSON}
+            onChange={setHeaders}
           />
         )}
       </div>
