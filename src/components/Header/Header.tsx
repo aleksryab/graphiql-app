@@ -6,9 +6,11 @@ import UserBar from './UserBar';
 import logo from '../../assets/logo.svg';
 import './Header.scss';
 import BurgerMenu from '../Burger/BurgerMenu';
+import { useTranslation } from 'react-i18next';
 
 function Header(): JSX.Element {
   const { user } = useAuthContext();
+  const { t } = useTranslation('common');
 
   const [isSticky, setIsSticky] = useState(false);
 
@@ -33,10 +35,10 @@ function Header(): JSX.Element {
           <>
             <nav className="header__nav">
               <NavLink to={ROUTES.welcome} className="header__link">
-                Welcome
+                {t('routes.welcome')}
               </NavLink>
               <NavLink to={ROUTES.editor} className="header__link">
-                Editor
+                {t('routes.editor')}
               </NavLink>
             </nav>
             <div className="header__right">

@@ -5,10 +5,13 @@ import ROUTES from '../../constants/routes';
 import Togglelang from '../ToggleLang/ToggleLang';
 import { useAuthContext } from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const BurgerMenu: React.FC = () => {
   const { user, logout } = useAuthContext();
   const navigate = useNavigate();
+
+  const { t } = useTranslation('common');
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -46,16 +49,16 @@ const BurgerMenu: React.FC = () => {
           <div className="menu-overlay" onClick={handleCloseMenu}>
             <div className="menu" onClick={(e) => e.stopPropagation()}>
               <NavLink to={ROUTES.welcome} onClick={handleMenuItemClick} className="menu_item">
-                Welcome
+                {t('routes.welcome')}
               </NavLink>
               <NavLink to={ROUTES.editor} onClick={handleMenuItemClick} className="menu_item">
-                Editor
+                {t('routes.editor')}
               </NavLink>
               <div className="menu_item">
-                Language: <Togglelang />
+                {t('languages.language')}: <Togglelang />
               </div>
               <button className="menu_item_exit menu_item" onClick={handleLogout}>
-                <span className="menu_item_text">Sign Out</span>
+                <span className="menu_item_text">{t('button.sing_out')}</span>
                 <svg
                   className="menu_item_icon"
                   width="16"
@@ -76,13 +79,13 @@ const BurgerMenu: React.FC = () => {
           <div className="menu-overlay" onClick={handleCloseMenu}>
             <div className="menu" onClick={(e) => e.stopPropagation()}>
               <NavLink to={ROUTES.signIn} onClick={handleMenuItemClick} className="menu_item">
-                Login
+                {t('button.sing_in')}
               </NavLink>
               <NavLink to={ROUTES.signUp} onClick={handleMenuItemClick} className="menu_item">
-                Sign Up
+                {t('button.sing_up')}
               </NavLink>
               <div className="menu_item">
-                Language: <Togglelang />
+                {t('languages.language')}: <Togglelang />
               </div>
             </div>
           </div>
