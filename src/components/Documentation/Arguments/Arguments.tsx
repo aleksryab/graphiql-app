@@ -1,5 +1,5 @@
 import DocField from '../DocField';
-import { TypeArgumentInterface } from '../DocumentationInterfaces';
+import { TypeArgumentInterface } from '../Documentation';
 import { useTranslation } from 'react-i18next';
 
 export interface TypeInfoProps {

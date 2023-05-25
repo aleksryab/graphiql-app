@@ -1,4 +1,4 @@
-import { TypeDescriptionInterface } from '../DocumentationInterfaces';
+import { TypeDescriptionInterface } from '../Documentation';
 
 function getTypeName(type: TypeDescriptionInterface): string | null {
   if (type.ofType) return getTypeName(type.ofType);

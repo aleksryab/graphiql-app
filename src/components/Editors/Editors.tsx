@@ -42,6 +42,7 @@ function Editors({ language, value = '', isReadOnly, onChange, schema }: Editors
 
   useEffect(() => {
     let editor: EditorView;
+    console.log('create editor');
 
     if (language === EditorLanguage.GRAPH_QL) {
       editor = renderEditor([graphql(schema)]);

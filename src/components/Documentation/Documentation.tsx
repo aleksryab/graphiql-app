@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { getIntrospectionQuery } from 'graphql/index';
-import { apiRequest } from '../../helpers/API';
 import {
   SchemaInterface,
   SchemaTypeInterface,
@@ -12,34 +10,24 @@ import DocField from './DocField';
 import './Documentation.scss';
 
 interface DocumentationProps {
-  setError: (error: string | null) => void;
+  schema: SchemaInterface;
 }
 
-const Documentation = ({ setError }: DocumentationProps) => {
+const Documentation = ({ schema }: DocumentationProps) => {
   const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
   const [args, setArgs] = useState<TypeArgumentInterface[] | null>(null);
   const [queryType, setQueryType] = useState<SchemaTypeInterface>();
   const [previousTypeInfo, setPreviousTypeInfo] = useState<SchemaTypeInterface | null>(null);
-  const [documentation, setDocumentation] = useState<SchemaInterface>();
 
   useEffect(() => {
-    apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
-      .then((json) => {
-        setDocumentation(json.data);
-        if (json.data.__schema) {
-          setQueryType(
-            json.data.__schema.types.find((type: SchemaTypeInterface) => type.name === 'Query')
-          );
-        }
-      })
-      .catch((err) => setError(err));
-  }, []);
+    if (schema) {
+      setQueryType(schema.__schema.types.find((type) => type.name === 'Query'));
+    }
+  }, [schema]);
 
   const findType = (name: string | null) => {
     if (name) {
-      setTypeInfo(
-        (documentation && documentation.__schema.types.find((type) => type.name === name)) ?? null
-      );
+      setTypeInfo((schema && schema.__schema.types.find((type) => type.name === name)) ?? null);
     } else {
       setTypeInfo(null);
       setArgs(null);

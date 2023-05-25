@@ -169,9 +169,22 @@
   color: $primary-color;
 }
 
+.docVertical:disabled {
+  background: gray;
+  color: $light-text-color;
+  cursor: default;
+}
+
 .documentationBlock {
   position: absolute;
-  width: 100%;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: inherit;
   background: rgba(255, 255, 255, 0.85);
   z-index: 5;
 }

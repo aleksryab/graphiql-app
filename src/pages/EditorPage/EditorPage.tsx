@@ -8,6 +8,7 @@ import { EditorLanguage } from '../../components/Editors/Editors';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/Error';
 import './EditorPage.scss';
+import { SchemaInterface } from '../../components/Documentation';
 const Documentation = lazy(() => import('../../components/Documentation'));
 
 const defaultQuery =
@@ -26,7 +27,8 @@ const EditorPage = () => {
   const [headers, setHeaders] = useState(defaultHeaders);
   const [response, setResponse] = useState<string | null>(null);
   const [parseError, setParseError] = useState<string | null>(null);
-  const [schema, setSchema] = useState<GraphQLSchema>();
+  const [schema, setSchema] = useState<SchemaInterface>();
+  const [clientSchema, setClientSchema] = useState<GraphQLSchema>();
   const [isFetching, setIsFetching] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<EditorTools>(EditorTools.vars);
@@ -37,10 +39,11 @@ const EditorPage = () => {
   useEffect(() => {
     apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
       .then((json) => {
-        setSchema(buildClientSchema(json.data));
+        setSchema(json.data);
+        setClientSchema(buildClientSchema(json.data));
       })
       .catch(() => setConnectionError(t('error.general.schema')));
-  }, []);
+  }, [t]);
 
   const parseJSON = (value: string, errorTitle: string) => {
     try {
@@ -58,6 +61,7 @@ const EditorPage = () => {
     setIsFetching(true);
     setResponse(null);
     setParseError(null);
+    setConnectionError(null);
 
     const parsedVars = parseJSON(variables, t('error.variables_parse'));
     const parsedHeaders = parseJSON(headers, t('error.headers_parse'));
@@ -107,7 +111,7 @@ const EditorPage = () => {
             isReadOnly={false}
             language={EditorLanguage.GRAPH_QL}
             onChange={setRequest}
-            schema={schema}
+            schema={clientSchema}
           />
         </div>
 
@@ -160,16 +164,20 @@ const EditorPage = () => {
           )}
         </div>
 
-        <div className="documentationBlock">
-          <button className="docVertical" onClick={() => setIsDocumentation(!isDocumentation)}>
-            {t('button.doc')}
-          </button>
-          {isDocumentation && (
+        <button
+          className="docVertical"
+          disabled={!schema}
+          onClick={() => setIsDocumentation(!isDocumentation)}
+        >
+          {t('button.doc')}
+        </button>
+        {isDocumentation && schema && (
+          <div className="documentationBlock">
             <Suspense fallback={<Loading />}>
-              <Documentation setError={setConnectionError} />
+              <Documentation schema={schema} />
             </Suspense>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );
