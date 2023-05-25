@@ -1,30 +1,38 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../../context/AuthProvider';
 import LinkButton from '../../components/Buttons/LinkButton';
+import Togglelang from '../ToggleLang';
+import Error from '../Error';
 import ROUTES from '../../constants/routes';
 import './UserBar.scss';
-import { useTranslation } from 'react-i18next';
-import Togglelang from '../ToggleLang/ToggleLang';
+
 
 function UserBar() {
   const { user, logout } = useAuthContext();
   const navigate = useNavigate();
   const { t } = useTranslation('common');
+  const [connectionError, setConnectionError] = useState<string | null>(null);
 
   const handleLogout = async () => {
     try {
       await logout();
       navigate('/');
     } catch (err) {
-      console.error(err);
+      setConnectionError(t('error.general.logout'));
     }
   };
 
   return (
-    <div className="user-bar">
-      {user ? (
-        <>
-          <Togglelang />
+    <>
+      {connectionError && (
+        <Error text={connectionError} cleanError={() => setConnectionError(null)} />
+
+      )}
+      <div className="user-bar">
+        <Togglelang />
+        {user ? (
           <button className="sign-out-button" onClick={handleLogout}>
             <span className="sign-out-button__text">{t('button.sing_out')}</span>
             <svg
@@ -41,29 +49,28 @@ function UserBar() {
               />
             </svg>
           </button>
-        </>
-      ) : (
-        <>
-          <Togglelang />
-          <LinkButton
-            to={ROUTES.signIn}
-            className="user-bar__button"
-            buttonType="outline"
-            size="medium"
-          >
-            {t('button.sing_in')}
-          </LinkButton>
-          <LinkButton
-            to={ROUTES.signUp}
-            className="user-bar__button"
-            buttonType="solid"
-            size="medium"
-          >
-            {t('button.sing_up')}
-          </LinkButton>
-        </>
-      )}
-    </div>
+        ) : (
+          <>
+            <LinkButton
+              to={ROUTES.signIn}
+              className="user-bar__button"
+              buttonType="outline"
+              size="medium"
+            >
+              {t('button.sing_in')}
+            </LinkButton>
+            <LinkButton
+              to={ROUTES.signUp}
+              className="user-bar__button"
+              buttonType="solid"
+              size="medium"
+            >
+              {t('button.sing_up')}
+            </LinkButton>
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
