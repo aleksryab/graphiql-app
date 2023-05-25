@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import './Error.scss';
+import { FaExclamationCircle } from 'react-icons/fa';
 
 interface ErrorProps {
   text: string;
@@ -16,10 +17,16 @@ const Error = ({ text, cleanError }: ErrorProps) => {
   }, [cleanError]);
 
   return (
-    <div className="error-message" onClick={cleanError}>
-      <button className="error-message__button">
-        <AiOutlineClose />
-      </button>
+    <div className="error-message">
+      <div className="error-message__top-bar">
+        <div className="error-message__top-bar_start">
+          <FaExclamationCircle className="error-message__icon" />
+          <p className="error-title">Error</p>
+        </div>
+        <button className="error-message__button" onClick={cleanError}>
+          <AiOutlineClose />
+        </button>
+      </div>
       <p className="error-message__notification">{text}</p>
       <div className="error-message__timer" />
     </div>
