@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
 import './Error.scss';
 
 interface ErrorProps {
@@ -16,7 +17,9 @@ const Error = ({ text, cleanError }: ErrorProps) => {
 
   return (
     <div className="error-message" onClick={cleanError}>
-      <button className="error-message__button">X</button>
+      <button className="error-message__button">
+        <AiOutlineClose />
+      </button>
       <p className="error-message__notification">{text}</p>
       <div className="error-message__timer" />
     </div>

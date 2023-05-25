@@ -7,8 +7,9 @@ import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/Error';
-import './EditorPage.scss';
 import { SchemaInterface } from '../../components/Documentation';
+import Fade from '../../components/Fade';
+import './EditorPage.scss';
 const Documentation = lazy(() => import('../../components/Documentation'));
 
 const defaultQuery =
@@ -171,16 +172,21 @@ const EditorPage = () => {
         >
           {t('button.doc')}
         </button>
-        {isDocumentation && schema && (
+
+        <Fade isVisible={isDocumentation}>
           <div className="documentationBlock">
-            <button className="documentationBlock__close" onClick={() => setIsDocumentation(false)}>
+            <button
+              className="documentationBlock__close"
+              onClick={() => setIsDocumentation(false)}
+              title={t('button.close_docs') ?? ''}
+            >
               <AiOutlineClose />
             </button>
             <Suspense fallback={<Loading />}>
-              <Documentation schema={schema} />
+              {schema && <Documentation schema={schema} />}
             </Suspense>
           </div>
-        )}
+        </Fade>
       </div>
     </>
   );
