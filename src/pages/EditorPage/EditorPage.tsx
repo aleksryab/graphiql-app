@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
 import { useTranslation } from 'react-i18next';
-import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import { apiRequest } from '../../helpers/API';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
@@ -173,6 +173,9 @@ const EditorPage = () => {
         </button>
         {isDocumentation && schema && (
           <div className="documentationBlock">
+            <button className="documentationBlock__close" onClick={() => setIsDocumentation(false)}>
+              <AiOutlineClose />
+            </button>
             <Suspense fallback={<Loading />}>
               <Documentation schema={schema} />
             </Suspense>
