@@ -1,12 +1,14 @@
 .user-bar {
-  display: flex;
-
+  display: inline-flex;
+  @include media-tablet-660 {
+    display: none;
+  }
   &__button {
     margin-left: 1rem;
   }
 }
 
-.sign-out-btn {
+.sign-out-button {
   position: relative;
   display: flex;
   align-items: center;
@@ -25,6 +27,10 @@
     height: 16px;
     margin-left: 5px;
     transition: transform 0.2s;
+  }
+
+  &__text {
+    font-weight: bold;
   }
 
   &:hover {

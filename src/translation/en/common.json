@@ -55,9 +55,10 @@
     "students": "Students:",
     "rights": "© all rights reserved, 2023."
   },
-  "languages": {
-    "en": "En",
-    "ru": "Рус"
+  "languages" : {
+    "en" : "En",
+    "ru" : "Рус",
+    "language": "Language"
   },
   "documentation": {
     "arguments": "Arguments",
@@ -69,10 +70,14 @@
     "variables": "Variables",
     "headers": "Headers"
   },
-  "welcome": {
+  "welcome" : {
+    "welcome" : "Welcome",
+    "content" : "This is a playground for graphiQL requests.",
+    "login" : "Please login or register to continue.",
+    "ready" : "Playground for graphiQL requests ready to use."
+  },
+  "routes": {
     "welcome": "Welcome",
-    "content": "This is a playground for graphiQL requests.",
-    "login": "Please login or register to continue.",
-    "ready": "Playground for graphiQL requests ready to use."
+    "editor": "Editor"
   }
 }
