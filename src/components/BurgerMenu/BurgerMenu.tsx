@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import './BurgerMenu.scss';
-import { NavLink } from 'react-router-dom';
-import ROUTES from '../../constants/routes';
-import Togglelang from '../ToggleLang/ToggleLang';
-import { useAuthContext } from '../../context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import './BurgerMenu.scss';
+import ROUTES from '../../constants/routes';
+import ToggleLang from '../ToggleLang';
+import { useAuthContext } from '../../context/AuthProvider';
 
 const BurgerMenu: React.FC = () => {
   const { user, logout } = useAuthContext();
@@ -55,7 +54,7 @@ const BurgerMenu: React.FC = () => {
                 {t('routes.editor')}
               </NavLink>
               <div className="menu_item">
-                {t('languages.language')}: <Togglelang />
+                {t('languages.language')}: <ToggleLang />
               </div>
               <button className="menu_item_exit menu_item" onClick={handleLogout}>
                 <span className="menu_item_text">{t('button.sing_out')}</span>
@@ -85,7 +84,7 @@ const BurgerMenu: React.FC = () => {
                 {t('button.sing_up')}
               </NavLink>
               <div className="menu_item">
-                {t('languages.language')}: <Togglelang />
+                {t('languages.language')}: <ToggleLang />
               </div>
             </div>
           </div>

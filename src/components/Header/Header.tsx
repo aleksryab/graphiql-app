@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
+import BurgerMenu from '../BurgerMenu';
 import UserBar from './UserBar';
 import logo from '../../assets/logo.svg';
 import './Header.scss';
-import BurgerMenu from '../Burger/BurgerMenu';
-import { useTranslation } from 'react-i18next';
 
 function Header(): JSX.Element {
   const { user } = useAuthContext();
