@@ -15,9 +15,10 @@ const Error = ({ text, cleanError }: ErrorProps) => {
   }, [cleanError]);
 
   return (
-    <div className="error_container" onClick={cleanError}>
-      <button className="_button">X</button>
-      <p className="_notification">{text}</p>
+    <div className="error-message" onClick={cleanError}>
+      <button className="error-message__button">X</button>
+      <p className="error-message__notification">{text}</p>
+      <div className="error-message__timer" />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-.error_container {
+.error-message {
   position: absolute;
   background: #f009;
   z-index: 100;
@@ -11,8 +11,9 @@
   margin-right: 5px;
   justify-content: end;
   cursor: pointer;
+  overflow: hidden;
 
-  ._button {
+  &__button {
     height: 23px;
     display: flex;
     justify-content: center;
@@ -23,10 +24,33 @@
     margin-right: 5px;
   }
 
-  ._notification {
+  &__notification {
     width: 100%;
     padding: 0 10px 10px 10px;
     color: black;
     font-size: 20px;
+  }
+
+  &__timer {
+    height: 10px;
+    width: 100%;
+
+    &::before {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: $primary-color;
+      animation: shrink 10s linear forwards;
+    }
+  }
+}
+
+@keyframes shrink {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
   }
 }
