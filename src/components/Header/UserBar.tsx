@@ -3,11 +3,10 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../../context/AuthProvider';
 import LinkButton from '../../components/Buttons/LinkButton';
-import Togglelang from '../ToggleLang';
+import ToggleLang from '../ToggleLang';
 import Error from '../Error';
 import ROUTES from '../../constants/routes';
 import './UserBar.scss';
-
 
 function UserBar() {
   const { user, logout } = useAuthContext();
@@ -28,10 +27,9 @@ function UserBar() {
     <>
       {connectionError && (
         <Error text={connectionError} cleanError={() => setConnectionError(null)} />
-
       )}
       <div className="user-bar">
-        <Togglelang />
+        <ToggleLang />
         {user ? (
           <button className="sign-out-button" onClick={handleLogout}>
             <span className="sign-out-button__text">{t('button.sing_out')}</span>

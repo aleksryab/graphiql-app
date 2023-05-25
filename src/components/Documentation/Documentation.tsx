@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
+import { getIntrospectionQuery } from 'graphql/index';
+import { apiRequest } from '../../helpers/API';
 import {
   SchemaInterface,
   SchemaTypeInterface,
   TypeArgumentInterface,
 } from './DocumentationInterfaces';
 import TypeInfo from './TypeInfo';
-import './Documentation.scss';
 import getTypeName from './helpers/getTypeName';
 import DocField from './DocField';
-import { apiRequest } from '../../helpers/API';
-import { getIntrospectionQuery } from 'graphql/index';
+import './Documentation.scss';
 
 interface DocumentationProps {
   setError: (error: string | null) => void;
