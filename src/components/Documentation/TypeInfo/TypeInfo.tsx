@@ -1,5 +1,5 @@
 import DocField from '../DocField';
-import { SchemaTypeInterface, TypeArgumentInterface } from '../Documentation';
+import { SchemaTypeInterface, TypeArgumentInterface } from '../DocumentationInterfaces';
 import getTypeName from '../helpers/getTypeName';
 import Arguments from '../Arguments';
 import { useTranslation } from 'react-i18next';

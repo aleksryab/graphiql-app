@@ -2,7 +2,7 @@ import {
   TypeArgumentInterface,
   TypeDescriptionInterface,
   TypeFieldInterface,
-} from './Documentation';
+} from './DocumentationInterfaces';
 
 interface DocFieldProps {
   field: TypeFieldInterface | TypeArgumentInterface;
