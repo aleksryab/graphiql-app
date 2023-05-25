@@ -25,7 +25,7 @@ function WelcomePage() {
                 size="large"
                 className="welcome_content__button"
               >
-                Go to editor
+                {t('button.moving')}
               </LinkButton>
             </>
           ) : (

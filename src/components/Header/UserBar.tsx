@@ -1,17 +1,19 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../../context/AuthProvider';
 import LinkButton from '../../components/Buttons/LinkButton';
+import Togglelang from '../ToggleLang';
+import Error from '../Error';
 import ROUTES from '../../constants/routes';
 import './UserBar.scss';
-import { useTranslation } from 'react-i18next';
-import Error from '../Error/Error';
-import { useState } from 'react';
+
 
 function UserBar() {
   const { user, logout } = useAuthContext();
   const navigate = useNavigate();
   const { t } = useTranslation('common');
-  const [connectionError, setConnectionError] = useState<string | null>();
+  const [connectionError, setConnectionError] = useState<string | null>(null);
 
   const handleLogout = async () => {
     try {
@@ -26,13 +28,15 @@ function UserBar() {
     <>
       {connectionError && (
         <Error text={connectionError} cleanError={() => setConnectionError(null)} />
+
       )}
       <div className="user-bar">
+        <Togglelang />
         {user ? (
-          <button className="sign-out-btn" onClick={handleLogout}>
-            <span className="sign-out-btn__text">{t('button.sing_out')}</span>
+          <button className="sign-out-button" onClick={handleLogout}>
+            <span className="sign-out-button__text">{t('button.sing_out')}</span>
             <svg
-              className="sign-out-btn__icon"
+              className="sign-out-button__icon"
               width="16"
               height="16"
               viewBox="0 0 16 16"

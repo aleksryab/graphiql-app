@@ -15,7 +15,8 @@
     "back" : "Back",
     "close" : "Close",
     "doc" : "Documentation",
-    "start" : "Get started"
+    "start" : "Get started",
+    "moving": "Go to editor"
   },
   "login" : {
     "email" : "Email",
@@ -52,7 +53,8 @@
   },
   "languages" : {
     "en" : "En",
-    "ru" : "Рус"
+    "ru" : "Рус",
+    "language": "Language"
   },
   "documentation" : {
     "arguments" : "Arguments",
@@ -68,5 +70,9 @@
     "content" : "This is a playground for graphiQL requests.",
     "login" : "Please login or register to continue.",
     "ready" : "Playground for graphiQL requests ready to use."
+  },
+  "routes": {
+    "welcome": "Welcome",
+    "editor": "Editor"
   }
 }

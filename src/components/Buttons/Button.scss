@@ -21,6 +21,11 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 26px;
+    @include media-desktop {
+      padding: 7px 32px;
+      font-size: 15px;
+      line-height: 24px;
+    }
   }
 
   &.large {
@@ -31,6 +36,17 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
+    @include media-desktop {
+      padding: 13px 40px;
+      font-size: 20px;
+      line-height: 26px;
+    }
+    @include media-mobile-450 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
   }
 
   &.outline {

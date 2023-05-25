@@ -46,6 +46,8 @@ export default function Parallax({ color = 'light', children }: ParallaxProps) {
             'linear-gradient(180deg, rgba(10, 13, 63, 0.55) 4.84%, rgba(27, 29, 75, 0.19) 20%, rgba(27, 29, 75, 0) 30%, rgba(217, 217, 217, 0) 100%)',
         };
 
+  const isMobileScreen = window.innerWidth <= 768;
+
   return (
     <div className="parallax">
       <div
@@ -58,14 +60,18 @@ export default function Parallax({ color = 'light', children }: ParallaxProps) {
         className="layer base"
         style={{
           backgroundImage: `url(${imageTwo})`,
-          transform: `translate(-${mousePosition.x / 200}px, -${mousePosition.y / 200}px)`,
+          transform: `translate(-${isMobileScreen ? 0 : mousePosition.x / 200}px, -${
+            isMobileScreen ? 0 : mousePosition.y / 200
+          }px)`,
         }}
       ></div>
       <div
         className="layer logotypes"
         style={{
           backgroundImage: `url(${imageThree})`,
-          transform: `translate(${mousePosition.x / 50}px, ${mousePosition.y / 50}px)`,
+          transform: `translate(${isMobileScreen ? 0 : mousePosition.x / 50}px, ${
+            isMobileScreen ? 0 : mousePosition.y / 50
+          }px)`,
         }}
       ></div>
       <div className={parallaxClassName} style={layerTopStyle}></div>

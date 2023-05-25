@@ -9,21 +9,24 @@
 .documentationInfo {
   width: 100%;
   display: flex;
+  @include media-tablet-660 {
+    flex-direction: column;
+  }
 
   & ul {
-    border: 1px solid #6c6c6c94;
+    border: 1px solid $base-bg-color;
     width: 100%;
     list-style-type: none;
     max-width: 320px;
-    border-radius: 25px;
+    border-radius: 16px;
     padding: 15px;
     margin-right: 10px;
   }
 
   .typeDescription {
-    border-radius: 25px;
+    border-radius: 16px;
     padding: 15px;
-    border: 1px solid #6c6c6c94;
+    border: 1px solid $base-bg-color;
     width: 100%;
     max-width: 320px;
     margin-top: 25px;
@@ -33,11 +36,11 @@
 .doc-field {
   &__name {
     font-weight: bold;
-    color: palevioletred;
+    color: $primary-color;
   }
 
   &__type {
-    color: orange;
+    color: $primary-darker-color;
   }
 }
 
@@ -47,7 +50,8 @@
     margin-bottom: 10px;
 
     &:hover {
-      background-color: #cceeff44;
+      background-color: #fc6dcc32;
+      border-radius: 4px;
     }
   }
 }
@@ -57,6 +61,40 @@
   margin-bottom: 10px;
 
   &:hover {
-    background-color: #cceeff44;
+    background-color: #fc6dcc32;
+    border-radius: 4px;
   }
+}
+
+.back_button, .close_button {
+  padding: 6px 30px;
+  border-radius: 5px;
+  border: none;
+  background: $primary-color;
+  color: $light-text-color;
+  margin: 10px;
+  transition: all 0.5s ease;
+  @include media-tablet-660 {
+    padding: 6px 20px;
+  }
+}
+
+.close_button {
+  box-shadow: inset 0 0 0 1px $primary-color;
+  color: $primary-color;
+  margin: 10px 10px 10px 0;
+  background: rgba(217, 217, 217, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.close_button:hover {
+  background: $light-text-color;
+  box-shadow: inset 0 0 0 1px $light-text-color;
+  backdrop-filter: blur(5px);
+  color: $primary-color;
+}
+
+.back_button:hover {
+  background: $light-text-color;
+  color: $primary-color;
 }
