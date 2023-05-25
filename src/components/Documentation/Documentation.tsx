@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
+import { getIntrospectionQuery } from 'graphql/index';
+import { apiRequest } from '../../helpers/API';
 import {
   SchemaInterface,
   SchemaTypeInterface,
   TypeArgumentInterface,
 } from './DocumentationInterfaces';
 import TypeInfo from './TypeInfo';
-import './Documentation.scss';
 import getTypeName from './helpers/getTypeName';
 import DocField from './DocField';
-import { apiRequest } from '../../helpers/API';
-import { getIntrospectionQuery } from 'graphql/index';
+import './Documentation.scss';
 
-function Documentation() {
+interface DocumentationProps {
+  setError: (error: string | null) => void;
+}
+
+const Documentation = ({ setError }: DocumentationProps) => {
   const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
   const [args, setArgs] = useState<TypeArgumentInterface[] | null>(null);
   const [queryType, setQueryType] = useState<SchemaTypeInterface>();
@@ -28,7 +32,7 @@ function Documentation() {
           );
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => setError(err));
   }, []);
 
   const findType = (name: string | null) => {
@@ -83,6 +87,6 @@ function Documentation() {
       </div>
     </div>
   );
-}
+};
 
 export default Documentation;
