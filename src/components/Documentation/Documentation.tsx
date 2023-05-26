@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
 import {
-  QueryTypeInterface,
   SchemaInterface,
   SchemaTypeInterface,
   TypeArgumentInterface,

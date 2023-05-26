@@ -29,21 +29,12 @@ export interface SchemaTypeInterface {
   name: string;
 }
 
-export interface QueryTypeInterface {
-  name: string;
-  description: string;
-  fields: TypeFieldInterface[];
-  inputFields: null;
-  enumValues: null;
-  kind: 'OBJECT';
-}
-
 export interface SchemaInterface {
   __schema: ParsedSchemaInterface;
 }
 
 export interface ParsedSchemaInterface {
-  types: (SchemaTypeInterface | QueryTypeInterface)[];
+  types: SchemaTypeInterface[];
   directives: [];
 }
 
