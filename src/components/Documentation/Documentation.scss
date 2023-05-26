@@ -22,14 +22,52 @@
     padding: 15px;
     margin-right: 10px;
   }
+}
 
-  .typeDescription {
-    border-radius: 16px;
-    padding: 15px;
-    border: 1px solid $base-bg-color;
-    width: 100%;
-    max-width: 320px;
-    margin-top: 25px;
+.typeDescription {
+  border-radius: 16px;
+  padding: 15px;
+  border: 1px solid $base-bg-color;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 25px;
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__types {
+    margin-bottom: 20px;
+
+    & .typeDescription__item {
+      padding-left: 10px;
+    }
+  }
+
+  &__title {
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 1;
+    color: grey;
+    text-transform: uppercase;
+  }
+
+  &__item {
+    cursor: pointer;
+    padding: 5px 0;
+    line-height: 1;
+
+    &:hover {
+      background-color: #fc6dcc32;
+      border-radius: 4px;
+    }
+  }
+
+  &__text {
+    margin-top: 15px;
   }
 }
 
@@ -48,32 +86,28 @@
   &__item {
     cursor: pointer;
     margin-bottom: 10px;
+    border-radius: 4px;
 
     &:hover {
-      background-color: #fc6dcc32;
-      border-radius: 4px;
+      background: #fc6dcc32;
+    }
+
+    &.active {
+      background: #fc6dcc32;
+      cursor: default;
     }
   }
 }
 
-.type-info__item {
-  cursor: pointer;
-  margin-bottom: 10px;
-
-  &:hover {
-    background-color: #fc6dcc32;
-    border-radius: 4px;
-  }
-}
-
-.back_button, .close_button {
+.back_button,
+.close_button {
   padding: 6px 30px;
   border-radius: 5px;
   border: none;
   background: $primary-color;
   color: $light-text-color;
-  margin: 10px;
   transition: all 0.5s ease;
+
   @include media-tablet-660 {
     padding: 6px 20px;
   }
@@ -82,7 +116,6 @@
 .close_button {
   box-shadow: inset 0 0 0 1px $primary-color;
   color: $primary-color;
-  margin: 10px 10px 10px 0;
   background: rgba(217, 217, 217, 0.1);
   backdrop-filter: blur(5px);
 }

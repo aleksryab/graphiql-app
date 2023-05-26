@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import './Error.scss';
 import { FaExclamationCircle } from 'react-icons/fa';
+import './Error.scss';
 
 interface ErrorProps {
   text: string;

@@ -8,7 +8,7 @@ export interface TypeFieldInterface {
 }
 
 export interface TypeArgumentInterface {
-  defaultValue: string;
+  defaultValue: unknown;
   description: string;
   name: string;
   type: TypeDescriptionInterface;
@@ -23,9 +23,19 @@ export interface TypeDescriptionInterface {
 export interface SchemaTypeInterface {
   description: string;
   enumValues: null;
-  fields: TypeFieldInterface[];
+  fields: TypeFieldInterface[] | null;
+  inputFields: TypeArgumentInterface[] | null;
   kind: KindTypes;
   name: string;
+}
+
+export interface QueryTypeInterface {
+  name: string;
+  description: string;
+  fields: TypeFieldInterface[];
+  inputFields: null;
+  enumValues: null;
+  kind: 'OBJECT';
 }
 
 export interface SchemaInterface {
@@ -33,7 +43,7 @@ export interface SchemaInterface {
 }
 
 export interface ParsedSchemaInterface {
-  types: SchemaTypeInterface[];
+  types: (SchemaTypeInterface | QueryTypeInterface)[];
   directives: [];
 }
 
