@@ -48,6 +48,7 @@ const EditorPage = () => {
   }, [t]);
 
   const parseJSON = (value: string, errorTitle: string) => {
+    if (!value) return {};
     try {
       return JSON.parse(value);
     } catch (err) {

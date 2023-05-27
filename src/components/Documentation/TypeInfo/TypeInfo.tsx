@@ -1,11 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import './TypeInfo.scss';
 import DocField from '../DocField';
-import {
-  SchemaTypeInterface,
-  TypeArgumentInterface,
-  TypeFieldInterface,
-} from '../DocumentationInterfaces';
+import { SchemaTypeInterface, TypeArgumentInterface, TypeFieldInterface } from '../types';
 import Arguments from '../Arguments';
 
 export interface TypeInfoProps {

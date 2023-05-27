@@ -4,11 +4,11 @@ import {
   SchemaTypeInterface,
   TypeArgumentInterface,
   TypeFieldInterface,
-} from './DocumentationInterfaces';
+} from './types';
+import './Documentation.scss';
 import TypeInfo from './TypeInfo';
 import getTypeName from './helpers/getTypeName';
-import DocField from './DocField';
-import './Documentation.scss';
+import DocList from './DocList';
 
 interface DocumentationProps {
   schema: SchemaInterface;
@@ -17,6 +17,7 @@ interface DocumentationProps {
 const Documentation = ({ schema }: DocumentationProps) => {
   const [queryType, setQueryType] = useState<SchemaTypeInterface>();
   const [mutationType, setMutationType] = useState<SchemaTypeInterface>();
+  const [subscriptionType, setSubscriptionType] = useState<SchemaTypeInterface>();
   const [activeQuery, setActiveQuery] = useState<TypeFieldInterface | null>(null);
   const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
   const [activeField, setActiveField] = useState<TypeFieldInterface | TypeArgumentInterface | null>(
@@ -31,6 +32,9 @@ const Documentation = ({ schema }: DocumentationProps) => {
       );
       setMutationType(
         schema.__schema.types.find((type) => type.name === schema.__schema.mutationType?.name)
+      );
+      setSubscriptionType(
+        schema.__schema.types.find((type) => type.name === schema.__schema.subscriptionType?.name)
       );
     }
   }, [schema]);
@@ -60,41 +64,29 @@ const Documentation = ({ schema }: DocumentationProps) => {
   return (
     <div className="documentation">
       <div className="documentation__queries">
-        <div>
-          <h2>Queries:</h2>
-          <ul className="doc-list">
-            {queryType?.fields?.map((field) => (
-              <li
-                className={`doc-list__item${activeQuery === field ? ' active' : ''}`}
-                key={field.name}
-                onClick={() => changeQuery(field)}
-              >
-                <p>
-                  <DocField field={field} />
-                </p>
-                <p className="doc-list__description">{field.description}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {queryType && (
+          <DocList
+            list={queryType}
+            activeQuery={activeQuery}
+            title="Queries:"
+            picQuery={changeQuery}
+          />
+        )}
         {mutationType && (
-          <div>
-            <h2>Mutations:</h2>
-            <ul className="doc-list">
-              {mutationType?.fields?.map((field) => (
-                <li
-                  className={`doc-list__item${activeQuery === field ? ' active' : ''}`}
-                  key={field.name}
-                  onClick={() => changeQuery(field)}
-                >
-                  <p>
-                    <DocField field={field} />
-                  </p>
-                  <p>{field.description}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <DocList
+            list={mutationType}
+            activeQuery={activeQuery}
+            title="Mutations:"
+            picQuery={changeQuery}
+          />
+        )}
+        {subscriptionType && (
+          <DocList
+            list={subscriptionType}
+            activeQuery={activeQuery}
+            title="Subscriptions:"
+            picQuery={changeQuery}
+          />
         )}
       </div>
       {typeInfo && activeField && (

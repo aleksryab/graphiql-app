@@ -1,8 +1,4 @@
-import {
-  TypeArgumentInterface,
-  TypeDescriptionInterface,
-  TypeFieldInterface,
-} from './DocumentationInterfaces';
+import { TypeArgumentInterface, TypeDescriptionInterface, TypeFieldInterface } from './types';
 
 interface DocFieldProps {
   field: TypeFieldInterface | TypeArgumentInterface;

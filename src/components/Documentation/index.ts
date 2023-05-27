@@ -1,2 +1,2 @@
 export { default } from './Documentation';
-export type { SchemaInterface } from './DocumentationInterfaces';
+export type { SchemaInterface } from './types';
