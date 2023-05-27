@@ -1,9 +1,8 @@
 .typeInfo {
   width: 100%;
-  margin-top: 36px;
-  padding: 15px;
   position: sticky;
   top: 36px;
+  margin-top: 36px;
   border-radius: 16px;
   border: 1px solid $base-bg-color;
 
@@ -19,15 +18,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid $base-bg-color;
+  }
+
+  &__current {
     margin-bottom: 20px;
+    padding: 10px 15px;
+    border-bottom: 1px solid $base-bg-color;
   }
 
   &__types {
+    padding: 0 15px;
     margin-bottom: 20px;
 
     & .typeInfo__item {
       padding-left: 15px;
     }
+  }
+
+  &__args {
+    padding: 0 15px;
+    margin-bottom: 15px;
   }
 
   &__title {

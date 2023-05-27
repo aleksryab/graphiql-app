@@ -10,7 +10,7 @@ export interface TypeInfoProps {
 function Arguments({ args, pickArg }: TypeInfoProps) {
   const { t } = useTranslation('common');
   return (
-    <div>
+    <div className="typeInfo__args">
       <h3 className="typeInfo__title">{t('documentation.arguments')}</h3>
       {args.map((arg) => (
         <div className="typeInfo__item" key={arg.name} onClick={() => pickArg(arg)}>

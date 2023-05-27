@@ -101,6 +101,7 @@ const Documentation = ({ schema }: DocumentationProps) => {
         <div className="documentation__types">
           <TypeInfo
             type={typeInfo}
+            activeField={activeField}
             args={'args' in activeField ? activeField.args : null}
             history={history.current}
             findType={changeField}

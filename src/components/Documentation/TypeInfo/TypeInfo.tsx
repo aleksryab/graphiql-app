@@ -10,6 +10,7 @@ import Arguments from '../Arguments';
 
 export interface TypeInfoProps {
   type: SchemaTypeInterface;
+  activeField: TypeFieldInterface | TypeArgumentInterface;
   history: (TypeFieldInterface | TypeArgumentInterface)[];
   args: TypeArgumentInterface[] | null;
   findType: (field: TypeFieldInterface | TypeArgumentInterface) => void;
@@ -17,7 +18,15 @@ export interface TypeInfoProps {
   closeTypeInfo: () => void;
 }
 
-function TypeInfo({ type, args, history, closeTypeInfo, findType, historyBack }: TypeInfoProps) {
+function TypeInfo({
+  type,
+  args,
+  history,
+  activeField,
+  closeTypeInfo,
+  findType,
+  historyBack,
+}: TypeInfoProps) {
   const { t } = useTranslation('common');
 
   const isHistory = history.length > 1;
@@ -36,6 +45,9 @@ function TypeInfo({ type, args, history, closeTypeInfo, findType, historyBack }:
             {t('button.back')}
           </button>
         )}
+      </div>
+      <div className="typeInfo__current">
+        <DocField field={activeField} fullArgs />
       </div>
       <div className="typeInfo__types">
         <h3 className="typeInfo__title">
