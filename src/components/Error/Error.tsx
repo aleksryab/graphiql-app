@@ -14,7 +14,7 @@ const Error = ({ text, cleanError }: ErrorProps) => {
   useEffect(() => {
     const timeout = setTimeout(cleanError, CLOSE_INTERVAL);
     return () => clearTimeout(timeout);
-  }, [cleanError]);
+  }, []);
 
   return (
     <div className="error-message">

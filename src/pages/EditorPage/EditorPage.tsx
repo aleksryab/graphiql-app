@@ -28,13 +28,13 @@ const EditorPage = () => {
   const [headers, setHeaders] = useState(defaultHeaders);
   const [response, setResponse] = useState<string | null>(null);
   const [parseError, setParseError] = useState<string | null>(null);
+  const [connectionError, setConnectionError] = useState<string | null>(null);
   const [schema, setSchema] = useState<SchemaInterface>();
   const [clientSchema, setClientSchema] = useState<GraphQLSchema>();
   const [isFetching, setIsFetching] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<EditorTools>(EditorTools.vars);
   const [isDocumentation, setIsDocumentation] = useState(false);
-  const [connectionError, setConnectionError] = useState<string | null>('test');
   const { t } = useTranslation('common');
 
   useEffect(() => {
@@ -108,7 +108,7 @@ const EditorPage = () => {
         <div className="inputEditor">
           <p className="editors_title">{t('editor.editor')}</p>
           <Editors
-            value={defaultQuery}
+            value={query}
             isReadOnly={false}
             language={EditorLanguage.GRAPH_QL}
             onChange={setRequest}
