@@ -12,7 +12,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer__container container">
         <div className="">
-          <NavLink to={ROUTES.welcome}>
+          <NavLink to={ROUTES.main}>
             <img className="footer__logo" src={logo} alt="project logo" />
           </NavLink>
         </div>
