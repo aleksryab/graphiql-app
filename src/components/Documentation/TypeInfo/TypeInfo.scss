@@ -1,0 +1,94 @@
+.typeInfo {
+  width: 100%;
+  margin-top: 36px;
+  padding: 15px;
+  position: sticky;
+  top: 36px;
+  border-radius: 16px;
+  border: 1px solid $base-bg-color;
+
+  @include media-tablet-660 {
+    top: 0;
+    margin-top: 0;
+    position: static;
+    background: rgba(255, 255, 255, 0.99);
+    overflow-y: auto;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__types {
+    margin-bottom: 20px;
+
+    & .typeInfo__item {
+      padding-left: 15px;
+    }
+  }
+
+  &__title {
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 1;
+    color: grey;
+    text-transform: uppercase;
+  }
+
+  &__item {
+    cursor: pointer;
+    padding: 5px 0;
+    line-height: 1;
+
+    &:hover {
+      background-color: #fc6dcc32;
+      border-radius: 4px;
+    }
+  }
+
+  &__enum-item {
+    padding: 5px 15px;
+    line-height: 1;
+    color: $primary-color;
+  }
+
+  &__text {
+    margin-top: 15px;
+  }
+}
+
+.back_button,
+.close_button {
+  padding: 6px 30px;
+  border-radius: 5px;
+  border: none;
+  background: $primary-color;
+  color: $light-text-color;
+  transition: all 0.5s ease;
+
+  @include media-tablet-660 {
+    padding: 6px 20px;
+  }
+}
+
+.close_button {
+  box-shadow: inset 0 0 0 1px $primary-color;
+  color: $primary-color;
+  background: rgba(217, 217, 217, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.close_button:hover {
+  background: $light-text-color;
+  box-shadow: inset 0 0 0 1px $light-text-color;
+  backdrop-filter: blur(5px);
+  color: $primary-color;
+}
+
+.back_button:hover {
+  background: $light-text-color;
+  color: $primary-color;
+}

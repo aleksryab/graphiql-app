@@ -9,6 +9,15 @@ interface DocFieldProps {
 }
 
 function renderType(type: TypeDescriptionInterface) {
+  // if (type.kind === 'INPUT_OBJECT') {
+  //   return (
+  //     <>
+  //       <span>{type.name}</span>
+  //       <span className="doc-field__brackets">{' = {}'}</span>
+  //     </>
+  //   );
+  // }
+
   if (!type.ofType) return <>{type.name}</>;
 
   if (type.kind === 'NON_NULL') {
@@ -36,11 +45,11 @@ function DocField({ field }: DocFieldProps) {
   const isArgs = !!('args' in field && field.args && field.args.length);
 
   return (
-    <div className="doc-field">
+    <span className="doc-field">
       <span className="doc-field__name">{name}</span>
       {isArgs && <span className="doc-field__args">(...)</span>}:{' '}
       <span className="doc-field__type">{renderType(type)}</span>
-    </div>
+    </span>
   );
 }
 

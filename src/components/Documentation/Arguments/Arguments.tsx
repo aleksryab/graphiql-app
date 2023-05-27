@@ -11,10 +11,11 @@ function Arguments({ args, pickArg }: TypeInfoProps) {
   const { t } = useTranslation('common');
   return (
     <div>
-      <h3 className="typeDescription__title">{t('documentation.arguments')}</h3>
+      <h3 className="typeInfo__title">{t('documentation.arguments')}</h3>
       {args.map((arg) => (
-        <div className="typeDescription__item" key={arg.name} onClick={() => pickArg(arg)}>
+        <div className="typeInfo__item" key={arg.name} onClick={() => pickArg(arg)}>
           <DocField field={arg} />
+          {arg.defaultValue ? <span> = {String(arg.defaultValue)}</span> : ''}
         </div>
       ))}
     </div>

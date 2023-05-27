@@ -14,6 +14,7 @@ const Error = ({ text, cleanError }: ErrorProps) => {
   useEffect(() => {
     const timeout = setTimeout(cleanError, CLOSE_INTERVAL);
     return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

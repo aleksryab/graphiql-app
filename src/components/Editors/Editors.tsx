@@ -50,6 +50,7 @@ function Editors({ language, value = '', isReadOnly, onChange, schema }: Editors
     }
 
     return () => editor?.destroy();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schema, language]);
 
   return <div ref={editorRef} />;

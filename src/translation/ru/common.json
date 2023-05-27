@@ -65,7 +65,8 @@
   },
   "documentation": {
     "arguments": "Переменные",
-    "type_detail": "ОПИСАНИЕ ТИПА"
+    "type_detail": "Описание типа",
+    "enum_detail": "Описание Enum"
   },
   "editor": {
     "editor": "Редактор",

@@ -65,7 +65,8 @@
   },
   "documentation": {
     "arguments": "Arguments",
-    "type_detail": "TYPE DETAILS"
+    "type_detail": "Type details",
+    "enum_detail": "Enum details"
   },
   "editor": {
     "editor": "Editor",
