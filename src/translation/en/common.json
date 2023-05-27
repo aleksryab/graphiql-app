@@ -17,6 +17,7 @@
     "doc": "Documentation",
     "start": "Get started",
     "moving": "Go to editor",
+    "execute": "Execute Query",
     "show_tools": "Show Editor Tools",
     "hide_tools": "Hide Editor Tools",
     "close_docs": "Close Documentation"
