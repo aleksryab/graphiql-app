@@ -26,7 +26,6 @@ const Documentation = ({ schema }: DocumentationProps) => {
   const history = useRef<(TypeFieldInterface | TypeArgumentInterface)[]>([]);
 
   useEffect(() => {
-    console.log(schema);
     if (schema) {
       setQueryType(
         schema.__schema.types.find((type) => type.name === schema.__schema.queryType.name)

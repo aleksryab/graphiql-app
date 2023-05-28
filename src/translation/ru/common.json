@@ -69,6 +69,7 @@
     "implementations": "Имплементации",
     "type_detail": "Описание типа",
     "enum_detail": "Описание Enum",
+    "union_detail": "Описание Union",
     "interface_detail": "Описание интерфейса"
   },
   "editor": {
