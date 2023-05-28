@@ -1,12 +1,15 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
 import { useTranslation } from 'react-i18next';
-import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import { apiRequest } from '../../helpers/API';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/Error';
+import { SchemaInterface } from '../../components/Documentation';
+import Fade from '../../components/Fade';
+import RoundButtonIcon from '../../components/icons/RoundButtonIcon';
 import './EditorPage.scss';
 const Documentation = lazy(() => import('../../components/Documentation'));
 
@@ -26,23 +29,26 @@ const EditorPage = () => {
   const [headers, setHeaders] = useState(defaultHeaders);
   const [response, setResponse] = useState<string | null>(null);
   const [parseError, setParseError] = useState<string | null>(null);
-  const [schema, setSchema] = useState<GraphQLSchema>();
+  const [connectionError, setConnectionError] = useState<string | null>(null);
+  const [schema, setSchema] = useState<SchemaInterface>();
+  const [clientSchema, setClientSchema] = useState<GraphQLSchema>();
   const [isFetching, setIsFetching] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<EditorTools>(EditorTools.vars);
   const [isDocumentation, setIsDocumentation] = useState(false);
-  const [connectionError, setConnectionError] = useState<string | null>('test');
   const { t } = useTranslation('common');
 
   useEffect(() => {
     apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
       .then((json) => {
-        setSchema(buildClientSchema(json.data));
+        setSchema(json.data);
+        setClientSchema(buildClientSchema(json.data));
       })
       .catch(() => setConnectionError(t('error.general.schema')));
-  }, []);
+  }, [t]);
 
   const parseJSON = (value: string, errorTitle: string) => {
+    if (!value) return {};
     try {
       return JSON.parse(value);
     } catch (err) {
@@ -58,6 +64,7 @@ const EditorPage = () => {
     setIsFetching(true);
     setResponse(null);
     setParseError(null);
+    setConnectionError(null);
 
     const parsedVars = parseJSON(variables, t('error.variables_parse'));
     const parsedHeaders = parseJSON(headers, t('error.headers_parse'));
@@ -80,34 +87,26 @@ const EditorPage = () => {
       {connectionError && (
         <ErrorMessage text={connectionError} cleanError={() => setConnectionError(null)} />
       )}
+
       <div className="containerEditor">
         <div className="play-button">
-          <button className="round-button" onClick={handleRequest}>
-            <svg
-              className="round-button_icon"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                id="icon_play"
-                d="M9.525 18.025C9.19167 18.2417 8.85433 18.2544 8.513 18.063C8.17167 17.8717 8.00067 17.5757 8 17.175V6.82503C8 6.42503 8.171 6.12903 8.513 5.93703C8.855 5.74503 9.19233 5.7577 9.525 5.97503L17.675 11.15C17.975 11.35 18.125 11.6334 18.125 12C18.125 12.3667 17.975 12.65 17.675 12.85L9.525 18.025Z"
-                fill="white"
-              />
-            </svg>
+          <button
+            className="round-button"
+            onClick={handleRequest}
+            title={t('button.execute') ?? ''}
+          >
+            <RoundButtonIcon />
           </button>
         </div>
 
         <div className="inputEditor">
           <p className="editors_title">{t('editor.editor')}</p>
           <Editors
-            value={defaultQuery}
+            value={query}
             isReadOnly={false}
             language={EditorLanguage.GRAPH_QL}
             onChange={setRequest}
-            schema={schema}
+            schema={clientSchema}
           />
         </div>
 
@@ -160,16 +159,28 @@ const EditorPage = () => {
           )}
         </div>
 
-        <div className="documentationBlock">
-          <button className="docVertical" onClick={() => setIsDocumentation(!isDocumentation)}>
-            {t('button.doc')}
-          </button>
-          {isDocumentation && (
+        <button
+          className="docVertical"
+          disabled={!schema}
+          onClick={() => setIsDocumentation(!isDocumentation)}
+        >
+          {t('button.doc')}
+        </button>
+
+        <Fade isVisible={isDocumentation}>
+          <div className="documentationBlock">
+            <button
+              className="documentationBlock__close"
+              onClick={() => setIsDocumentation(false)}
+              title={t('button.close_docs') ?? ''}
+            >
+              <AiOutlineClose />
+            </button>
             <Suspense fallback={<Loading />}>
-              <Documentation setError={setConnectionError} />
+              {schema && <Documentation schema={schema} />}
             </Suspense>
-          )}
-        </div>
+          </div>
+        </Fade>
       </div>
     </>
   );

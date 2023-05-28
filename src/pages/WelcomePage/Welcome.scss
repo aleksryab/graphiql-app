@@ -1,4 +1,5 @@
 .welcome_content {
+  overflow: hidden;
 
   &_message {
     margin-top: 150px;
@@ -6,8 +7,8 @@
     flex-direction: column;
     align-items: flex-start;
     flex-wrap: wrap;
-    max-width: 450px;
     text-align: start;
+
     @include media-tablet-730 {
       margin-top: 100px;
     }
@@ -20,13 +21,16 @@
   }
 
   &__greeting {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-style: normal;
     font-weight: 700;
     font-size: 56px;
     line-height: 64px;
     color: $light-text-color;
     margin-bottom: 15px;
-    transition: all 0.5s ease;
+
     @include media-desktop {
       font-size: 48px;
       line-height: 58px;
@@ -42,13 +46,14 @@
   }
 
   &__text {
+    max-width: 450px;
     font-style: normal;
     font-weight: 500;
     font-size: 26px;
     line-height: 38px;
     color: $light-text-color;
     margin-bottom: 15px;
-    transition: all 0.5s ease;
+
     @include media-desktop {
       font-size: 24px;
       line-height: 32px;

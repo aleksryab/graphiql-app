@@ -1,90 +1,107 @@
-import { useEffect, useState } from 'react';
-import { getIntrospectionQuery } from 'graphql/index';
-import { apiRequest } from '../../helpers/API';
+import { useEffect, useState, useRef } from 'react';
 import {
   SchemaInterface,
   SchemaTypeInterface,
   TypeArgumentInterface,
-} from './DocumentationInterfaces';
+  TypeFieldInterface,
+} from './types';
+import './Documentation.scss';
 import TypeInfo from './TypeInfo';
 import getTypeName from './helpers/getTypeName';
-import DocField from './DocField';
-import './Documentation.scss';
+import DocList from './DocList';
 
 interface DocumentationProps {
-  setError: (error: string | null) => void;
+  schema: SchemaInterface;
 }
 
-const Documentation = ({ setError }: DocumentationProps) => {
-  const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
-  const [args, setArgs] = useState<TypeArgumentInterface[] | null>(null);
+const Documentation = ({ schema }: DocumentationProps) => {
   const [queryType, setQueryType] = useState<SchemaTypeInterface>();
-  const [previousTypeInfo, setPreviousTypeInfo] = useState<SchemaTypeInterface | null>(null);
-  const [documentation, setDocumentation] = useState<SchemaInterface>();
+  const [mutationType, setMutationType] = useState<SchemaTypeInterface>();
+  const [subscriptionType, setSubscriptionType] = useState<SchemaTypeInterface>();
+  const [activeQuery, setActiveQuery] = useState<TypeFieldInterface | null>(null);
+  const [typeInfo, setTypeInfo] = useState<SchemaTypeInterface | null>(null);
+  const [activeField, setActiveField] = useState<TypeFieldInterface | TypeArgumentInterface | null>(
+    null
+  );
+  const history = useRef<(TypeFieldInterface | TypeArgumentInterface)[]>([]);
 
   useEffect(() => {
-    apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
-      .then((json) => {
-        setDocumentation(json.data);
-        if (json.data.__schema) {
-          setQueryType(
-            json.data.__schema.types.find((type: SchemaTypeInterface) => type.name === 'Query')
-          );
-        }
-      })
-      .catch((err) => setError(err));
-  }, []);
-
-  const findType = (name: string | null) => {
-    if (name) {
-      setTypeInfo(
-        (documentation && documentation.__schema.types.find((type) => type.name === name)) ?? null
+    if (schema) {
+      setQueryType(
+        schema.__schema.types.find((type) => type.name === schema.__schema.queryType.name)
       );
-    } else {
-      setTypeInfo(null);
-      setArgs(null);
+      setMutationType(
+        schema.__schema.types.find((type) => type.name === schema.__schema.mutationType?.name)
+      );
+      setSubscriptionType(
+        schema.__schema.types.find((type) => type.name === schema.__schema.subscriptionType?.name)
+      );
     }
-    setPreviousTypeInfo(typeInfo);
+  }, [schema]);
+
+  useEffect(() => {
+    if (!activeField) return;
+    const name = getTypeName(activeField.type);
+    setTypeInfo((schema && schema.__schema.types.find((type) => type.name === name)) ?? null);
+  }, [schema, activeField]);
+
+  const changeQuery = (field: TypeFieldInterface) => {
+    history.current = [field];
+    setActiveQuery(field);
+    setActiveField(field);
   };
 
-  useEffect(() => {
-    if (typeInfo) {
-      const tmpArgs =
-        queryType &&
-        queryType.fields &&
-        queryType.fields.find((type) => type.name === typeInfo.name.toLowerCase());
-      setArgs(tmpArgs ? tmpArgs.args : null);
-    } else {
-      setArgs(null);
-    }
-  }, [queryType, typeInfo]);
+  const changeField = (field: TypeFieldInterface | TypeArgumentInterface) => {
+    if (activeField) history.current.push(activeField);
+    setActiveField(field);
+  };
+
+  const handleBackHistory = () => {
+    const current = history.current.pop();
+    if (current) setActiveField(current);
+  };
 
   return (
     <div className="documentation">
-      <h2>Query:</h2>
-      <div className="documentationInfo">
-        <ul className="doc-queries">
-          {queryType?.fields.map((field) => (
-            <li
-              className="doc-queries__item"
-              key={field.name}
-              onClick={() => findType(getTypeName(field.type))}
-            >
-              <DocField field={field} />
-              <i>{field.description}</i>
-            </li>
-          ))}
-        </ul>
-        {typeInfo && (
-          <TypeInfo
-            type={typeInfo}
-            findType={findType}
-            closeTypeInfo={setTypeInfo}
-            previousType={previousTypeInfo}
-            args={args}
+      <div className="documentation__queries">
+        {queryType && (
+          <DocList
+            list={queryType}
+            activeQuery={activeQuery}
+            title="Queries:"
+            picQuery={changeQuery}
+          />
+        )}
+        {mutationType && (
+          <DocList
+            list={mutationType}
+            activeQuery={activeQuery}
+            title="Mutations:"
+            picQuery={changeQuery}
+          />
+        )}
+        {subscriptionType && (
+          <DocList
+            list={subscriptionType}
+            activeQuery={activeQuery}
+            title="Subscriptions:"
+            picQuery={changeQuery}
           />
         )}
       </div>
+      {typeInfo && activeField && (
+        <div className="documentation__types">
+          <TypeInfo
+            type={typeInfo}
+            activeField={activeField}
+            args={'args' in activeField ? activeField.args : null}
+            history={history.current}
+            findType={changeField}
+            historyBack={handleBackHistory}
+            closeTypeInfo={() => setActiveField(null)}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,32 +1,87 @@
-.error_container {
+.error-message {
   position: absolute;
-  background: #f009;
+  background: rgba(255, 255, 255, 0.6);
   z-index: 100;
   right: 11px;
   width: 300px;
   min-height: 50px;
   display: flex;
   flex-wrap: wrap;
-  border-radius: 10px;
+  border-radius: 6px;
   margin-right: 5px;
-  justify-content: end;
+  justify-content: flex-end; /* изменено на flex-end */
   cursor: pointer;
+  overflow: hidden;
 
-  ._button {
-    height: 23px;
+  &__top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $primary-color; /* красная толстая линия */
+    padding: 4px 10px;
+    width: 100%;
+    border-bottom: solid 1px $base-bg-color;
+    &_start {
+      display: flex;
+    }
+  }
+
+  &__icon {
+    color: white; /* цвет иконки ошибки */
+    margin-left: 4px;
+    height: 24px;
+  }
+
+  &__button {
+    height: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: none;
     border: none;
-    color: black;
-    margin-right: 5px;
+    color: rgb(255, 255, 255);
+    line-height: 1;
+    transition: all 0.5s ease;
+  }
+  &__button:hover {
+    rotate: 90deg;
   }
 
-  ._notification {
+  &__notification {
     width: 100%;
     padding: 0 10px 10px 10px;
-    color: black;
-    font-size: 20px;
+    font-weight: 600;
+    //color: #240103;
+    font-size: 16px;
   }
+
+  &__timer {
+    height: 4px;
+    width: 100%;
+
+    &::before {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: $primary-color;
+      animation: shrink 10s linear forwards;
+    }
+  }
+}
+
+@keyframes shrink {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+.error-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin-left: 10px;
 }

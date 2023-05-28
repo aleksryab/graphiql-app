@@ -1,6 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
-import MainPage from './pages/MainPage';
 import WelcomePage from './pages/WelcomePage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
@@ -16,9 +15,12 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route path={ROUTES.main} element={<Layout />}>
-          <Route index element={<PrivateRoute component={<MainPage />} />} />
+          <Route
+            index
+            element={<PrivateRoute component={<Navigate to={ROUTES.editor} replace={true} />} />}
+          />
+          <Route path={ROUTES.editor} element={<PrivateRoute component={<EditorPage />} />} />
           <Route path={ROUTES.welcome} element={<WelcomePage />} />
-          <Route path={ROUTES.editor} element={<EditorPage />} />
           <Route path={ROUTES.signIn} element={<AuthRoute component={<SignInPage />} />} />
           <Route path={ROUTES.signUp} element={<AuthRoute component={<SignUpPage />} />} />
           <Route path="*" element={<NotFoundPage />} />

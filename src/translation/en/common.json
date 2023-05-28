@@ -17,8 +17,10 @@
     "doc": "Documentation",
     "start": "Get started",
     "moving": "Go to editor",
+    "execute": "Execute Query",
     "show_tools": "Show Editor Tools",
-    "hide_tools": "Hide Editor Tools"
+    "hide_tools": "Hide Editor Tools",
+    "close_docs": "Close Documentation"
   },
   "login": {
     "email": "Email",
@@ -63,7 +65,8 @@
   },
   "documentation": {
     "arguments": "Arguments",
-    "type_detail": "TYPE DETAILS"
+    "type_detail": "Type details",
+    "enum_detail": "Enum details"
   },
   "editor": {
     "editor": "Editor",
@@ -73,9 +76,9 @@
   },
   "welcome": {
     "welcome": "Welcome",
-    "content": "This is a playground for graphiQL requests.",
+    "content": "This is a playground for graphQL requests.",
     "login": "Please login or register to continue.",
-    "ready": "Playground for graphiQL requests ready to use."
+    "ready": "Playground for graphQL requests ready to use."
   },
   "routes": {
     "welcome": "Welcome",

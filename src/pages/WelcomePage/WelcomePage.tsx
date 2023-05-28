@@ -16,7 +16,9 @@ function WelcomePage() {
           {user ? (
             <>
               <p className="welcome_content__greeting">
-                {t('welcome.welcome')} {user.email}!
+                <span>{t('welcome.welcome')}</span>
+                <br />
+                <span className="welcome_content__greeting_user">{user.email}!</span>
               </p>
               <p className="welcome_content__text">{t('welcome.ready')}</p>
               <LinkButton

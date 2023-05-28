@@ -1,35 +1,69 @@
 .documentation {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 25px;
-}
-
-.documentationInfo {
   width: 100%;
+  padding: 25px;
   display: flex;
+  gap: 15px;
+
   @include media-tablet-660 {
     flex-direction: column;
   }
 
-  & ul {
-    border: 1px solid $base-bg-color;
-    width: 100%;
-    list-style-type: none;
-    max-width: 320px;
-    border-radius: 16px;
-    padding: 15px;
-    margin-right: 10px;
+  &__queries {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    @include media-tablet-660 {
+      width: 100%;
+    }
   }
 
-  .typeDescription {
-    border-radius: 16px;
-    padding: 15px;
-    border: 1px solid $base-bg-color;
-    width: 100%;
-    max-width: 320px;
-    margin-top: 25px;
+  &__types {
+    width: 320px;
+
+    @include media-tablet-660 {
+      padding: 10px 65px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-height: 50vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @include media-mobile-450 {
+      padding: 10px 50px;
+    }
+  }
+}
+
+.doc-list {
+  width: 100%;
+  padding: 10px;
+  border-radius: 16px;
+  border: 1px solid $base-bg-color;
+  list-style-type: none;
+
+  &__item {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 5px;
+
+    &:hover {
+      background: #fc6dcc32;
+    }
+
+    &.active {
+      background: #fc6dcc32;
+      cursor: default;
+    }
+  }
+
+  &__description {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
   }
 }
 
@@ -42,59 +76,13 @@
   &__type {
     color: $primary-darker-color;
   }
-}
 
-.doc-queries {
-  &__item {
-    cursor: pointer;
-    margin-bottom: 10px;
-
-    &:hover {
-      background-color: #fc6dcc32;
-      border-radius: 4px;
-    }
+  &__brackets {
+    color: $text-color;
   }
-}
 
-.type-info__item {
-  cursor: pointer;
-  margin-bottom: 10px;
-
-  &:hover {
-    background-color: #fc6dcc32;
-    border-radius: 4px;
+  &__arg {
+    display: block;
+    padding-left: 15px;
   }
-}
-
-.back_button, .close_button {
-  padding: 6px 30px;
-  border-radius: 5px;
-  border: none;
-  background: $primary-color;
-  color: $light-text-color;
-  margin: 10px;
-  transition: all 0.5s ease;
-  @include media-tablet-660 {
-    padding: 6px 20px;
-  }
-}
-
-.close_button {
-  box-shadow: inset 0 0 0 1px $primary-color;
-  color: $primary-color;
-  margin: 10px 10px 10px 0;
-  background: rgba(217, 217, 217, 0.1);
-  backdrop-filter: blur(5px);
-}
-
-.close_button:hover {
-  background: $light-text-color;
-  box-shadow: inset 0 0 0 1px $light-text-color;
-  backdrop-filter: blur(5px);
-  color: $primary-color;
-}
-
-.back_button:hover {
-  background: $light-text-color;
-  color: $primary-color;
 }

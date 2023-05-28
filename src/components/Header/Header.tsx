@@ -27,7 +27,7 @@ function Header(): JSX.Element {
     <header className={`header sticky-header ${isSticky ? 'is-sticky' : ''}`}>
       <div className="container header__container">
         <div className="header__logo">
-          <NavLink to={ROUTES.welcome}>
+          <NavLink to={ROUTES.main}>
             <img className="header__logo_img" src={logo} alt="project logo" />
           </NavLink>
         </div>
