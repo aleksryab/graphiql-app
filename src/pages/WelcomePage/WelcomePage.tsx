@@ -1,9 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../../context/AuthProvider';
 import ROUTES from '../../constants/routes';
-import Parallax from '../../components/Parallax/Parallax';
+import Parallax from '../../components/Parallax';
 import LinkButton from '../../components/Buttons/LinkButton';
 import './Welcome.scss';
-import { useTranslation } from 'react-i18next';
 
 function WelcomePage() {
   const { user } = useAuthContext();

@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { buildClientSchema, getIntrospectionQuery, GraphQLSchema } from 'graphql';
 import { useTranslation } from 'react-i18next';
 import { AiOutlineClose, AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
+import './EditorPage.scss';
 import { apiRequest } from '../../helpers/API';
 import Editors from '../../components/Editors';
 import { EditorLanguage } from '../../components/Editors/Editors';
@@ -10,14 +11,12 @@ import ErrorMessage from '../../components/Error';
 import { SchemaInterface } from '../../components/Documentation';
 import Fade from '../../components/Fade';
 import RoundButtonIcon from '../../components/icons/RoundButtonIcon';
-import './EditorPage.scss';
-import ApiPanel from '../../components/ApiPanel/ApiPanel';
+import ApiPanel from '../../components/ApiPanel';
 const Documentation = lazy(() => import('../../components/Documentation'));
 
 const defaultApiUrl = 'https://rickandmortyapi.com/graphql';
-const defaultQuery =
-  'query getCharacterById($id: ID!) {\n  character(id: $id) {\n    name\n    episode {\n      id\n      name\n    }\n  }\n}';
-const defaultVariables = JSON.stringify({ id: 2 }, null, 2);
+const defaultQuery = 'query {\n  \n}';
+const defaultVariables = '{}';
 const defaultHeaders = '{}';
 
 enum EditorTools {

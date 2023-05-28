@@ -1,4 +1,4 @@
-import Parallax from '../../components/Parallax/Parallax';
+import Parallax from '../../components/Parallax';
 import SignInForm from '../../components/auth-forms/SignInForm';
 
 function SignInPage() {
