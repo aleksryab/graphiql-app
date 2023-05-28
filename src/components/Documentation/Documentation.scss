@@ -1,0 +1,88 @@
+.documentation {
+  width: 100%;
+  padding: 25px;
+  display: flex;
+  gap: 15px;
+
+  @include media-tablet-660 {
+    flex-direction: column;
+  }
+
+  &__queries {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    @include media-tablet-660 {
+      width: 100%;
+    }
+  }
+
+  &__types {
+    width: 320px;
+
+    @include media-tablet-660 {
+      padding: 10px 65px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-height: 50vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @include media-mobile-450 {
+      padding: 10px 50px;
+    }
+  }
+}
+
+.doc-list {
+  width: 100%;
+  padding: 10px;
+  border-radius: 16px;
+  border: 1px solid $base-bg-color;
+  list-style-type: none;
+
+  &__item {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 5px;
+
+    &:hover {
+      background: #fc6dcc32;
+    }
+
+    &.active {
+      background: #fc6dcc32;
+      cursor: default;
+    }
+  }
+
+  &__description {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+  }
+}
+
+.doc-field {
+  &__name {
+    font-weight: bold;
+    color: $primary-color;
+  }
+
+  &__type {
+    color: $primary-darker-color;
+  }
+
+  &__brackets {
+    color: $text-color;
+  }
+
+  &__arg {
+    display: block;
+    padding-left: 15px;
+  }
+}

@@ -1,0 +1,80 @@
+.welcome_content {
+  overflow: hidden;
+
+  &_message {
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    text-align: start;
+
+    @include media-tablet-730 {
+      margin-top: 100px;
+    }
+    @include media-tablet-660 {
+      margin-top: 80px;
+    }
+    @include media-mobile-450 {
+      margin-top: 50px;
+    }
+  }
+
+  &__greeting {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 64px;
+    color: $light-text-color;
+    margin-bottom: 15px;
+
+    @include media-desktop {
+      font-size: 48px;
+      line-height: 58px;
+    }
+    @include media-tablet-660 {
+      font-size: 42px;
+      line-height: 52px;
+    }
+    @include media-mobile-450 {
+      font-size: 30px;
+      line-height: 40px;
+    }
+  }
+
+  &__text {
+    max-width: 450px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 38px;
+    color: $light-text-color;
+    margin-bottom: 15px;
+
+    @include media-desktop {
+      font-size: 24px;
+      line-height: 32px;
+    }
+    @include media-tablet-660 {
+      font-size: 20px;
+      line-height: 28px;
+    }
+    @include media-mobile-450 {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
+  &__button {
+    margin-top: 60px;
+    @include media-tablet-660 {
+      margin-top: 40px;
+    }
+    @include media-mobile-450 {
+      margin-top: 30px;
+    }
+  }
+}

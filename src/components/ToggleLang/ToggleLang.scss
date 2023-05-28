@@ -1,0 +1,31 @@
+.languages {
+  display: flex;
+  align-items: center;
+}
+
+.languages_button {
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: $light-text-color;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all .5s ease;
+}
+
+.languages_button:hover {
+  color: $primary-color;
+}
+
+.languages_button:last-child {
+  margin-right: 30px;
+  @include media-tablet-660 {
+    margin-right: 0;
+  }
+}
+
+.languages_button.active {
+  text-decoration: underline;
+  color: $primary-color;
+}

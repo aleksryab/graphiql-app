@@ -1,0 +1,56 @@
+.user-bar {
+  display: inline-flex;
+  @include media-tablet-660 {
+    display: none;
+  }
+  &__button {
+    margin-left: 1rem;
+  }
+}
+
+.sign-out-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  color: rgba($color: $light-text-color, $alpha: 0.87);
+  font-size: 16px;
+  line-height: 1;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &__icon {
+    display: flex;
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    transition: transform 0.2s;
+  }
+
+  &__text {
+    font-weight: bold;
+  }
+
+  &:hover {
+    background-color: $primary-color;
+  }
+
+  &:hover::before {
+    content: '';
+    position: absolute;
+    display: flex;
+    top: -9px;
+    right: -10px;
+    bottom: -9px;
+    left: -10px;
+    background-color: $primary-color;
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  &:hover &__icon {
+    transform: translateX(5px);
+  }
+}

@@ -1,0 +1,70 @@
+.header {
+  color: rgba($color: $light-text-color, $alpha: 0.87);
+
+  &__container {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    padding: 15px;
+    flex-shrink: 0;
+
+    &_img {
+      height: 50px;
+    }
+  }
+
+  &__link {
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: inherit;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 26px;
+    transition: all 0.5s ease;
+
+    &:hover {
+      color: $primary-color;
+    }
+
+    &.active {
+      color: $primary-color;
+      cursor: default;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+
+  &__nav {
+    @include media-tablet-660 {
+      display: none;
+    }
+  }
+}
+
+.sticky-header {
+  position: relative;
+  z-index: 10;
+  transition: background-color 0.5s ease-in-out, height 0.5s ease-in-out;
+}
+
+.sticky-header.is-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(10, 13, 63);
+  box-shadow: 0px 1px 10px rgba(212, 49, 158, 0.25);
+  height: 60px;
+}
+
+.sticky-header.is-colored {
+  background-color: #f2f2f2;
+}

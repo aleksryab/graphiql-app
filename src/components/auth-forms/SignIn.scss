@@ -1,0 +1,151 @@
+.sign_in {
+  background: #0c0d41;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), inset 0 0 30px rgba(152, 12, 106, 0.2);
+  border-radius: 20px;
+  padding: 56px 95px;
+
+  display: flex;
+  flex-direction: column;
+
+  max-width: 730px;
+  margin: 60px auto;
+  @include media-tablet-730 {
+    padding: 56px 75px;
+  }
+  @include media-tablet-660 {
+    padding: 45px 50px;
+    margin: 40px auto;
+  }
+  @include media-mobile-450 {
+    margin: 10px auto;
+    padding: 30px 35px;
+    width: 100%;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: $light-text-color;
+
+    margin-bottom: 30px;
+    @include media-mobile-450 {
+      font-size: 20px;
+      line-height: 26px;
+    }
+  }
+
+  &__error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 48px;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: $light-text-color;
+    background: $error-color;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  &__form {
+    width: 540px;
+    @include media-tablet-730 {
+      width: 100%;
+    }
+
+    &_field {
+      margin-bottom: 10px;
+    }
+
+    &_label {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      color: $light-text-color;
+    }
+
+    &_input {
+      width: 100%;
+      height: 48px;
+      background: $light-text-color;
+      border-radius: 10px;
+      border: none;
+
+      padding: 10px;
+      margin: 5px 0;
+      outline-color: $primary-color;
+      color: $text-color;
+
+      &.error {
+        outline-color: $error-color;
+        outline-style: auto;
+      }
+    }
+
+    &_submit {
+      min-height: 48px;
+      margin: 45px 0 30px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &_button {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+      color: $light-text-color;
+      cursor: pointer;
+      transition: all 0.5s ease;
+
+      width: 100%;
+      height: 48px;
+
+      background: $primary-color;
+      border-radius: 8px;
+      border: none;
+    }
+
+    &_button:hover {
+      color: $primary-color;
+      background: $light-text-color;
+    }
+
+    &_error {
+      color: $error-color;
+    }
+  }
+
+  &__message {
+    margin: 0;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: $light-text-color;
+  }
+
+  &__text {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: $light-text-color;
+    text-align: center;
+
+    &_link {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 22px;
+      text-decoration-line: underline;
+      color: $primary-color;
+      margin-left: 10px;
+    }
+  }
+}

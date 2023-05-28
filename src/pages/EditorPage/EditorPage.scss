@@ -1,0 +1,227 @@
+.wrapperEditor {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerEditor {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: 1fr auto;
+  grid-gap: 10px 15px;
+  text-align-last: left;
+  position: relative;
+
+  background: #272b6a;
+  border-radius: 8px;
+  padding: 10px;
+
+  @include media-tablet-660 {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    position: relative;
+    background: #272b6a;
+    border-radius: 8px;
+    padding: 10px;
+  }
+}
+
+.controlsEditor {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-between;
+
+  @include media-desktop {
+    margin-bottom: 10px;
+  }
+
+  @include media-tablet-660 {
+    width: 100%;
+  }
+}
+
+.outputEditor {
+  display: flex;
+  flex-direction: column;
+  grid-row: 1/4;
+  grid-column: 2/3;
+
+  @include media-tablet-660 {
+    flex-grow: 1;
+  }
+}
+
+.inputEditor,
+.outputEditor,
+.toolsEditor {
+  background: #0b0e40;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.toolsEditor {
+  &__controls {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+  }
+
+  &__button {
+    margin-left: 10px;
+    display: flex;
+    border: none;
+    background: none;
+    padding: 5px;
+    color: gray;
+    line-height: 1;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:hover {
+      background: $primary-color;
+      color: $light-text-color;
+    }
+
+    &.active {
+      color: $light-text-color;
+    }
+  }
+
+  &__toggle {
+    margin-left: auto;
+    color: $light-text-color;
+  }
+}
+
+.editors_title {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  color: $light-text-color;
+  padding: 10px;
+}
+
+.play-button {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 45px;
+  transform: translateX(-50%);
+  transition: all 0.5s ease;
+
+  @include media-desktop {
+    position: static;
+    transform: translateX(50%);
+  }
+
+  @include media-tablet-660 {
+    transform: none;
+  }
+}
+
+.round-button {
+  display: flex;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  color: $light-text-color;
+  background-color: $primary-color;
+  border: 7px solid #272b6a;
+  transition: all 0.5s ease;
+
+  @include media-desktop {
+    position: static;
+    width: 50px;
+    height: 50px;
+    border: none;
+  }
+
+  &:hover {
+    color: $primary-color;
+    background-color: $light-text-color;
+  }
+
+  &:disabled {
+    background-color: gray;
+    color: $light-text-color;
+    cursor: default;
+  }
+
+  &_icon {
+    display: block;
+    margin: auto;
+  }
+}
+
+.docVertical {
+  transform: rotate(90deg);
+  top: 90px;
+  left: -110px;
+  position: absolute;
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+  color: $light-text-color;
+
+  padding: 6px 40px;
+  background: $primary-color;
+  border: none;
+  border-radius: 5px;
+  z-index: 5;
+
+  transition: all 0.5s ease;
+
+  @include media-desktop {
+    position: static;
+    transform: rotate(0deg);
+    padding: 6px 40px;
+  }
+}
+
+.docVertical:hover {
+  background: $light-text-color;
+  color: $primary-color;
+}
+
+.docVertical:disabled {
+  background: gray;
+  color: $light-text-color;
+  cursor: default;
+}
+
+.documentationBlock {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 5;
+
+  &__close {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 6px;
+    border-radius: 6px;
+    border: none;
+    background: none;
+    line-height: 1;
+    font-size: 24px;
+  }
+}
+
+.parse-error {
+  padding: 10px 10px 10px 40px;
+  color: $error-color;
+}

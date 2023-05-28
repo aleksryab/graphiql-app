@@ -1,0 +1,91 @@
+{
+  "validation": {
+    "email": "Enter valid email: yours@example.com",
+    "blank": "Can't be blank",
+    "password_length": "Password must be at least 8 characters long",
+    "password_char": "Password must contain at least one letter, one number, one special character"
+  },
+  "placeholder": {
+    "password": "Enter Your Password"
+  },
+  "button": {
+    "sing_up": "Sing Up",
+    "sing_in": "Login",
+    "sing_out": "Sign Out",
+    "back": "Back",
+    "close": "Close",
+    "doc": "Documentation",
+    "start": "Get started",
+    "moving": "Go to editor",
+    "execute": "Execute Query",
+    "show_tools": "Show Editor Tools",
+    "hide_tools": "Hide Editor Tools",
+    "close_docs": "Close Documentation"
+  },
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "is_account": "Already have an account?",
+    "no_account": "Don’t have an account?",
+    "create_account": "Create an account",
+    "welcome": "Hi, Welcome Back!",
+    "status": {
+      "load_sing_in": "Signing Up...",
+      "login": "Login..."
+    }
+  },
+  "error": {
+    "fire_base": {
+      "email_exist": "The provided email is already in use by an existing user, please provide another email.",
+      "token_expired": "Your ID token has expired, please try to log in again.",
+      "internal_error": "The Authentication server encountered an unexpected error while trying to process the request.",
+      "invalid_email": "The provided value for your email is invalid, please write a valid email address.",
+      "invalid_password": "The email and password you entered don't match",
+      "operation_not_allowed": "This sign-in method is not available currently.",
+      "user_deleted": "User not found, please check your information."
+    },
+    "general": {
+      "logout": "We are sorry, but something went wrong with logout.",
+      "firebase": "Unknown error while login in",
+      "server": "Server cannot be reached",
+      "schema": "Something went wrong. Can't get a schema.",
+      "response": "Something went wrong. Server not respond."
+    },
+    "variables_parse": "Variables are invalid JSON",
+    "headers_parse": "Headers are invalid JSON",
+    "fallback_message": "Oops! Something went wrong!"
+  },
+  "general": {
+    "students": "Students:",
+    "rights": "© all rights reserved, 2023."
+  },
+  "languages": {
+    "en": "En",
+    "ru": "Рус",
+    "language": "Language"
+  },
+  "documentation": {
+    "arguments": "Arguments",
+    "implementations": "Implementations",
+    "type_detail": "Type details",
+    "enum_detail": "Enum details",
+    "union_detail": "Union details",
+    "interface_detail": "Interface details"
+  },
+  "editor": {
+    "editor": "Editor",
+    "response": "Response",
+    "variables": "Variables",
+    "headers": "Headers"
+  },
+  "welcome": {
+    "welcome": "Welcome",
+    "content": "This is a playground for graphQL requests.",
+    "login": "Please login or register to continue.",
+    "ready": "Playground for graphQL requests ready to use."
+  },
+  "routes": {
+    "welcome": "Welcome",
+    "editor": "Editor"
+  }
+}
