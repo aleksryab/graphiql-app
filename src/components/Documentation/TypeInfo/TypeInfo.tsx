@@ -1,15 +1,17 @@
 import { useTranslation } from 'react-i18next';
 import './TypeInfo.scss';
-import DocField from '../DocField';
 import { SchemaTypeInterface, TypeArgumentInterface, TypeFieldInterface } from '../types';
+import DocField from '../DocField';
 import Arguments from '../Arguments';
+import Implementations from '../Implementations';
 
 export interface TypeInfoProps {
   type: SchemaTypeInterface;
   activeField: TypeFieldInterface | TypeArgumentInterface;
   history: (TypeFieldInterface | TypeArgumentInterface)[];
   args: TypeArgumentInterface[] | null;
-  findType: (field: TypeFieldInterface | TypeArgumentInterface) => void;
+  pickType: (field: TypeFieldInterface | TypeArgumentInterface) => void;
+  findType: (name: string | null) => void;
   historyBack: () => void;
   closeTypeInfo: () => void;
 }
@@ -20,6 +22,7 @@ function TypeInfo({
   history,
   activeField,
   closeTypeInfo,
+  pickType,
   findType,
   historyBack,
 }: TypeInfoProps) {
@@ -27,8 +30,11 @@ function TypeInfo({
 
   const isHistory = history.length > 1;
   const isArgs = !!args?.length;
+  const isImplementations = !!type.possibleTypes?.length;
   const isEnum = type.kind === 'ENUM';
+  const isInterface = type.kind === 'INTERFACE';
   const isFields = !!(type.fields?.length || type.inputFields?.length || isEnum);
+  const interfaces = type.interfaces;
 
   return (
     <div className="typeInfo">
@@ -47,18 +53,30 @@ function TypeInfo({
       </div>
       <div className="typeInfo__types">
         <h3 className="typeInfo__title">
-          {isEnum ? t('documentation.enum_detail') : t('documentation.type_detail')}
+          {isEnum
+            ? t('documentation.enum_detail')
+            : isInterface
+            ? t('documentation.interface_detail')
+            : t('documentation.type_detail')}
         </h3>
-        <span>{isEnum ? 'enum' : 'type'} </span>
+        <span>{isEnum ? 'enum' : isInterface ? 'interface' : 'type'} </span>
         <b className="typeInfo__name">{type.name}</b>
-        {isFields && <span className="typeInfo__bracket">{' {'}</span>}
+        {interfaces?.map((item) => (
+          <div className="typeInfo__item left" key={item.name} onClick={() => findType(item.name)}>
+            <span className="doc-field__type">implements </span>
+            <span>
+              {item.name} {' {'}
+            </span>
+          </div>
+        ))}
+        {isFields && !type.interfaces?.length && <span className="typeInfo__bracket">{' {'}</span>}
         {type.fields?.map((field) => (
-          <div className="typeInfo__item" key={field.name} onClick={() => findType(field)}>
+          <div className="typeInfo__item" key={field.name} onClick={() => pickType(field)}>
             <DocField field={field} />
           </div>
         ))}
         {type.inputFields?.map((field) => (
-          <div className="typeInfo__item" key={field.name} onClick={() => findType(field)}>
+          <div className="typeInfo__item" key={field.name} onClick={() => pickType(field)}>
             <DocField field={field} />
           </div>
         ))}
@@ -70,7 +88,8 @@ function TypeInfo({
         {isFields && <span className="typeInfo__bracket">{'}'}</span>}
         {type.description && <p className="typeInfo__text">{type.description}</p>}
       </div>
-      {isArgs && <Arguments args={args} pickArg={findType} />}
+      {isArgs && <Arguments args={args} pickArg={pickType} />}
+      {isImplementations && <Implementations type={type} pickType={findType} />}
     </div>
   );
 }

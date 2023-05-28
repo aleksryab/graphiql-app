@@ -26,6 +26,7 @@ const Documentation = ({ schema }: DocumentationProps) => {
   const history = useRef<(TypeFieldInterface | TypeArgumentInterface)[]>([]);
 
   useEffect(() => {
+    console.log(schema);
     if (schema) {
       setQueryType(
         schema.__schema.types.find((type) => type.name === schema.__schema.queryType.name)
@@ -59,6 +60,10 @@ const Documentation = ({ schema }: DocumentationProps) => {
   const handleBackHistory = () => {
     const current = history.current.pop();
     if (current) setActiveField(current);
+  };
+
+  const findType = (name: string | null) => {
+    setTypeInfo((schema && schema.__schema.types.find((type) => type.name === name)) ?? null);
   };
 
   return (
@@ -96,7 +101,8 @@ const Documentation = ({ schema }: DocumentationProps) => {
             activeField={activeField}
             args={'args' in activeField ? activeField.args : null}
             history={history.current}
-            findType={changeField}
+            findType={findType}
+            pickType={changeField}
             historyBack={handleBackHistory}
             closeTypeInfo={() => setActiveField(null)}
           />

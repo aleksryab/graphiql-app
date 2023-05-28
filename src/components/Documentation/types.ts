@@ -25,6 +25,8 @@ export interface SchemaTypeInterface {
   enumValues: TypeEnumInterface[] | null;
   fields: TypeFieldInterface[] | null;
   inputFields: TypeArgumentInterface[] | null;
+  possibleTypes: TypeDescriptionInterface[] | null;
+  interfaces: TypeDescriptionInterface[] | null;
   kind: KindTypes;
   name: string;
 }

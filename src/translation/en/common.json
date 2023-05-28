@@ -66,8 +66,10 @@
   },
   "documentation": {
     "arguments": "Arguments",
+    "implementations": "Implementations",
     "type_detail": "Type details",
-    "enum_detail": "Enum details"
+    "enum_detail": "Enum details",
+    "interface_detail": "Interface details"
   },
   "editor": {
     "editor": "Editor",

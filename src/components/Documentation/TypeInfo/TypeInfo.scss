@@ -34,6 +34,10 @@
 
     & .typeInfo__item {
       padding-left: 15px;
+
+      &.left {
+        padding-left: 0;
+      }
     }
   }
 

@@ -5,8 +5,8 @@ interface DocFieldProps {
   fullArgs?: boolean;
 }
 
-function renderType(type: TypeDescriptionInterface) {
-  if (!type.ofType) return <>{type.name}</>;
+export function renderType(type: TypeDescriptionInterface) {
+  if (!type.ofType) return <span className="doc-field__type">{type.name}</span>;
 
   if (type.kind === 'NON_NULL') {
     return (
