@@ -1,4 +1,4 @@
-import Parallax from '../../components/Parallax/Parallax';
+import Parallax from '../../components/Parallax';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Buttons/Button';
 import './NotFound.scss';

@@ -1,3 +1,10 @@
+.wrapperEditor {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
 .containerEditor {
   flex-grow: 1;
   display: grid;
@@ -22,10 +29,25 @@
   }
 }
 
+.controlsEditor {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-between;
+
+  @include media-desktop {
+    margin-bottom: 10px;
+  }
+
+  @include media-tablet-660 {
+    width: 100%;
+  }
+}
+
 .outputEditor {
   display: flex;
   flex-direction: column;
-  grid-row: 1/3;
+  grid-row: 1/4;
   grid-column: 2/3;
 
   @include media-tablet-660 {
@@ -87,52 +109,52 @@
   position: absolute;
   z-index: 5;
   left: 50%;
+  top: 45px;
   transform: translateX(-50%);
   transition: all 0.5s ease;
+
   @include media-desktop {
-    top: -100px;
-    left: 250px;
+    position: static;
+    transform: translateX(50%);
+  }
+
+  @include media-tablet-660 {
+    transform: none;
   }
 }
 
 .round-button {
   display: flex;
-  margin-top: 40px;
   border-radius: 50%;
   width: 70px;
   height: 70px;
+  color: $light-text-color;
   background-color: $primary-color;
   border: 7px solid #272b6a;
   transition: all 0.5s ease;
+
   @include media-desktop {
+    position: static;
     width: 50px;
     height: 50px;
     border: none;
   }
 
+  &:hover {
+    color: $primary-color;
+    background-color: $light-text-color;
+  }
+
+  &:disabled {
+    background-color: gray;
+    color: $light-text-color;
+    cursor: default;
+  }
+
   &_icon {
     display: block;
     margin: auto;
-    transition: all 0.5s ease;
   }
-}
-
-.round-button:hover {
-  background-color: $light-text-color;
-}
-
-.round-button:hover::before {
-  content: '';
-  background-color: $light-text-color;
-}
-
-.round-button:hover svg path {
-  fill: $primary-color;
-}
-
-.input {
-  grid-column-start: 1;
-  grid-column-end: 3;
 }
 
 .docVertical {
@@ -150,17 +172,14 @@
   background: $primary-color;
   border: none;
   border-radius: 5px;
+  z-index: 5;
 
   transition: all 0.5s ease;
+
   @include media-desktop {
+    position: static;
     transform: rotate(0deg);
-    top: -55px;
-    left: 0px;
     padding: 6px 40px;
-  }
-  @include media-tablet-660 {
-    top: -63px;
-    left: -10px;
   }
 }
 

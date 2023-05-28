@@ -2,9 +2,15 @@
 // https://graphqlzero.almansi.me/api
 // https://countries.trevorblades.com
 // https://spacex-production.up.railway.app
+// https://graphql.anilist.co
+// https://swapi-graphql.netlify.app/.netlify/functions/index
 
-export const apiRequest = (body: string, extraHeaders: Record<string, string> = {}) => {
-  return fetch('https://rickandmortyapi.com/graphql', {
+export const apiRequest = (
+  url: string,
+  body: string,
+  extraHeaders: Record<string, string> = {}
+) => {
+  return fetch(url, {
     method: 'POST',
     headers: {
       ...extraHeaders,

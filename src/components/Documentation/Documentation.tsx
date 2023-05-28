@@ -61,6 +61,10 @@ const Documentation = ({ schema }: DocumentationProps) => {
     if (current) setActiveField(current);
   };
 
+  const findType = (name: string | null) => {
+    setTypeInfo((schema && schema.__schema.types.find((type) => type.name === name)) ?? null);
+  };
+
   return (
     <div className="documentation">
       <div className="documentation__queries">
@@ -96,7 +100,8 @@ const Documentation = ({ schema }: DocumentationProps) => {
             activeField={activeField}
             args={'args' in activeField ? activeField.args : null}
             history={history.current}
-            findType={changeField}
+            findType={findType}
+            pickType={changeField}
             historyBack={handleBackHistory}
             closeTypeInfo={() => setActiveField(null)}
           />

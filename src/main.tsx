@@ -4,7 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import App from './App';
 import FallbackError from './components/FallbackError';
 import './index.scss';
-import './translation/translation_init';
+import './translation/init';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ErrorBoundary FallbackComponent={FallbackError}>

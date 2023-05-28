@@ -47,6 +47,7 @@
     "general": {
       "logout": "We are sorry, but something went wrong with logout.",
       "firebase": "Unknown error while login in",
+      "server": "Server cannot be reached",
       "schema": "Something went wrong. Can't get a schema.",
       "response": "Something went wrong. Server not respond."
     },
@@ -65,8 +66,11 @@
   },
   "documentation": {
     "arguments": "Arguments",
+    "implementations": "Implementations",
     "type_detail": "Type details",
-    "enum_detail": "Enum details"
+    "enum_detail": "Enum details",
+    "union_detail": "Union details",
+    "interface_detail": "Interface details"
   },
   "editor": {
     "editor": "Editor",
