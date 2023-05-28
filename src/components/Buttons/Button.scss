@@ -1,6 +1,7 @@
 .button {
   display: inline-flex;
   text-decoration: none;
+  flex-shrink: 0;
   cursor: pointer;
 
   &.small {
@@ -11,6 +12,11 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 24px;
+
+    &.square {
+      padding: 8px;
+      line-height: 1;
+    }
   }
 
   &.medium {
@@ -21,6 +27,7 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 26px;
+
     @include media-desktop {
       padding: 7px 32px;
       font-size: 15px;
@@ -36,6 +43,7 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
+
     @include media-desktop {
       padding: 13px 40px;
       font-size: 20px;
@@ -46,6 +54,14 @@
       align-items: center;
       justify-content: center;
       width: 100%;
+    }
+
+    &.square {
+      padding: 4px;
+      line-height: 1;
+      font-size: 24px;
+      width: auto;
+      height: auto;
     }
   }
 
@@ -75,4 +91,10 @@
     background: $light-text-color;
     color: $primary-color;
   }
+}
+
+.button:disabled {
+  color: $light-text-color !important;
+  background: gray !important;
+  cursor: default !important;
 }

@@ -1,0 +1,79 @@
+.apiPanel {
+  display: flex;
+  align-items: center;
+  background: #0b0e40;
+  border-radius: 8px;
+  padding: 12px 10px 12px 26px;
+  margin-bottom: 20px;
+
+  @include media-mobile-450 {
+    padding: 12px 10px;
+  }
+}
+
+.urlEditor {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+
+  @include media-mobile-450 {
+    gap: 10px;
+  }
+
+  &__field {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: inherit;
+    position: relative;
+  }
+
+  &__label {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: $light-text-color;
+  }
+
+  &__input {
+    flex-grow: 1;
+    background: $light-text-color;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    outline-color: $primary-color;
+    color: $text-color;
+
+    &.error,
+    &:invalid {
+      outline-color: $error-color;
+      outline-style: auto;
+    }
+  }
+
+  &__error-message {
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: $error-color;
+
+    @include media-mobile-576 {
+      display: none;
+    }
+  }
+}
+
+.update {
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

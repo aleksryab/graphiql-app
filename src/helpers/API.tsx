@@ -3,8 +3,12 @@
 // https://countries.trevorblades.com
 // https://spacex-production.up.railway.app
 
-export const apiRequest = (body: string, extraHeaders: Record<string, string> = {}) => {
-  return fetch('https://rickandmortyapi.com/graphql', {
+export const apiRequest = (
+  url: string,
+  body: string,
+  extraHeaders: Record<string, string> = {}
+) => {
+  return fetch(url, {
     method: 'POST',
     headers: {
       ...extraHeaders,

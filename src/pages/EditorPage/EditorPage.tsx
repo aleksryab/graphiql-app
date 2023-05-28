@@ -11,8 +11,10 @@ import { SchemaInterface } from '../../components/Documentation';
 import Fade from '../../components/Fade';
 import RoundButtonIcon from '../../components/icons/RoundButtonIcon';
 import './EditorPage.scss';
+import ApiPanel from '../../components/ApiPanel/ApiPanel';
 const Documentation = lazy(() => import('../../components/Documentation'));
 
+const defaultApiUrl = 'https://rickandmortyapi.com/graphql';
 const defaultQuery =
   'query getCharacterById($id: ID!) {\n  character(id: $id) {\n    name\n    episode {\n      id\n      name\n    }\n  }\n}';
 const defaultVariables = JSON.stringify({ id: 2 }, null, 2);
@@ -24,14 +26,20 @@ enum EditorTools {
 }
 
 const EditorPage = () => {
+  const [apiUrl, setApiUrl] = useState(defaultApiUrl);
   const [query, setRequest] = useState(defaultQuery);
   const [variables, setVariables] = useState(defaultVariables);
   const [headers, setHeaders] = useState(defaultHeaders);
+
+  const [schema, setSchema] = useState<SchemaInterface | null>(null);
+  const [isFetchingSchema, setIsFetchingSchema] = useState(true);
+  const [isSchemaError, setIsSchemaError] = useState(false);
+  const [clientSchema, setClientSchema] = useState<GraphQLSchema>();
+
   const [response, setResponse] = useState<string | null>(null);
   const [parseError, setParseError] = useState<string | null>(null);
   const [connectionError, setConnectionError] = useState<string | null>(null);
-  const [schema, setSchema] = useState<SchemaInterface>();
-  const [clientSchema, setClientSchema] = useState<GraphQLSchema>();
+
   const [isFetching, setIsFetching] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<EditorTools>(EditorTools.vars);
@@ -39,13 +47,21 @@ const EditorPage = () => {
   const { t } = useTranslation('common');
 
   useEffect(() => {
-    apiRequest(JSON.stringify({ query: getIntrospectionQuery() }))
+    setSchema(null);
+    setIsFetchingSchema(true);
+    setIsSchemaError(false);
+
+    apiRequest(apiUrl, JSON.stringify({ query: getIntrospectionQuery() }))
       .then((json) => {
         setSchema(json.data);
         setClientSchema(buildClientSchema(json.data));
       })
-      .catch(() => setConnectionError(t('error.general.schema')));
-  }, [t]);
+      .catch(() => {
+        setIsSchemaError(true);
+        setConnectionError(t('error.general.schema'));
+      })
+      .finally(() => setIsFetchingSchema(false));
+  }, [t, apiUrl]);
 
   const parseJSON = (value: string, errorTitle: string) => {
     if (!value) return {};
@@ -70,9 +86,9 @@ const EditorPage = () => {
     const parsedHeaders = parseJSON(headers, t('error.headers_parse'));
 
     if (parsedVars && parsedHeaders) {
-      apiRequest(JSON.stringify({ query, variables: parsedVars }), parsedHeaders)
+      apiRequest(apiUrl, JSON.stringify({ query, variables: parsedVars }), parsedHeaders)
         .then((data) => setResponse(JSON.stringify(data, null, 2)))
-        .catch((err) => console.error(err))
+        .catch(() => setConnectionError(t('error.general.response')))
         .finally(() => setIsFetching(false));
     }
   };
@@ -84,103 +100,117 @@ const EditorPage = () => {
 
   return (
     <>
-      {connectionError && (
-        <ErrorMessage text={connectionError} cleanError={() => setConnectionError(null)} />
-      )}
+      <Fade isVisible={!!connectionError}>
+        <ErrorMessage text={connectionError ?? ''} cleanError={() => setConnectionError(null)} />
+      </Fade>
 
-      <div className="containerEditor">
-        <div className="play-button">
+      <ApiPanel
+        url={apiUrl}
+        isLoading={isFetchingSchema}
+        isError={isSchemaError}
+        onChange={setApiUrl}
+      />
+
+      <div className="wrapperEditor">
+        <div className="controlsEditor">
           <button
-            className="round-button"
-            onClick={handleRequest}
-            title={t('button.execute') ?? ''}
+            className="docVertical"
+            disabled={!schema}
+            onClick={() => setIsDocumentation(!isDocumentation)}
           >
-            <RoundButtonIcon />
+            {t('button.doc')}
           </button>
-        </div>
-
-        <div className="inputEditor">
-          <p className="editors_title">{t('editor.editor')}</p>
-          <Editors
-            value={query}
-            isReadOnly={false}
-            language={EditorLanguage.GRAPH_QL}
-            onChange={setRequest}
-            schema={clientSchema}
-          />
-        </div>
-
-        <div className="outputEditor">
-          <p className="editors_title">{t('editor.response')}</p>
-          {isFetching && <Loading />}
-          {parseError && <p className="parse-error">{parseError}</p>}
-          {response && (
-            <Editors isReadOnly={true} language={EditorLanguage.JSON} value={response} />
-          )}
-        </div>
-
-        <div className="toolsEditor">
-          <div className="toolsEditor__controls">
+          <div className="play-button">
             <button
-              className={`toolsEditor__button${activeTool == EditorTools.vars ? ' active' : ''}`}
-              onClick={() => switchTool(EditorTools.vars)}
+              className="round-button"
+              disabled={!schema}
+              onClick={handleRequest}
+              title={t('button.execute') ?? ''}
             >
-              {t('editor.variables')}
-            </button>
-            <button
-              className={`toolsEditor__button${activeTool == EditorTools.headers ? ' active' : ''}`}
-              onClick={() => switchTool(EditorTools.headers)}
-            >
-              {t('editor.headers')}
-            </button>
-            <button
-              className="toolsEditor__button toolsEditor__toggle"
-              onClick={() => setIsToolsOpen(!isToolsOpen)}
-              title={(isToolsOpen ? t('button.hide_tools') : t('button.show_tools')) ?? ''}
-            >
-              {isToolsOpen ? <AiOutlineDown /> : <AiOutlineUp />}
+              <RoundButtonIcon />
             </button>
           </div>
-          {isToolsOpen && activeTool === EditorTools.vars && (
-            <Editors
-              value={variables}
-              isReadOnly={false}
-              language={EditorLanguage.JSON}
-              onChange={setVariables}
-            />
-          )}
-          {isToolsOpen && activeTool === EditorTools.headers && (
-            <Editors
-              value={headers}
-              isReadOnly={false}
-              language={EditorLanguage.JSON}
-              onChange={setHeaders}
-            />
-          )}
         </div>
 
-        <button
-          className="docVertical"
-          disabled={!schema}
-          onClick={() => setIsDocumentation(!isDocumentation)}
-        >
-          {t('button.doc')}
-        </button>
-
-        <Fade isVisible={isDocumentation}>
-          <div className="documentationBlock">
-            <button
-              className="documentationBlock__close"
-              onClick={() => setIsDocumentation(false)}
-              title={t('button.close_docs') ?? ''}
-            >
-              <AiOutlineClose />
-            </button>
-            <Suspense fallback={<Loading />}>
-              {schema && <Documentation schema={schema} />}
-            </Suspense>
+        <div className="containerEditor">
+          <div className="inputEditor">
+            <p className="editors_title">{t('editor.editor')}</p>
+            <Editors
+              value={query}
+              isReadOnly={false}
+              language={EditorLanguage.GRAPH_QL}
+              onChange={setRequest}
+              schema={clientSchema}
+            />
           </div>
-        </Fade>
+
+          <div className="outputEditor">
+            <p className="editors_title">{t('editor.response')}</p>
+            {isFetching && <Loading />}
+            {parseError && <p className="parse-error">{parseError}</p>}
+            {response && (
+              <Editors isReadOnly={true} language={EditorLanguage.JSON} value={response} />
+            )}
+          </div>
+
+          <div className="toolsEditor">
+            <div className="toolsEditor__controls">
+              <button
+                className={`toolsEditor__button${activeTool == EditorTools.vars ? ' active' : ''}`}
+                onClick={() => switchTool(EditorTools.vars)}
+              >
+                {t('editor.variables')}
+              </button>
+              <button
+                className={`toolsEditor__button${
+                  activeTool == EditorTools.headers ? ' active' : ''
+                }`}
+                onClick={() => switchTool(EditorTools.headers)}
+              >
+                {t('editor.headers')}
+              </button>
+              <button
+                className="toolsEditor__button toolsEditor__toggle"
+                onClick={() => setIsToolsOpen(!isToolsOpen)}
+                title={(isToolsOpen ? t('button.hide_tools') : t('button.show_tools')) ?? ''}
+              >
+                {isToolsOpen ? <AiOutlineDown /> : <AiOutlineUp />}
+              </button>
+            </div>
+            {isToolsOpen && activeTool === EditorTools.vars && (
+              <Editors
+                value={variables}
+                isReadOnly={false}
+                language={EditorLanguage.JSON}
+                onChange={setVariables}
+              />
+            )}
+            {isToolsOpen && activeTool === EditorTools.headers && (
+              <Editors
+                value={headers}
+                isReadOnly={false}
+                language={EditorLanguage.JSON}
+                onChange={setHeaders}
+              />
+            )}
+          </div>
+
+          <Fade isVisible={isDocumentation}>
+            <div className="documentationBlock">
+              <button
+                className="documentationBlock__close"
+                onClick={() => setIsDocumentation(false)}
+                title={t('button.close_docs') ?? ''}
+              >
+                <AiOutlineClose />
+              </button>
+              {isFetchingSchema && <Loading />}
+              <Suspense fallback={<Loading />}>
+                {schema && <Documentation schema={schema} />}
+              </Suspense>
+            </div>
+          </Fade>
+        </div>
       </div>
     </>
   );

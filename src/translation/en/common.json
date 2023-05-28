@@ -47,6 +47,7 @@
     "general": {
       "logout": "We are sorry, but something went wrong with logout.",
       "firebase": "Unknown error while login in",
+      "server": "Server cannot be reached",
       "schema": "Something went wrong. Can't get a schema.",
       "response": "Something went wrong. Server not respond."
     },
