@@ -14,7 +14,7 @@ import RoundButtonIcon from '../../components/icons/RoundButtonIcon';
 import ApiPanel from '../../components/ApiPanel';
 const Documentation = lazy(() => import('../../components/Documentation'));
 
-const defaultApiUrl = 'https://rickandmortyapi.com/graphql';
+const defaultApiUrl = 'https://graphql.anilist.co';
 const defaultQuery = 'query {\n  \n}';
 const defaultVariables = '{}';
 const defaultHeaders = '{}';
